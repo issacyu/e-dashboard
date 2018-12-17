@@ -1,7 +1,9 @@
 import React from 'react';
 
-const NavigationItems = (props) => {
+import NavigationItem from './NavigationItem/NavigationItem';
 
+const navigationItems = (props) => {
+    return <NavigationItem>Sign in</NavigationItem>
 };
 
-export default NavigationItems;
+export default navigationItems;
