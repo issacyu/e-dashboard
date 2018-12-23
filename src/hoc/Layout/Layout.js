@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 
-import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
-import NavigationItems from '../../components/Navigation/NavigationItems/NavigationItems';
+import Navbar from '../../components/Navigation/Navbar/Navbar';
 
 class Layout extends Component {
     render() {
         return (
-            <div>
-                <NavigationItems />
-            </div>
+            <Navbar />
         )
     }
 }
