@@ -5,7 +5,7 @@ import './App.css';
 import Layout from './hoc/Layout/Layout';
 import Overview from './containers/Overview/Overview';
 import Inventory from './containers/Inventory/Inventory';
-
+import Barchart from './containers/Charts/BarChart';
 class App extends Component {
   render() {
     return (
