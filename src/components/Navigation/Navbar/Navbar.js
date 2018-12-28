@@ -22,7 +22,7 @@ const NavBar = () => {
                 <NavItem eventKey={1} componentClass={NavLink} href="/overview" to="/overview">
                   Overview
                 </NavItem>
-                <NavItem eventKey={2} href="#">
+                <NavItem eventKey={2} componentClass={NavLink} href="/charts" to="/charts">
                   Charts
                 </NavItem>
                 <NavItem eventKey={2} componentClass={NavLink} href="/inventory" to="/inventory">
