@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-    BarChart, 
+    LineChart, 
     Bar, 
     XAxis, 
     YAxis, 
@@ -22,8 +22,19 @@ const data = [
     {name: 'Page G', uv: 3490, pv: 4300, amt: 2100},
 ];
 
-const LineChart = () => {
-    
+const lineChart = () => {
+    return (
+        <LineChart width={600} height={300} data={data}
+        margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+            <XAxis dataKey="name"/>
+            <YAxis/>
+            <CartesianGrid strokeDasharray="3 3"/>
+            <Tooltip/>
+            <Legend />
+            <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{r: 8}}/>
+            <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+        </LineChart>
+    )
 }
 
-export default LineChart;
+export default lineChart;
