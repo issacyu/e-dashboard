@@ -35,22 +35,10 @@ class NavBar extends Component {
                 <NavItem eventKey={0} onClick={ () => this.onToggleSidebar() }>
                   <Glyphicon glyph="align-justify" />
                 </NavItem>
-                <NavItem eventKey={1} componentClass={NavLink} href="/overview" to="/overview">
-                  Overview
-                </NavItem>
-                <NavItem eventKey={2} componentClass={NavLink} href="/charts" to="/charts">
-                  Charts
-                </NavItem>
-                <NavItem eventKey={2} componentClass={NavLink} href="/inventory" to="/inventory">
-                  Inventory
-                </NavItem>
               </Nav>
               <Nav pullRight>
                 <NavItem eventKey={1} href="#">
-                  Link Right
-                </NavItem>
-                <NavItem eventKey={2} href="#">
-                  Link Right
+                  Sign In
                 </NavItem>
               </Nav>
             </Navbar.Collapse>
@@ -59,17 +47,17 @@ class NavBar extends Component {
           {/* A sidebar like modal. */}
 
           <Modal className='menu-sidebar left' side='left' show={ this.state.isVisible } onHide={ () => this.onToggleSidebar() } autoFocus keyboard>
-                {/* <Modal.Header closeButton>
-                  <Modal.Title>Menu</Modal.Title>
-                </Modal.Header> */}
-                {/* <Modal.Body> */}
                   <Nav>
-                    <NavItem href="#">Link 1</NavItem>
-                    <NavItem href="#">Link 2</NavItem>
-                    <NavItem href="#">Link 3</NavItem>
-                    <NavItem href="#">Link 4</NavItem>
+                    <NavItem eventKey={1} componentClass={NavLink} href="/overview" to="/overview">
+                      Overview
+                    </NavItem>
+                    <NavItem eventKey={2} componentClass={NavLink} href="/charts" to="/charts">
+                      Charts
+                    </NavItem>
+                    <NavItem eventKey={2} componentClass={NavLink} href="/inventory" to="/inventory">
+                      Inventory
+                    </NavItem>
                   </Nav>
-                {/* </Modal.Body> */}
           </Modal>
       </div>
     );
