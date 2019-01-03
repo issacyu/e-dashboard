@@ -14,9 +14,10 @@ const Charts = () => {
                     <Card />
                 </Row>
                 <Row className="show-grid text-center">
-                    <BarChart />  
+                    <BarChart />
                 </Row>
             </Grid>
+            
         </>
     )
 }

@@ -26,7 +26,7 @@ const data = [
 const BarCharts = () => {
     return (
         <Col>
-            <ResponsiveContainer width="100%" height={500}>
+            <ResponsiveContainer width="98.8%" height={500}>
                 <BarChart width={600} height={300} data={data}
                     margin={{top: 35, bottom: 5}}>
                     <CartesianGrid strokeDasharray="3 3"/>
