@@ -29,27 +29,53 @@ class Inventory extends Component {
                     age: 56,
                 }
             }],
-
-        columns: [{
-            Header: 'Name',
-            accessor: 'name' // String-based value accessors!
-          }, {
-            Header: 'Age',
-            accessor: 'age',
-            Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-          }, {
-            id: 'friendName', // Required because our accessor is not a string
-            Header: 'Friend Name',
-            accessor: d => d.friend.name // Custom value accessors!
-          }, {
-            Header: props => <span>Friend Age</span>, // Custom header components!
-            accessor: 'friend.age'
-          }]
     };
+
+    renderEditable = (cellInfo) =>{
+        return (
+            <div
+                style={{ backgroundColor: "#fafafa" }}
+                contentEditable
+                suppressContentEditableWarning
+                onBlur={e => {
+                const data = [...this.state.data];
+                data[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
+                this.setState({ data });
+                }}
+                dangerouslySetInnerHTML={{
+                __html: this.state.data[cellInfo.index][cellInfo.column.id]
+                }}
+          />
+        )
+    }
 
     render(){
         return(
-            <DataGrid data={this.state.data} columns={this.state.columns}/>
+            <DataGrid data={this.state.data} 
+                columns={
+                    [
+                        {
+                            Header: 'Name',
+                            accessor: 'name', // String-based value accessors!
+                            Cell: this.renderEditable
+                        }, 
+                        {
+                            Header: 'Age',
+                            accessor: 'age',
+                            Cell: this.renderEditable // Custom cell components!
+                        }, 
+                        {
+                            id: 'friendName', // Required because our accessor is not a string
+                            Header: 'Friend Name',
+                            accessor: d => d.friend.name // Custom value accessors!
+                        }, 
+                        {
+                            Header: props => <span>Friend Age</span>, // Custom header components!
+                            accessor: 'friend.age'
+                        }
+                    ]
+                }
+            />
         )
     }
 }

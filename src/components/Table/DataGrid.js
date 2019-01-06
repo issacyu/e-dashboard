@@ -7,10 +7,12 @@ import 'react-table/react-table.css';
 const dataGrid = (props) => {
     return(
         <div>
-        <ReactTable
-          data={props.data}
-          columns={props.columns}
-        />
+          <ReactTable
+            className="-striped -highlight"
+            defaultPageSize={10}
+            data={props.data}
+            columns={props.columns}
+          />
       </div>
     )
 };

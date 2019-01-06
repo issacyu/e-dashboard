@@ -9,15 +9,16 @@ class Layout extends Component {
         return (
             <>
                 <Navbar />
-                <Grid fluid={true}>
-                    
+                <Grid fluid={true}>                   
                     <Col md={1} lg={1}>
 
                     </Col>
 
                     <main>
                         <Col md={9} lg={9} mdOffset={1} lgOffset={1}>
-                            {this.props.children}
+                            <Grid fluid={true}>
+                                {this.props.children}
+                            </Grid>
                         </Col>
                     </main>
                 </Grid>

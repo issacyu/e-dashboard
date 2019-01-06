@@ -12,28 +12,23 @@ class Overview extends Component {
     render(){
         return(
             <>
-                <Grid fluid={true}>
-                    <Row className="show-grid text-center">
-                        <Card heading='Sales'/>
-                        <Card heading='Revenue'/>
-                        <Card heading='Orders'/>
-                        <Card heading='Fees'/>
-                    </Row>
-                    <Row className="show-grid text-center">
-                        <Row md={12} lg={12}>
-                            <LineChart />
-                        </Row>
-                        <Row>
-                            <Col md={8} lg={8}>
-                                <BarChart />
-                            </Col>
-                            <Col md={4} lg={4}>
-                                <PieChart />
-                            </Col>
-                        </Row>
-                    </Row>
-                </Grid>
-                
+                <Row className="show-grid text-center">
+                    <Card heading='Sales'/>
+                    <Card heading='Revenue'/>
+                    <Card heading='Orders'/>
+                    <Card heading='Fees'/>
+                </Row>
+                <Row md={12} lg={12}>
+                    <LineChart />
+                </Row>
+                <Row>
+                    <Col md={8} lg={8}>
+                        <BarChart />
+                    </Col>
+                    <Col md={4} lg={4}>
+                        <PieChart />
+                    </Col>
+                </Row>
             </>
         )
     }
