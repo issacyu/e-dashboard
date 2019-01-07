@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Panel } from 'react-bootstrap';
 import ReactTable from 'react-table';
 
 import 'react-table/react-table.css';
@@ -7,13 +8,20 @@ import 'react-table/react-table.css';
 const dataGrid = (props) => {
     return(
         <div>
-          <ReactTable
-            className="-striped -highlight"
-            defaultPageSize={10}
-            data={props.data}
-            columns={props.columns}
-          />
-      </div>
+            <Panel bsStyle='primary'>
+                <Panel.Heading>
+                    Products
+                </Panel.Heading>
+                <Panel.Body>
+                  <ReactTable
+                      className="-striped -highlight"
+                      defaultPageSize={10}
+                      data={props.data}
+                      columns={props.columns}
+                  />
+                </Panel.Body>
+            </Panel>
+        </div>
     )
 };
 

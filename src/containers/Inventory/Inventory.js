@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 
+import { Row, Panel, ListGroup, ListGroupItem } from 'react-bootstrap';
+
 import DataGrid from '../../components/Table/DataGrid';
 
 class Inventory extends Component {
 
     state = {
-        data: [{
+        data: 
+        [
+            {
                 name: 'Tanner Linsley',
                 age: 26,
                 friend: {
@@ -28,22 +32,31 @@ class Inventory extends Component {
                     name: 'Jayden',
                     age: 56,
                 }
-            }],
+            },
+            {
+                name: '',
+                age: '',
+                friend: {
+                    name: '',
+                    age: ''
+                }
+            }
+        ],
     };
 
-    renderEditable = (cellInfo) =>{
+    onRenderEditableCellHandler = (cellInfo) =>{
         return (
             <div
                 style={{ backgroundColor: "#fafafa" }}
                 contentEditable
                 suppressContentEditableWarning
                 onBlur={e => {
-                const data = [...this.state.data];
-                data[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
-                this.setState({ data });
+                    const data = [...this.state.data];
+                    data[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
+                    this.setState({ data });
                 }}
                 dangerouslySetInnerHTML={{
-                __html: this.state.data[cellInfo.index][cellInfo.column.id]
+                    __html: this.state.data[cellInfo.index][cellInfo.column.id]
                 }}
           />
         )
@@ -51,31 +64,53 @@ class Inventory extends Component {
 
     render(){
         return(
-            <DataGrid data={this.state.data} 
-                columns={
-                    [
-                        {
-                            Header: 'Name',
-                            accessor: 'name', // String-based value accessors!
-                            Cell: this.renderEditable
-                        }, 
-                        {
-                            Header: 'Age',
-                            accessor: 'age',
-                            Cell: this.renderEditable // Custom cell components!
-                        }, 
-                        {
-                            id: 'friendName', // Required because our accessor is not a string
-                            Header: 'Friend Name',
-                            accessor: d => d.friend.name // Custom value accessors!
-                        }, 
-                        {
-                            Header: props => <span>Friend Age</span>, // Custom header components!
-                            accessor: 'friend.age'
-                        }
-                    ]
-                }
-            />
+            <>
+            <Row>
+                <Panel bsStyle='danger' defaultExpanded>
+                    <Panel.Heading>
+                        Stock Alert
+                    </Panel.Heading>
+                    <Panel.Collapse>
+                        <Panel.Body>
+                        <ul>
+                            <li>alert 1</li>
+                            <li>alert 2</li>
+                            <li>alert 3</li>
+                            <li>alert 4</li>
+                        </ul>
+                        </Panel.Body>
+                    </Panel.Collapse>
+                </Panel>
+            </Row>
+
+            <Row>
+                <DataGrid data={this.state.data} 
+                    columns={
+                        [
+                            {
+                                Header: 'Name',
+                                accessor: 'name', // String-based value accessors!
+                                Cell: this.onRenderEditableCellHandler
+                            }, 
+                            {
+                                Header: 'Age',
+                                accessor: 'age',
+                                Cell: this.onRenderEditableCellHandler // Custom cell components!
+                            }, 
+                            {
+                                id: 'friendName', // Required because our accessor is not a string
+                                Header: 'Friend Name',
+                                accessor: d => d.friend.name // Custom value accessors!
+                            }, 
+                            {
+                                Header: props => <span>Friend Age</span>, // Custom header components!
+                                accessor: 'friend.age'
+                            }
+                        ]
+                    }
+                />
+            </Row>
+            </>
         )
     }
 }
