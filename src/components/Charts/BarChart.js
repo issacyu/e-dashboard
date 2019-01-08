@@ -23,16 +23,16 @@ const data = [
     {name: 'Page G', uv: 3490, pv: 4300, amt: 2100},
 ];
 
-const BarCharts = () => {
+const BarCharts = (props) => {
     return (
         <Col>
-            <Panel bsStyle='primary'>
+            <Panel bsStyle={props.bsStyle}>
                 <Panel.Heading>
                     Bar Chart
                 </Panel.Heading>
                 <Panel.Body>
                     <ResponsiveContainer width="98.8%" height={500}>
-                        <BarChart width={600} height={300} data={data}
+                        <BarChart width={props.width} height={props.height} data={data}
                             margin={{top: 35, bottom: 5}}>
                             <CartesianGrid strokeDasharray="3 3"/>
                             <XAxis dataKey="name"/>

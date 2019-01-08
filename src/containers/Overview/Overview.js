@@ -19,14 +19,30 @@ class Overview extends Component {
                     <Card heading='Fees'/>
                 </Row>
                 <Row md={12} lg={12}>
-                    <LineChart />
+                    <LineChart
+                        width={600}
+                        height={300} 
+                        bsStyle='primary'
+                    />
                 </Row>
                 <Row>
                     <Col md={8} lg={8}>
-                        <BarChart />
+                        <BarChart 
+                            width={600}
+                            height={300}
+                            bsStyle='primary'
+                        />
                     </Col>
                     <Col md={4} lg={4}>
-                        <PieChart />
+                        <PieChart 
+                            bsStyle='primary'
+                            width={800}
+                            height={400}
+                            cx={300}
+                            cy={200}
+                            outerRadius={200}
+                            fill='#8884d8'
+                        />
                     </Col>
                 </Row>
             </>

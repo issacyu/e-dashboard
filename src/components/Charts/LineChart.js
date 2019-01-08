@@ -25,15 +25,15 @@ const data = [
     {name: 'Page G', uv: 3490, pv: 4300, amt: 2100},
 ];
 
-const lineChart = () => {
+const lineChart = (props) => {
     return (
-        <Panel bsStyle='primary'>
+        <Panel bsStyle={props.bsStyle}>
             <Panel.Heading>
                 Sales
             </Panel.Heading>
             <Panel.Body>
                 <ResponsiveContainer width="98.5%" height={500}>
-                    <LineChart width={600} height={300} data={data}
+                    <LineChart width={props.width} height={props.height} data={data}
                         margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                     <XAxis dataKey="name"/>
                         <XAxis dataKey="name"/>

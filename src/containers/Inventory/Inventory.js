@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
-import { Row, Panel, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Row, Panel, Col } from 'react-bootstrap';
 
 import DataGrid from '../../components/Table/DataGrid';
+import PieChart from '../../components/Charts/PieChart';
 
 class Inventory extends Component {
 
@@ -81,6 +82,48 @@ class Inventory extends Component {
                         </Panel.Body>
                     </Panel.Collapse>
                 </Panel>
+            </Row>
+            
+            <Row>
+                <Col md={8} lg={8}>
+                    <DataGrid data={this.state.data} 
+                        columns={
+                            [
+                                {
+                                    Header: 'Name',
+                                    accessor: 'name', // String-based value accessors!
+                                    Cell: this.onRenderEditableCellHandler
+                                }, 
+                                {
+                                    Header: 'Age',
+                                    accessor: 'age',
+                                    Cell: this.onRenderEditableCellHandler // Custom cell components!
+                                }, 
+                                {
+                                    id: 'friendName', // Required because our accessor is not a string
+                                    Header: 'Friend Name',
+                                    accessor: d => d.friend.name // Custom value accessors!
+                                }, 
+                                {
+                                    Header: props => <span>Friend Age</span>, // Custom header components!
+                                    accessor: 'friend.age'
+                                }
+                            ]
+                        }
+                    />
+                </Col>
+
+                <Col md={4} lg={4}>
+                    <PieChart 
+                        bsStyle='primary'
+                        width={800}
+                        height={400}
+                        cx={300}
+                        cy={200}
+                        outerRadius={200}
+                        fill='#8884d8'
+                    />
+                </Col>
             </Row>
 
             <Row>

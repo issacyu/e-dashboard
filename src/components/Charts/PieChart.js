@@ -31,7 +31,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
   );
 };
 
-const pieChart = () => {
+const pieChart = (props) => {
     return (
         <Panel bsStyle='primary'>
             <Panel.Heading>
@@ -39,16 +39,16 @@ const pieChart = () => {
             </Panel.Heading>
             <Panel.Body>
                 <ResponsiveContainer width="98.8%" height={500}>
-                    <PieChart width={800} height={400}
+                    <PieChart width={props.width} height={props.height}
                         margin={{top: 35, bottom: 5}}>
                         <Pie
                             data={data} 
-                            cx={300} 
-                            cy={200} 
+                            cx={props.cx} 
+                            cy={props.cy} 
                             labelLine={false}
                             label={renderCustomizedLabel}
-                            outerRadius={200} 
-                            fill="#8884d8">
+                            outerRadius={props.outerRadius} 
+                            fill={props.fill}>
                             {data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)}
                         </Pie>
                     </PieChart>
