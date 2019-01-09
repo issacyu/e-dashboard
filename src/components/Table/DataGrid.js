@@ -10,7 +10,7 @@ const dataGrid = (props) => {
         <div>
             <Panel bsStyle='primary'>
                 <Panel.Heading>
-                    Products
+                    {props.title}
                 </Panel.Heading>
                 <Panel.Body>
                   <ReactTable
