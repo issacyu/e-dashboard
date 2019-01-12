@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Panel } from 'react-bootstrap';
+import { Panel, Button } from 'react-bootstrap';
 import ReactTable from 'react-table';
 
 import 'react-table/react-table.css';
@@ -20,6 +20,10 @@ const dataGrid = (props) => {
                       columns={props.columns}
                   />
                 </Panel.Body>
+                <Panel.Footer>
+                    <Button onClick={props.clicked} bsStyle='primary'>Save</Button>
+                    <Button bsStyle='danger'>Delete</Button>
+                </Panel.Footer>
             </Panel>
         </div>
     )

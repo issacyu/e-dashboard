@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 
 import { Row, Panel, Col } from 'react-bootstrap';
 
-import DataGrid from '../../components/Table/DataGrid';
+import DataGrid from '../../components/Table/DataGrid/DataGrid';
 import PieChart from '../../components/Charts/PieChart';
+import ManufacturerColumns from '../../components/Table/GridColumns/ManufacturerColumn';
+import InventoryColumns from '../../components/Table/GridColumns/InventoryColumns';
 
 class Inventory extends Component {
 
@@ -33,16 +35,20 @@ class Inventory extends Component {
                     name: 'Jayden',
                     age: 56,
                 }
-            },
-            {
-                name: '',
-                age: '',
-                friend: {
-                    name: '',
-                    age: ''
-                }
             }
         ],
+    };
+
+    onSaveDataGridHandler = () => {
+       console.log("Button clicked!!!");
+    };
+
+    onDeleteDataGridRowHandler = () => {
+
+    };
+
+    onAddDataGridRowHandler = () => {
+
     };
 
     onRenderEditableCellHandler = (cellInfo) =>{
@@ -61,7 +67,7 @@ class Inventory extends Component {
                 }}
           />
         )
-    }
+    };
 
     render(){
         return(
@@ -88,35 +94,8 @@ class Inventory extends Component {
                 <Col md={8} lg={8}>
                     <DataGrid data={this.state.data} 
                         title='Manufacturer'
-                        columns={
-                            [
-                                {
-                                    Header: 'Manufacturer',
-                                    accessor: 'name', // String-based value accessors!
-                                    Cell: this.onRenderEditableCellHandler
-                                }, 
-                                {
-                                    Header: 'Name',
-                                    accessor: 'age',
-                                    Cell: this.onRenderEditableCellHandler // Custom cell components!
-                                }, 
-                                {
-                                    Header: 'Phone', // Required because our accessor is not a string
-                                    accessor: 'Friend Name',
-                                    Cell: this.onRenderEditableCellHandler  // Custom value accessors!
-                                }, 
-                                {
-                                    Header: 'Email', // Required because our accessor is not a string
-                                    accessor: 'Friend Name',
-                                    Cell: this.onRenderEditableCellHandler  // Custom value accessors!
-                                }, 
-                                {
-                                    Header: 'Address',
-                                    accessor: 'age',
-                                    Cell: this.onRenderEditableCellHandler // Custom cell components!
-                                },
-                            ]
-                        }
+                        clicked={() => this.onSaveDataGridHandler()}
+                        columns={ManufacturerColumns(this.onRenderEditableCellHandler)}
                     />
                 </Col>
 
@@ -136,65 +115,7 @@ class Inventory extends Component {
             <Row>
                 <DataGrid data={this.state.data} 
                     title='Inventory'
-                    columns={
-                        [
-                            {
-                                Header: 'Product',
-                                accessor: 'name', // String-based value accessors!
-                                Cell: this.onRenderEditableCellHandler
-                            }, 
-                            {
-                                Header: 'Quantity',
-                                accessor: 'age',
-                                Cell: this.onRenderEditableCellHandler // Custom cell components!
-                            },
-                            {
-                                Header: 'Price', // Required because our accessor is not a string
-                                accessor: 'Friend Name',
-                                Cell: this.onRenderEditableCellHandler  // Custom value accessors!
-                            },
-                            {
-                                Header: 'Category',
-                                accessor: 'age',
-                                Cell: this.onRenderEditableCellHandler // Custom cell components!
-                            }, 
-                            {
-                                Header: 'Model',
-                                accessor: 'age',
-                                Cell: this.onRenderEditableCellHandler // Custom cell components!
-                            }, 
-                            {
-                                Header: 'Type', // Required because our accessor is not a string
-                                accessor: 'Friend Name',
-                                Cell: this.onRenderEditableCellHandler  // Custom value accessors!
-                            }, 
-                            {
-                                Header: 'Color',
-                                accessor: 'age',
-                                Cell: this.onRenderEditableCellHandler // Custom cell components!
-                            },
-                            {
-                                Header: 'Condition',
-                                accessor: 'name', // String-based value accessors!
-                                Cell: this.onRenderEditableCellHandler
-                            }, 
-                            {
-                                Header: 'Manufacturer',
-                                accessor: 'age',
-                                Cell: this.onRenderEditableCellHandler // Custom cell components!
-                            }, 
-                            {
-                                Header: 'Cost',
-                                accessor: 'age',
-                                Cell: this.onRenderEditableCellHandler // Custom cell components!
-                            },
-                            {
-                                Header: 'Total Cost',
-                                accessor: 'age',
-                                Cell: this.onRenderEditableCellHandler // Custom cell components!
-                            }
-                        ]
-                    }
+                    columns={InventoryColumns(this.onRenderEditableCellHandler)}
                 />
             </Row>
             </>

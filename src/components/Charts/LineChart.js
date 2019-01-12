@@ -10,7 +10,7 @@ import {
     CartesianGrid, 
     Tooltip, 
     Legend,
-    ResponsiveContainer
+    ResponsiveContainer,
 } from 'recharts'; 
 
 import { Panel } from 'react-bootstrap';
