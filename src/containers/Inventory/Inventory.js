@@ -92,7 +92,8 @@ class Inventory extends Component {
             
             <Row>
                 <Col md={8} lg={8}>
-                    <DataGrid data={this.state.data} 
+                    <DataGrid 
+                        data={this.state.data} 
                         title='Manufacturer'
                         clicked={() => this.onSaveDataGridHandler()}
                         columns={ManufacturerColumns(this.onRenderEditableCellHandler)}
