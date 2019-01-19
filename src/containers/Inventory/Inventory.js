@@ -6,64 +6,111 @@ import DataGrid from '../../components/Table/DataGrid/DataGrid';
 import PieChart from '../../components/Charts/PieChart';
 import ManufacturerColumns from '../../components/Table/GridColumns/ManufacturerColumn';
 import InventoryColumns from '../../components/Table/GridColumns/InventoryColumns';
+import EmptyRow from '../../components/Table/GridRows/GridRow';
 
 class Inventory extends Component {
 
     state = {
-        data: 
+        manufacturerData: 
         [
             {
-                name: 'Tanner Linsley',
-                age: 26,
-                friend: {
-                    name: 'Jason Maurer',
-                    age: 23,
-                }
+                manufacturer: 'Apple',
+                name: 'Steve Job',
+                phone: '123-456-7890',
+                email: '123@gmail.com',
+                address: '123th St New York NY 10012'
             },
             {
-                name: 'John Doe',
-                age: 25,
-                friend: {
-                    name: 'Bill Gate',
-                    age: 18,
-                }
+                manufacturer: 'Apple',
+                name: 'Steve Job',
+                phone: '123-456-7890',
+                email: '123@gmail.com',
+                address: '123th St New York NY 10012'
             },
             {
-                name: 'Jason B',
-                age: 31,
-                friend: {
-                    name: 'Jayden',
-                    age: 56,
-                }
+                manufacturer: 'Apple',
+                name: 'Steve Job',
+                phone: '123-456-7890',
+                email: '123@gmail.com',
+                address: '123th St New York NY 10012'
             }
         ],
+
+        inventoryData:
+        [
+            {
+                product: 'iPhone Xs',
+                quantity: 10,
+                price: 1300,
+                category: 'electronic',
+                model: '128gb',
+                type: '',
+                color: 'gold',
+                condition: 'new',
+                manufacturer: 'Apple',
+                cost: 1200,
+                totalCost: 1200
+            },
+            {
+                product: 'iPhone Xs',
+                quantity: 10,
+                price: 1300,
+                category: 'electronic',
+                model: '128gb',
+                type: '',
+                color: 'gold',
+                condition: 'new',
+                manufacturer: 'Apple',
+                cost: 1200,
+                totalCost: 1200
+            },
+            {
+                product: 'iPhone Xs',
+                quantity: 10,
+                price: 1300,
+                category: 'electronic',
+                model: '128gb',
+                type: '',
+                color: 'gold',
+                condition: 'new',
+                manufacturer: 'Apple',
+                cost: 1200,
+                totalCost: 1200
+            },
+        ]
     };
 
-    onSaveDataGridHandler = () => {
-       console.log("Button clicked!!!");
-    };
-
-    onDeleteDataGridRowHandler = () => {
-
-    };
-
-    onAddDataGridRowHandler = () => {
-
-    };
-
-    onRenderEditableCellHandler = (cellInfo) =>{
+    onManufacturerRenderEditableCellHandler = (cellInfo) =>{
         return (
             <div
                 style={{ backgroundColor: "#fafafa" }}
                 contentEditable
                 suppressContentEditableWarning
                 onBlur={e => {
-                    const data = [...this.state.data];
+                    const data = [...this.state.manufacturerData];
+                    data[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
+                    this.setState({ manufacturerData: [...data] });
+                }}                
+                dangerouslySetInnerHTML={{
+                    __html: this.state.manufacturerData[cellInfo.index][cellInfo.column.id]
+                }}
+          />
+        )
+    };
+
+    onInventoryRenderEditableCellHandler = (cellInfo) =>{
+        return (
+            <div
+                style={{ backgroundColor: "#fafafa" }}
+                contentEditable
+                suppressContentEditableWarning
+                onBlur={e => {
+                    const data = [...this.state.inventoryData];
                     data[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
                     this.setState({ data });
                 }}
                 dangerouslySetInnerHTML={{
-                    __html: this.state.data[cellInfo.index][cellInfo.column.id]
+                    __html: this.state.inventoryData[cellInfo.index][cellInfo.column.id]
                 }}
           />
         )
@@ -93,10 +140,11 @@ class Inventory extends Component {
             <Row>
                 <Col md={8} lg={8}>
                     <DataGrid 
-                        data={this.state.data} 
+                        data={this.state.manufacturerData} 
                         title='Manufacturer'
                         clicked={() => this.onSaveDataGridHandler()}
-                        columns={ManufacturerColumns(this.onRenderEditableCellHandler)}
+                        columns={ManufacturerColumns(this.onManufacturerRenderEditableCellHandler)}
+                        emptyRow={EmptyRow('MANUFACTURER')}
                     />
                 </Col>
 
@@ -114,9 +162,9 @@ class Inventory extends Component {
             </Row>
 
             <Row>
-                <DataGrid data={this.state.data} 
+                <DataGrid data={this.state.inventoryData} 
                     title='Inventory'
-                    columns={InventoryColumns(this.onRenderEditableCellHandler)}
+                    columns={InventoryColumns(this.onInventoryRenderEditableCellHandler)}
                 />
             </Row>
             </>

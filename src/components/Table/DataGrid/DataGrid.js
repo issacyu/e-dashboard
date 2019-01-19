@@ -69,6 +69,29 @@ class DataGrid extends Component {
         return this.state.selection.includes(key);
       };
 
+    onSaveHandler = () => {
+        console.log("Button clicked!!!");
+    };
+ 
+    onDeleteRowHandler = () => {
+        const dataClone = [...this.state.data];
+        const newData = dataClone.filter(r => !this.state.selection.includes(r._id));
+
+        this.setState({data: [...newData]});
+    };
+ 
+    // TODO Right now the function is not function correctlly because it's not updating the data in parent component.
+    // TODO It will be fixed when implement the logic with redux.
+    onAddRowHandler = (emptyRow) => {
+        const empRow = {
+            _id: chance.guid(),
+            ...emptyRow
+        }
+        let newData = [...this.state.data];
+        newData.push(empRow);
+        this.setState({data: [...newData]});
+    };
+
     render(){
         const { toggleSelection, toggleAll, isSelected } = this;
         const { data, columns, selectAll } = this.state;
@@ -105,8 +128,9 @@ class DataGrid extends Component {
                       />
                     </Panel.Body>
                     <Panel.Footer>
-                        <Button onClick={this.props.clicked} bsStyle='primary'>Save</Button>
-                        <Button bsStyle='danger'>Delete</Button>
+                        <Button onClick={this.onSaveHandler} bsStyle='primary'>Save</Button>
+                        <Button onClick={() => {this.onAddRowHandler(this.props.emptyRow)}} bsStyle='success'>Add</Button>
+                        <Button onClick={() => {this.onDeleteRowHandler()}} bsStyle='danger'>Delete</Button>
                     </Panel.Footer>
                 </Panel>
             </div>

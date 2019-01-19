@@ -3,27 +3,27 @@ const manufacturerColumns = (onRenderEditableCellHandler) => {
         [
             {
                 Header: 'Manufacturer',
-                accessor: 'name',
+                accessor: 'manufacturer',
                 Cell: onRenderEditableCellHandler
             }, 
             {
                 Header: 'Name',
-                accessor: 'age',
+                accessor: 'name',
                 Cell: onRenderEditableCellHandler
             }, 
             {
                 Header: 'Phone',
-                accessor: 'Friend Name',
+                accessor: 'phone',
                 Cell: onRenderEditableCellHandler
             }, 
             {
                 Header: 'Email',
-                accessor: 'Friend Name',
+                accessor: 'email',
                 Cell: onRenderEditableCellHandler
             }, 
             {
                 Header: 'Address',
-                accessor: 'age',
+                accessor: 'address',
                 Cell: onRenderEditableCellHandler
             },
         ];

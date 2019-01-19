@@ -3,57 +3,57 @@ const inventoryColumns = (onRenderEditableCellHandler) => {
     [
         {
             Header: 'Product',
-            accessor: 'name',
+            accessor: 'product',
             Cell: onRenderEditableCellHandler
         }, 
         {
             Header: 'Quantity',
-            accessor: 'age',
+            accessor: 'quantity',
             Cell: onRenderEditableCellHandler
         },
         {
             Header: 'Price',
-            accessor: 'Friend Name',
+            accessor: 'price',
             Cell: onRenderEditableCellHandler
         },
         {
             Header: 'Category',
-            accessor: 'age',
+            accessor: 'category',
             Cell: onRenderEditableCellHandler
         }, 
         {
             Header: 'Model',
-            accessor: 'age',
+            accessor: 'model',
             Cell: onRenderEditableCellHandler
         }, 
         {
             Header: 'Type',
-            accessor: 'Friend Name',
+            accessor: 'type',
             Cell: onRenderEditableCellHandler
         }, 
         {
             Header: 'Color',
-            accessor: 'age',
+            accessor: 'color',
             Cell: onRenderEditableCellHandler
         },
         {
             Header: 'Condition',
-            accessor: 'name',
+            accessor: 'condition',
             Cell: onRenderEditableCellHandler
         }, 
         {
             Header: 'Manufacturer',
-            accessor: 'age',
+            accessor: 'manufacturer',
             Cell: onRenderEditableCellHandler
         }, 
         {
             Header: 'Cost',
-            accessor: 'age',
+            accessor: 'cost',
             Cell: onRenderEditableCellHandler
         },
         {
             Header: 'Total Cost',
-            accessor: 'age',
+            accessor: 'totalCost',
             Cell: onRenderEditableCellHandler
         }
     ];
