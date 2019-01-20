@@ -18,7 +18,8 @@ class DataGrid extends Component {
             id: 0,
             selection: [],
             selectAll: false,
-            data: this.getData(this.props.data)
+            data: this.getData(this.props.data),
+            disableDeleteButton: true
         }
     }
 
@@ -49,7 +50,10 @@ class DataGrid extends Component {
             selection.push(key);
         }
 
-        this.setState({selection: [...selection]})
+        this.setState({
+            selection,
+            disableDeleteButton: selection.length === 0
+        })
     };
 
     toggleAll = () => {
@@ -62,7 +66,11 @@ class DataGrid extends Component {
             selection.push(item._original._id);
           });
         }
-        this.setState({ selectAll, selection });
+        this.setState({ 
+            selectAll, 
+            selection,
+            disableDeleteButton: selection.length === 0
+        });
       };
 
       isSelected = key => {
@@ -130,7 +138,7 @@ class DataGrid extends Component {
                     <Panel.Footer>
                         <Button onClick={this.onSaveHandler} bsStyle='primary'>Save</Button>
                         <Button onClick={() => {this.onAddRowHandler(this.props.emptyRow)}} bsStyle='success'>Add</Button>
-                        <Button onClick={() => {this.onDeleteRowHandler()}} bsStyle='danger'>Delete</Button>
+                        <Button onClick={() => {this.onDeleteRowHandler()}} disabled={this.state.disableDeleteButton} bsStyle='danger'>Delete</Button>
                     </Panel.Footer>
                 </Panel>
             </div>
