@@ -34,7 +34,7 @@ class Overview extends Component {
                         />
                     </Col>
                     <Col md={4} lg={4}>
-                        <PieChart 
+                        {/* <PieChart 
                             bsStyle='primary'
                             width={800}
                             height={400}
@@ -42,7 +42,7 @@ class Overview extends Component {
                             cy={200}
                             outerRadius={200}
                             fill='#8884d8'
-                        />
+                        /> */}
                     </Col>
                 </Row>
             </>

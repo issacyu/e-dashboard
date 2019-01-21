@@ -18,15 +18,41 @@ const data = [{name: 'Group A', value: 400}, {name: 'Group B', value: 300},
                   {name: 'Group C', value: 300}, {name: 'Group D', value: 200}];
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
-const RADIAN = Math.PI / 180;                    
+const RADIAN = Math.PI / 180;  
+
+const processData = (data, key, value) => {
+    let dataClone = [...data];
+    let newData = [];
+    let map = new Map();
+
+    dataClone.forEach(x => {
+        if(map.has(x[key])) {
+            const val = map.get(x[key]) + x[value];
+            map.set(x[key], val);
+        }
+        else{
+            map.set(x[key], x[value]);
+        }
+    });
+
+    map.forEach((v, k) => {
+        const obj = {
+            name: k,
+            value: v
+        }
+        newData.push(obj);
+    });
+    return newData;
+}
+
 const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
  	const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
   const x  = cx + radius * Math.cos(-midAngle * RADIAN);
   const y = cy  + radius * Math.sin(-midAngle * RADIAN);
  
   return (
-    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} 	dominantBaseline="central">
-    	{`${(percent * 100).toFixed(0)}%`}
+    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+        {`${(percent * 100).toFixed(0)}%`}
     </text>
   );
 };
@@ -35,14 +61,15 @@ const pieChart = (props) => {
     return (
         <Panel bsStyle='primary'>
             <Panel.Heading>
-                Pie Chart
+                {props.heading}
             </Panel.Heading>
             <Panel.Body>
                 <ResponsiveContainer width="98.8%" height={500}>
                     <PieChart width={props.width} height={props.height}
                         margin={{top: 35, bottom: 5}}>
+                        <Legend />
                         <Pie
-                            data={data} 
+                            data={processData(props.displayData, props.displayKey, props.displayValue)} 
                             cx={props.cx} 
                             cy={props.cy} 
                             labelLine={false}

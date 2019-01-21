@@ -77,6 +77,19 @@ class Inventory extends Component {
                 cost: 1200,
                 totalCost: 1200
             },
+            {
+                product: 'LED Bulb',
+                quantity: 10,
+                price: 9.99,
+                category: 'home',
+                model: '100 Watt',
+                type: 'LED',
+                color: 'Warm White',
+                condition: 'new',
+                manufacturer: 'Mr.LED',
+                cost: 2,
+                totalCost: 2.25
+            },
         ]
     };
 
@@ -151,12 +164,16 @@ class Inventory extends Component {
                 <Col md={4} lg={4}>
                     <PieChart 
                         bsStyle='primary'
+                        heading='Category'
                         width={800}
                         height={400}
                         cx={300}
                         cy={200}
                         outerRadius={200}
                         fill='#8884d8'
+                        displayKey='category'
+                        displayValue='quantity'
+                        displayData={this.state.inventoryData}
                     />
                 </Col>
             </Row>
