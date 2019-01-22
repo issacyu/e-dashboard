@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 
-import { Row, Panel, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 
 import DataGrid from '../../components/Table/DataGrid/DataGrid';
 import PieChart from '../../components/Charts/PieChart';
+import Alert from '../../components/Alert/Alert';
 import ManufacturerColumns from '../../components/Table/GridColumns/ManufacturerColumn';
 import InventoryColumns from '../../components/Table/GridColumns/InventoryColumns';
 import EmptyRow from '../../components/Table/GridRows/GridRow';
@@ -133,7 +134,7 @@ class Inventory extends Component {
         return(
             <>
             <Row>
-                <Panel bsStyle='danger' defaultExpanded>
+                {/* <Panel bsStyle='danger' defaultExpanded>
                     <Panel.Heading>
                         Stock Alert
                     </Panel.Heading>
@@ -147,7 +148,8 @@ class Inventory extends Component {
                         </ul>
                         </Panel.Body>
                     </Panel.Collapse>
-                </Panel>
+                </Panel> */}
+                <Alert />
             </Row>
             
             <Row>

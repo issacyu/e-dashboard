@@ -5,7 +5,6 @@ import {
     Pie, 
     Legend, 
     Tooltip,
-    Sector, 
     Cell,
     ResponsiveContainer
 } from 'recharts';
@@ -68,6 +67,7 @@ const pieChart = (props) => {
                     <PieChart width={props.width} height={props.height}
                         margin={{top: 35, bottom: 5}}>
                         <Legend />
+                        <Tooltip />
                         <Pie
                             data={processData(props.displayData, props.displayKey, props.displayValue)} 
                             cx={props.cx} 
