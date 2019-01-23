@@ -54,7 +54,7 @@ class Inventory extends Component {
             },
             {
                 product: 'iPhone Xs',
-                quantity: 10,
+                quantity: 5,
                 price: 1300,
                 category: 'electronic',
                 model: '128gb',
@@ -80,7 +80,7 @@ class Inventory extends Component {
             },
             {
                 product: 'LED Bulb',
-                quantity: 10,
+                quantity: 1,
                 price: 9.99,
                 category: 'home',
                 model: '100 Watt',
@@ -131,27 +131,18 @@ class Inventory extends Component {
     };
 
     render(){
+        let alert;
+        const lowStockItem = this.state.inventoryData.filter(i => i.quantity < 10)
+        if(lowStockItem.length > 0) {
+            alert = 
+                <Row>
+                    <Alert title='Low Stock Warning' messages={lowStockItem.map(i => i.product)}/>
+                </Row>
+        }
+
         return(
-            <>
-            <Row>
-                {/* <Panel bsStyle='danger' defaultExpanded>
-                    <Panel.Heading>
-                        Stock Alert
-                    </Panel.Heading>
-                    <Panel.Collapse>
-                        <Panel.Body>
-                        <ul>
-                            <li>alert 1</li>
-                            <li>alert 2</li>
-                            <li>alert 3</li>
-                            <li>alert 4</li>
-                        </ul>
-                        </Panel.Body>
-                    </Panel.Collapse>
-                </Panel> */}
-                <Alert />
-            </Row>
-            
+            <>            
+            {alert}
             <Row>
                 <Col md={8} lg={8}>
                     <DataGrid 

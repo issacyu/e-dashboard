@@ -3,18 +3,21 @@ import React from 'react';
 import { Panel } from 'react-bootstrap';
 
 const alert = (props) => {
+    const messages = props.messages.map(m => {
+            return <li>{m}</li>
+    })
     return (
         <Panel bsStyle='danger' defaultExpanded>
             <Panel.Heading>
                 <Panel.Title toggle>
-                    Warning
+                    {props.title}
                 </Panel.Title>
             </Panel.Heading>
             <Panel.Collapse>
             <Panel.Body>
-                <div>-Alert message 1</div>
-                <div>-Alert message 2</div>
-                <div>-Alert message 3</div>
+                <ul>
+                    {messages}
+                </ul>
             </Panel.Body>
             </Panel.Collapse>
         </Panel>
