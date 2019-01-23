@@ -66,21 +66,21 @@ class Inventory extends Component {
                 totalCost: 1200
             },
             {
-                product: 'iPhone Xs',
-                quantity: 10,
-                price: 1300,
+                product: 'Samsung Galaxy Note 10',
+                quantity: 5,
+                price: 799,
                 category: 'electronic',
                 model: '128gb',
                 type: '',
-                color: 'gold',
+                color: 'Black',
                 condition: 'new',
-                manufacturer: 'Apple',
-                cost: 1200,
-                totalCost: 1200
+                manufacturer: 'Samsung',
+                cost: 500,
+                totalCost: 560
             },
             {
                 product: 'LED Bulb',
-                quantity: 1,
+                quantity: 1000,
                 price: 9.99,
                 category: 'home',
                 model: '100 Watt',
@@ -88,8 +88,8 @@ class Inventory extends Component {
                 color: 'Warm White',
                 condition: 'new',
                 manufacturer: 'Mr.LED',
-                cost: 2,
-                totalCost: 2.25
+                cost: 500,
+                totalCost: 700
             },
         ]
     };
@@ -144,16 +144,36 @@ class Inventory extends Component {
             <>            
             {alert}
             <Row>
-                <Col md={8} lg={8}>
-                    <DataGrid 
-                        data={this.state.manufacturerData} 
-                        title='Manufacturer'
-                        clicked={() => this.onSaveDataGridHandler()}
-                        columns={ManufacturerColumns(this.onManufacturerRenderEditableCellHandler)}
-                        emptyRow={EmptyRow('MANUFACTURER')}
+                <Col md={4} lg={4}>
+                    <PieChart 
+                        bsStyle='primary'
+                        heading='Cost By Category'
+                        width={800}
+                        height={400}
+                        cx={300}
+                        cy={200}
+                        outerRadius={200}
+                        fill='#8884d8'
+                        displayKey='category'
+                        displayValue='totalCost'
+                        displayData={this.state.inventoryData}
                     />
                 </Col>
-
+                <Col md={4} lg={4}>
+                    <PieChart 
+                        bsStyle='primary'
+                        heading='Cost By Product'
+                        width={800}
+                        height={400}
+                        cx={300}
+                        cy={200}
+                        outerRadius={200}
+                        fill='#8884d8'
+                        displayKey='product'
+                        displayValue='totalCost'
+                        displayData={this.state.inventoryData}
+                    />
+                </Col>
                 <Col md={4} lg={4}>
                     <PieChart 
                         bsStyle='primary'
@@ -170,7 +190,15 @@ class Inventory extends Component {
                     />
                 </Col>
             </Row>
-
+            <Row>
+            <DataGrid 
+                        data={this.state.manufacturerData} 
+                        title='Manufacturer'
+                        clicked={() => this.onSaveDataGridHandler()}
+                        columns={ManufacturerColumns(this.onManufacturerRenderEditableCellHandler)}
+                        emptyRow={EmptyRow('MANUFACTURER')}
+                    />
+            </Row>
             <Row>
                 <DataGrid data={this.state.inventoryData} 
                     title='Inventory'
