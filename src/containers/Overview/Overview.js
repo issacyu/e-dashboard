@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Card from '../../components/Card/Card';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Row, Col, Panel } from 'react-bootstrap';
 
 import BarChart from '../../components/Charts/BarChart';
 import LineChart from '../../components/Charts/LineChart';
@@ -13,16 +13,16 @@ class Overview extends Component {
         return(
             <>
                 <Row className="show-grid text-center">
-                    <Card heading='Sales'/>
-                    <Card heading='Revenue'/>
-                    <Card heading='Orders'/>
-                    <Card heading='Fees'/>
+                    <Card title='SALES: $71365.98' price='1000' />
+                    <Card title='RENVENUE: $45265.28' price='1000' />
+                    <Card title='ORDER: 64031' price='1000' />
+                    <Card title='RETURN: 235' price='1000' />
                 </Row>
                 <Row md={12} lg={12}>
                     <LineChart
                         width={600}
                         height={300} 
-                        bsStyle='primary'
+                        
                     />
                 </Row>
                 <Row>
@@ -30,7 +30,6 @@ class Overview extends Component {
                         <BarChart 
                             width={600}
                             height={300}
-                            bsStyle='primary'
                         />
                     </Col>
                     <Col md={4} lg={4}>

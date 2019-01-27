@@ -11,7 +11,9 @@
     "react-scripts": "^2.1.3",
     "react-simple-card": "^1.0.11",
     "react-table": "^6.8.6",
-    "recharts": "^1.4.2"
+    "react-ui-cards": "^1.5.0",
+    "recharts": "^1.4.2",
+    "save": "^2.3.3"
   },
   "scripts": {
     "start": "react-scripts start",
