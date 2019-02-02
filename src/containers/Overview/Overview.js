@@ -7,7 +7,7 @@ import BarChart from '../../components/Charts/BarChart';
 import ComposedChart from '../../components/Charts/ComposedChart';
 import PieChart from '../../components/Charts/PieChart';
 import DataGrid from '../../components/Table/DataGrid/DataGrid';
-import InventoryColumns from '../../components/Table/GridColumns/InventoryColumns';
+import salesTrackerColumns from '../../components/Table/GridColumns/SalesTrackerColumns';
 
 class Overview extends Component {
 
@@ -15,57 +15,19 @@ class Overview extends Component {
         salesData:
         [
             {
-                product: 'iPhone Xs',
-                quantity: 10,
-                price: 1300,
-                category: 'electronic',
-                model: '128gb',
-                type: '',
-                color: 'gold',
-                condition: 'new',
-                manufacturer: 'Apple',
-                cost: 1200,
-                totalCost: 1200
-            },
-            {
-                product: 'iPhone Xs',
-                quantity: 5,
-                price: 1300,
-                category: 'electronic',
-                model: '128gb',
-                type: '',
-                color: 'gold',
-                condition: 'new',
-                manufacturer: 'Apple',
-                cost: 1200,
-                totalCost: 1200
-            },
-            {
-                product: 'Samsung Galaxy Note 10',
-                quantity: 5,
-                price: 799,
-                category: 'electronic',
-                model: '128gb',
-                type: '',
-                color: 'Black',
-                condition: 'new',
-                manufacturer: 'Samsung',
-                cost: 500,
-                totalCost: 560
-            },
-            {
-                product: 'LED Bulb',
-                quantity: 1000,
-                price: 9.99,
-                category: 'home',
-                model: '100 Watt',
-                type: 'LED',
-                color: 'Warm White',
-                condition: 'new',
-                manufacturer: 'Mr.LED',
-                cost: 500,
-                totalCost: 700
-            },
+                dateSold: '2/2/2019',
+                itemName: 'iPhone Xs',
+                quantity: 1,
+                soldPrice: 1500,
+                shippingCharged: 0,
+                shippingAndHandlingFee: 25,
+                ebayFee: 120,
+                paypalFee: 100,
+                otherFee: 0,
+                costPerItem: 1200,
+                totalCost: 1420,
+                netProfit: 80
+            }
         ]
     }
 
@@ -121,7 +83,7 @@ class Overview extends Component {
                 <Row>
                     <DataGrid 
                         data={this.state.salesData}
-                        columns={InventoryColumns(this.onSalesRenderEditableCellHandler)}/>
+                        columns={salesTrackerColumns(this.onSalesRenderEditableCellHandler)}/>
                 </Row>
             </div>
         )
