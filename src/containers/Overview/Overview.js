@@ -4,7 +4,7 @@ import Card from '../../components/Card/Card';
 import { Row, Col, Panel } from 'react-bootstrap';
 
 import BarChart from '../../components/Charts/BarChart';
-import LineChart from '../../components/Charts/LineChart';
+import ComposedChart from '../../components/Charts/ComposedChart';
 import PieChart from '../../components/Charts/PieChart';
 import DataGrid from '../../components/Table/DataGrid/DataGrid';
 import InventoryColumns from '../../components/Table/GridColumns/InventoryColumns';
@@ -76,12 +76,12 @@ class Overview extends Component {
                 contentEditable
                 suppressContentEditableWarning
                 onBlur={e => {
-                    const data = [...this.state.inventoryData];
+                    const data = [...this.state.salesData];
                     data[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
                     this.setState({ data });
                 }}
                 dangerouslySetInnerHTML={{
-                    __html: this.state.inventoryData[cellInfo.index][cellInfo.column.id]
+                    __html: this.state.salesData[cellInfo.index][cellInfo.column.id]
                 }}
           />
         );
@@ -97,11 +97,7 @@ class Overview extends Component {
                     <Card title='RETURN: 235' />
                 </Row>
                 <Row md={12} lg={12}>
-                    <LineChart
-                        width={600}
-                        height={300} 
-                        
-                    />
+                    <ComposedChart />
                 </Row>
                 <Row>
                     <Col md={8} lg={8}>
@@ -125,7 +121,7 @@ class Overview extends Component {
                 <Row>
                     <DataGrid 
                         data={this.state.salesData}
-                        columns={InventoryColumns()}/>
+                        columns={InventoryColumns(this.onSalesRenderEditableCellHandler)}/>
                 </Row>
             </div>
         )
