@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import * as actions from '../../store/actions/overview'
+
 import Card from '../../components/Card/Card';
 import { Row, Col, Panel } from 'react-bootstrap';
 
@@ -33,7 +35,7 @@ class Overview extends Component {
     }
 
     componentDidMount() {
-
+        this.props.onFetchOverviewData();
     }
 
     onSalesRenderEditableCellHandler = (cellInfo) =>{
@@ -101,9 +103,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchOverviewData: () => dispatch()
+        onFetchOverviewData: () => dispatch(actions.fetchOverviewData())
     };
 };
 
-export default Overview;
-//export default connect(mapStateToProps, mapDispatchToProps)(Overview);
+export default connect(mapStateToProps, mapDispatchToProps)(Overview);
