@@ -1,4 +1,5 @@
 import * as actionTypes from '../actions/actionTypes';
+import { updateObject } from '../utility';
 
 const initialState = {
     overviewData: [],
@@ -6,20 +7,18 @@ const initialState = {
 };
 
 const fetchOverviewDataStart = (state) => {
-    return {
-        ...state,
-        loading: true
-    };
+    return updateObject(state, {loading: true});
 }
 
 const fetchOverviewDataSuccess = (state, action) => {
-    return {
+    return updateObject(state, {
+        overviewData: action.overviewData,
         loading: false
-    }
+    })
 }
 
-const fetchOverviewDataFail = (state, action) => {
-    
+const fetchOverviewDataFail = (state) => {
+    return updateObject(state, {loading: false})
 }
 
 const reducer = (state = initialState, action) => {
