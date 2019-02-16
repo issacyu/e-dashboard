@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import axios from '../../axios/AxiosConfig';
 import * as actions from '../../store/actions/overview'
 
 import Card from '../../components/Card/Card';
@@ -36,6 +36,24 @@ class Overview extends Component {
 
     componentDidMount() {
         this.props.onFetchOverviewData();
+        // const sales = {
+        //     dateSold: '2/2/2019',
+        //     itemName: 'iPhone Xs',
+        //     quantity: 1,
+        //     soldPrice: 1500,
+        //     shippingCharged: 0,
+        //     shippingAndHandlingFee: 25,
+        //     ebayFee: 120,
+        //     paypalFee: 100,
+        //     otherFee: 0,
+        //     costPerItem: 1200,
+        //     totalCost: 1420,
+        //     netProfit: 80
+        // }
+
+        // axios.post('/sales.json', sales)
+        //     .then(res => console.log(res))
+        //     .catch(err => console.log(err));
     }
 
     onSalesRenderEditableCellHandler = (cellInfo) =>{
@@ -98,7 +116,7 @@ class Overview extends Component {
 }
 
 const mapStateToProps = state => {
-
+    return {}
 };
 
 const mapDispatchToProps = dispatch => {
