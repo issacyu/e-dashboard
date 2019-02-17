@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from '../../axios/AxiosConfig';
 import * as actions from '../../store/actions/overview'
-
 import Card from '../../components/Card/Card';
 import { Row, Col, Panel } from 'react-bootstrap';
 
@@ -15,63 +13,38 @@ import salesTrackerColumns from '../../components/Table/GridColumns/SalesTracker
 class Overview extends Component {
 
     state = {
-        salesData:
-        [
-            {
-                dateSold: '2/2/2019',
-                itemName: 'iPhone Xs',
-                quantity: 1,
-                soldPrice: 1500,
-                shippingCharged: 0,
-                shippingAndHandlingFee: 25,
-                ebayFee: 120,
-                paypalFee: 100,
-                otherFee: 0,
-                costPerItem: 1200,
-                totalCost: 1420,
-                netProfit: 80
-            }
-        ]
+        salesData: []
     }
 
     componentDidMount() {
         this.props.onFetchOverviewData();
-        // const sales = {
-        //     dateSold: '2/2/2019',
-        //     itemName: 'iPhone Xs',
-        //     quantity: 1,
-        //     soldPrice: 1500,
-        //     shippingCharged: 0,
-        //     shippingAndHandlingFee: 25,
-        //     ebayFee: 120,
-        //     paypalFee: 100,
-        //     otherFee: 0,
-        //     costPerItem: 1200,
-        //     totalCost: 1420,
-        //     netProfit: 80
-        // }
-
-        // axios.post('/sales.json', sales)
-        //     .then(res => console.log(res))
-        //     .catch(err => console.log(err));
     }
 
-    onSalesRenderEditableCellHandler = (cellInfo) =>{
-        return (
-            <div
-                style={{ backgroundColor: "#fafafa" }}
-                contentEditable
-                suppressContentEditableWarning
-                onBlur={e => {
-                    const data = [...this.state.salesData];
-                    data[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
-                    this.setState({ data });
-                }}
-                dangerouslySetInnerHTML={{
-                    __html: this.state.salesData[cellInfo.index][cellInfo.column.id]
-                }}
-          />
-        );
+    componentDidUpdate(prevProps) {
+        if(this.props.overviewData !== prevProps.overviewData) {
+            this.setState({salesData: this.props.overviewData})
+        }
+    }
+
+    onSalesRenderEditableCellHandler = (cellInfo) => {
+        // Avoid exception! We don't want to modify an empty array.
+        if(this.state.salesData.length !== 0) {
+            return (
+                <div
+                    style={{ backgroundColor: "#fafafa" }}
+                    contentEditable
+                    suppressContentEditableWarning
+                    onBlur={e => {
+                        const data = [...this.state.salesData];
+                        data[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
+                        this.setState({salesData: data});
+                    }}
+                    dangerouslySetInnerHTML={{
+                        __html: this.state.salesData[cellInfo.index][cellInfo.column.id]
+                    }}
+                />
+            );
+        }
     }
 
     render(){
@@ -107,7 +80,9 @@ class Overview extends Component {
                 </Row>
                 <Row>
                     <DataGrid 
-                        data={this.state.salesData}
+                        //The key uses to notify the child component to re-render.
+                        key={this.props.overviewData}
+                        data={this.props.overviewData}
                         columns={salesTrackerColumns(this.onSalesRenderEditableCellHandler)}/>
                 </Row>
             </div>
@@ -116,7 +91,9 @@ class Overview extends Component {
 }
 
 const mapStateToProps = state => {
-    return {}
+    return {
+        overviewData: state.overview.overviewData
+    }
 };
 
 const mapDispatchToProps = dispatch => {

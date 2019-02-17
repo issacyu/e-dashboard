@@ -27,10 +27,11 @@ export const fetchOverviewData = () => {
         try {
             dispatch(fetchOverviewDataStart());
             const getData = async() => {
-                return await axios.get('/sales.json');         
+                return await axios.get('/sales/-LYsoA9rchXHr56gRPpY.json');   
             }
-            const overviewData = getData().then(res => res.data);
-            dispatch(fetchOverviewDataSuccess(overviewData));
+            dispatch(getData().then( res => 
+                dispatch(fetchOverviewDataSuccess(res.data))
+            ));
         }
         catch(err) {
             dispatch(fetchOverviewDataFail(err))
