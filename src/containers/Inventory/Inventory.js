@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 
 import DataGrid from '../../components/Table/DataGrid/DataGrid';
@@ -210,4 +210,15 @@ class Inventory extends Component {
     }
 }
 
-export default Inventory;
+const mapStateToProps = state => {
+    return {
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Inventory);
