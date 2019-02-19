@@ -4,7 +4,3 @@ export const updateObject = (oldObject, updatedProperties) => {
         ...updatedProperties
     };
 }
-
-export const convertObjectToArray = (object) => {
-
-}

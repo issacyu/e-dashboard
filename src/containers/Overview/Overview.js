@@ -47,6 +47,11 @@ class Overview extends Component {
         }
     }
 
+    onSaveHandler = () => {
+        const newOverviewData = [...this.state.salesData];
+        this.props.onSaveOverviewData(newOverviewData);
+    }
+
     render(){
         return(
             <div>
@@ -83,7 +88,9 @@ class Overview extends Component {
                         //The key uses to notify the child component to re-render.
                         key={this.props.overviewData}
                         data={this.props.overviewData}
-                        columns={salesTrackerColumns(this.onSalesRenderEditableCellHandler)}/>
+                        columns={salesTrackerColumns(this.onSalesRenderEditableCellHandler)}
+                        onSaveHandler={this.onSaveHandler}
+                        />
                 </Row>
             </div>
         )
@@ -98,7 +105,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchOverviewData: () => dispatch(actions.fetchOverviewData())
+        onFetchOverviewData: () => dispatch(actions.fetchOverviewData()),
+        onSaveOverviewData: (newData) => dispatch(actions.saveOverviewData(newData))
     };
 };
 

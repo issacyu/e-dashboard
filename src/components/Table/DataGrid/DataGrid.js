@@ -77,9 +77,9 @@ class DataGrid extends Component {
         return this.state.selection.includes(key);
       };
 
-    onSaveHandler = () => {
-        console.log("Button clicked!!!");
-    };
+    // onSaveHandler = () => {
+    //     console.log("Button clicked!!!");
+    // };
  
     onDeleteRowHandler = () => {
         const dataClone = [...this.state.data];
@@ -136,7 +136,7 @@ class DataGrid extends Component {
                       />
                     </Panel.Body>
                     <Panel.Footer>
-                        <Button onClick={this.onSaveHandler} bsStyle='primary'>Save</Button>
+                        <Button onClick={() => {this.props.onSaveHandler()}} bsStyle='primary'>Save</Button>
                         <Button onClick={() => {this.onAddRowHandler(this.props.emptyRow)}} bsStyle='success'>Add</Button>
                         <Button onClick={() => {this.onDeleteRowHandler()}} disabled={this.state.disableDeleteButton} bsStyle='danger'>Delete</Button>
                     </Panel.Footer>
