@@ -1,3 +1,5 @@
+import axios from '../../axios/AxiosConfig';
+
 import * as actionTypes from './actionTypes';
 
 export const fetchInventoryDataSuccess = (data) => {
@@ -52,7 +54,7 @@ export const saveInventoryData = (newData) => {
         try {
             dispatch(saveInventoryDataStart());
             const postData = async() => {
-                return await axios.post('/sales/-LYsoA9rchXHr56gRPpY.json', newData);   
+                return await axios.post('/inventory/-LTPxuQdh0l1GQXtUGG5.json', newData);   
             }
             dispatch(postData().then( res => 
                 dispatch(saveInventoryDataSuccess(res.data))

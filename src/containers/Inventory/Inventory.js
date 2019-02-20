@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
+import * as actions from '../../store/actions/inventory'
 
 import DataGrid from '../../components/Table/DataGrid/DataGrid';
 import PieChart from '../../components/Charts/PieChart';
@@ -93,6 +94,15 @@ class Inventory extends Component {
             },
         ]
     };
+
+    componentDidMount() {
+
+    }
+
+    onSaveInventoryData = () => {
+        const newInventoryData = [...this.state.inventoryData];
+        this.props.onSaveInventoryData(newInventoryData);
+    }
 
     onManufacturerRenderEditableCellHandler = (cellInfo) =>{
         return (
@@ -191,18 +201,19 @@ class Inventory extends Component {
                 </Col>
             </Row>
             <Row>
-            <DataGrid 
-                        data={this.state.manufacturerData} 
-                        title='Manufacturer'
-                        clicked={() => this.onSaveDataGridHandler()}
-                        columns={ManufacturerColumns(this.onManufacturerRenderEditableCellHandler)}
-                        emptyRow={EmptyRow('MANUFACTURER')}
-                    />
+                <DataGrid 
+                    data={this.state.manufacturerData} 
+                    title='Manufacturer'
+                    columns={ManufacturerColumns(this.onManufacturerRenderEditableCellHandler)}
+                    emptyRow={EmptyRow('MANUFACTURER')}
+                />
             </Row>
             <Row>
-                <DataGrid data={this.state.inventoryData} 
+                <DataGrid 
+                    data={this.state.inventoryData} 
                     title='Inventory'
                     columns={InventoryColumns(this.onInventoryRenderEditableCellHandler)}
+                    onSaveHandler={this.onSaveInventoryData}
                 />
             </Row>
             </>
@@ -217,7 +228,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        onSaveInventoryData: (newData) => dispatch(actions.saveInventoryData(newData))
     };
 };
 
