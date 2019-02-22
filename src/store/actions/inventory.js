@@ -54,7 +54,7 @@ export const saveInventoryData = (newData) => {
         try {
             dispatch(saveInventoryDataStart());
             const postData = async() => {
-                return await axios.post('/inventory/-LTPxuQdh0l1GQXtUGG5.json', newData);   
+                return await axios.post('/inventory.json', newData);   
             }
             dispatch(postData().then( res => 
                 dispatch(saveInventoryDataSuccess(res.data))

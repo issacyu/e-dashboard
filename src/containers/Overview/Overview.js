@@ -5,7 +5,7 @@ import Card from '../../components/Card/Card';
 import { Row, Col, Panel } from 'react-bootstrap';
 
 import BarChart from '../../components/Charts/BarChart';
-import ComposedChart from '../../components/Charts/ComposedChart';
+import LineChart from '../../components/Charts/LineChart';
 import PieChart from '../../components/Charts/PieChart';
 import DataGrid from '../../components/Table/DataGrid/DataGrid';
 import salesTrackerColumns from '../../components/Table/GridColumns/SalesTrackerColumns';
@@ -56,14 +56,25 @@ class Overview extends Component {
         return(
             <div>
                 <Row className="show-grid text-center">
-                    <Card title='SALES: $71365.98' />
+                    {/* <Card title='SALES: $71365.98' />
                     <Card title='RENVENUE: $45265.28' />
                     <Card title='ORDER: 64031' />
-                    <Card title='RETURN: 235' />
+                    <Card title='RETURN: 235' /> */}
+
+                    <Col md={4} lg={4}>
+                        <Row>1</Row>
+                        <Row>2</Row>
+                        <Row>3</Row>
+                        <Row>4</Row>
+                    </Col>
+
+                    <Col md={8} lg={8}>
+                        <LineChart />
+                    </Col>
                 </Row>
-                <Row md={12} lg={12}>
+                {/* <Row md={12} lg={12}>
                     <ComposedChart />
-                </Row>
+                </Row> */}
                 <Row>
                     <Col md={8} lg={8}>
                         <BarChart 

@@ -24,23 +24,18 @@ const data = [
 const BarCharts = (props) => {
     return (
         <Col>
-            <Panel bsStyle={props.bsStyle}>
-                <Panel.Heading>
-                    Bar Chart
-                </Panel.Heading>
-                <Panel.Body>
-                    <ResponsiveContainer width="98.8%" height={500}>
+            <Panel>
+                <ResponsiveContainer width="98.8%" height={300}>
                     <BarChart width={props.width} height={props.height} data={data}
                         margin={{top: 5, right: 30, left: 20, bottom: 5}} layout="vertical">
-                        <CartesianGrid strokeDasharray="3 3"/>
+                        {/* <CartesianGrid strokeDasharray="3 3"/> */}
                         <XAxis type="number"/>
                         <YAxis dataKey="name" type="category" />
                         <Tooltip/>
                         <Legend />
                         <Bar dataKey="pv" fill="#8884d8"/>
                     </BarChart>
-                    </ResponsiveContainer>
-                </Panel.Body>
+                </ResponsiveContainer>
             </Panel>
         </Col>
     )

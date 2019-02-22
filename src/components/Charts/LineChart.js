@@ -27,25 +27,20 @@ const data = [
 
 const lineChart = (props) => {
     return (
-        <Panel bsStyle={props.bsStyle}>
-            <Panel.Heading>
-                Sales
-            </Panel.Heading>
-            <Panel.Body>
-                <ResponsiveContainer width="98.5%" height={500}>
-                    <LineChart width={props.width} height={props.height} data={data}
-                        margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+        <Panel>
+            <ResponsiveContainer width="98.5%" height={300}>
+                <LineChart width={props.width} height={props.height} data={data}
+                    margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+                <XAxis dataKey="name"/>
                     <XAxis dataKey="name"/>
-                        <XAxis dataKey="name"/>
-                        <YAxis/>
-                        <CartesianGrid strokeDasharray="3 3"/>
-                        <Tooltip/>
-                        <Legend />
-                        <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{r: 8}}/>
-                        <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-                    </LineChart>
-                </ResponsiveContainer>
-            </Panel.Body>
+                    <YAxis/>
+                    <CartesianGrid strokeDasharray="3 3"/>
+                    <Tooltip/>
+                    <Legend />
+                    <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{r: 8}}/>
+                    <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+                </LineChart>
+            </ResponsiveContainer>
         </Panel>
     )
 }

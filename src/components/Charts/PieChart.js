@@ -58,29 +58,24 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 
 const pieChart = (props) => {
     return (
-        <Panel bsStyle='primary'>
-            <Panel.Heading>
-                {props.heading}
-            </Panel.Heading>
-            <Panel.Body>
-                <ResponsiveContainer width="98.8%" height={500}>
-                    <PieChart width={props.width} height={props.height}
-                        margin={{top: 35, bottom: 5}}>
-                        <Legend />
-                        <Tooltip />
-                        <Pie
-                            data={processData(props.displayData, props.displayKey, props.displayValue)} 
-                            cx={props.cx} 
-                            cy={props.cy} 
-                            labelLine={false}
-                            label={renderCustomizedLabel}
-                            outerRadius={props.outerRadius} 
-                            fill={props.fill}>
-                            {data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)}
-                        </Pie>
-                    </PieChart>
-                </ResponsiveContainer>
-            </Panel.Body>
+        <Panel>
+            <ResponsiveContainer width="98.8%" height={500}>
+                <PieChart width={props.width} height={props.height}
+                    margin={{top: 35, bottom: 5}}>
+                    <Legend />
+                    <Tooltip />
+                    <Pie
+                        data={processData(props.displayData, props.displayKey, props.displayValue)} 
+                        cx={props.cx} 
+                        cy={props.cy} 
+                        labelLine={false}
+                        label={renderCustomizedLabel}
+                        outerRadius={props.outerRadius} 
+                        fill={props.fill}>
+                        {data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)}
+                    </Pie>
+                </PieChart>
+            </ResponsiveContainer>
        </Panel>
     );
 }
