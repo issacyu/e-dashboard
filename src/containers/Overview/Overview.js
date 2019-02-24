@@ -125,14 +125,14 @@ class Overview extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col md={4} lg={4}>
+                    <Col md={3} lg={3}>
                         Top 5 selling products
                         <BarChart 
                             width={600}
                             height={300}
                         />
                     </Col>
-                    <Col md={4} lg={4}>
+                    <Col md={3} lg={3}>
                         Category
                         <PieChart 
                             bsStyle='primary'
@@ -141,13 +141,17 @@ class Overview extends Component {
                             displayValue='totalCost'
                             width={800}
                             height={300}
-                            cx={300}
+                            cx={220}
                             cy={100}
                             outerRadius={130}
                             fill='#8884d8'
                         />
                     </Col>
-                    <Col md={4} lg={4}>
+                    <Col md={3} lg={3}>
+                        Category trending
+                        <LineChart />
+                    </Col>
+                    <Col md={3} lg={3}>
                         cost vs profit
                         <PieChart 
                             bsStyle='primary'
@@ -156,7 +160,7 @@ class Overview extends Component {
                             displayValue='totalCost'
                             width={800}
                             height={300}
-                            cx={300}
+                            cx={220}
                             cy={100}
                             outerRadius={130}
                             fill='#8884d8'
