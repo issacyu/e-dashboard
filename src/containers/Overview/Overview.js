@@ -164,13 +164,15 @@ class Overview extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <DataGrid 
-                        //The key uses to notify the child component to re-render.
-                        key={this.props.overviewData}
-                        data={this.props.overviewData}
-                        columns={salesTrackerColumns(this.onSalesRenderEditableCellHandler)}
-                        onSaveHandler={this.onSaveHandler}
-                        />
+                    <Col md={12} lg={12}>
+                        <DataGrid 
+                            //The key uses to notify the child component to re-render.
+                            key={this.props.overviewData}
+                            data={this.props.overviewData}
+                            columns={salesTrackerColumns(this.onSalesRenderEditableCellHandler)}
+                            onSaveHandler={this.onSaveHandler}
+                            />
+                        </Col>
                 </Row>
             </div>
         )

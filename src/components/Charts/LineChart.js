@@ -34,7 +34,6 @@ const lineChart = (props) => {
                     <XAxis dataKey="name"/>
                     <XAxis dataKey="name"/>
                     <YAxis/>
-                    <CartesianGrid strokeDasharray="3 3"/>
                     <Tooltip/>
                     <Legend />
                     <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{r: 8}}/>
