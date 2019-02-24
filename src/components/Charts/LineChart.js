@@ -31,7 +31,7 @@ const lineChart = (props) => {
             <ResponsiveContainer width="98.5%" height={300}>
                 <LineChart width={props.width} height={props.height} data={data}
                     margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-                <XAxis dataKey="name"/>
+                    <XAxis dataKey="name"/>
                     <XAxis dataKey="name"/>
                     <YAxis/>
                     <CartesianGrid strokeDasharray="3 3"/>

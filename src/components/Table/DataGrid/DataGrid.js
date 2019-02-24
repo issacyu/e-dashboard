@@ -121,20 +121,15 @@ class DataGrid extends Component {
 
         return(
             <div>
-                <Panel bsStyle='primary'>
-                    <Panel.Heading>
-                        {this.props.title}
-                    </Panel.Heading>
-                    <Panel.Body>
-                      <CheckboxTable
-                          className="-striped -highlight"
-                          defaultPageSize={10}
-                          ref={r => (this.checkboxTable = r)}
-                          data={this.state.data}
-                          columns={this.props.columns}
-                          {...checkboxProps}
-                      />
-                    </Panel.Body>
+                <Panel>
+                    <CheckboxTable
+                        className="-striped -highlight"
+                        defaultPageSize={10}
+                        ref={r => (this.checkboxTable = r)}
+                        data={this.state.data}
+                        columns={this.props.columns}
+                        {...checkboxProps}
+                    />
                     <Panel.Footer>
                         <Button onClick={() => {this.props.onSaveHandler()}} bsStyle='primary'>Save</Button>
                         <Button onClick={() => {this.onAddRowHandler(this.props.emptyRow)}} bsStyle='success'>Add</Button>

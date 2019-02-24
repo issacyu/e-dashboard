@@ -59,7 +59,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 const pieChart = (props) => {
     return (
         <Panel>
-            <ResponsiveContainer width="98.8%" height={500}>
+            <ResponsiveContainer width="98.8%" height={300}>
                 <PieChart width={props.width} height={props.height}
                     margin={{top: 35, bottom: 5}}>
                     <Legend />

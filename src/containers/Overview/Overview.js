@@ -13,7 +13,62 @@ import salesTrackerColumns from '../../components/Table/GridColumns/SalesTracker
 class Overview extends Component {
 
     state = {
-        salesData: []
+        salesData: [],
+        mockData: 
+        [
+            {
+                product: 'iPhone Xs',
+                quantity: 10,
+                price: 1300,
+                category: 'electronic',
+                model: '128gb',
+                type: '',
+                color: 'gold',
+                condition: 'new',
+                manufacturer: 'Apple',
+                cost: 1200,
+                totalCost: 1200
+            },
+            {
+                product: 'iPhone Xs',
+                quantity: 5,
+                price: 1300,
+                category: 'electronic',
+                model: '128gb',
+                type: '',
+                color: 'gold',
+                condition: 'new',
+                manufacturer: 'Apple',
+                cost: 1200,
+                totalCost: 1200
+            },
+            {
+                product: 'Samsung Galaxy Note 10',
+                quantity: 5,
+                price: 799,
+                category: 'electronic',
+                model: '128gb',
+                type: '',
+                color: 'Black',
+                condition: 'new',
+                manufacturer: 'Samsung',
+                cost: 500,
+                totalCost: 560
+            },
+            {
+                product: 'LED Bulb',
+                quantity: 1000,
+                price: 9.99,
+                category: 'home',
+                model: '100 Watt',
+                type: 'LED',
+                color: 'Warm White',
+                condition: 'new',
+                manufacturer: 'Mr.LED',
+                cost: 500,
+                totalCost: 700
+            },
+        ]
     }
 
     componentDidMount() {
@@ -56,42 +111,56 @@ class Overview extends Component {
         return(
             <div>
                 <Row className="show-grid text-center">
-                    {/* <Card title='SALES: $71365.98' />
-                    <Card title='RENVENUE: $45265.28' />
-                    <Card title='ORDER: 64031' />
-                    <Card title='RETURN: 235' /> */}
-
                     <Col md={4} lg={4}>
-                        <Row>1</Row>
-                        <Row>2</Row>
-                        <Row>3</Row>
-                        <Row>4</Row>
+                        <Panel>
+                            <Row>SALES: $71365.98</Row>
+                            <Row>RENVENUE: $45265.28</Row>
+                            <Row>ORDER: 64031</Row>
+                            <Row>RETURN: 235</Row>
+                        </Panel>
                     </Col>
 
                     <Col md={8} lg={8}>
                         <LineChart />
                     </Col>
                 </Row>
-                {/* <Row md={12} lg={12}>
-                    <ComposedChart />
-                </Row> */}
                 <Row>
-                    <Col md={8} lg={8}>
+                    <Col md={4} lg={4}>
+                        Top 5 selling products
                         <BarChart 
                             width={600}
                             height={300}
                         />
                     </Col>
                     <Col md={4} lg={4}>
-                        {/* <PieChart 
+                        Category
+                        <PieChart 
                             bsStyle='primary'
+                            displayData={this.state.mockData}
+                            displayKey='product'
+                            displayValue='totalCost'
                             width={800}
-                            height={400}
+                            height={300}
                             cx={300}
-                            cy={200}
-                            outerRadius={200}
+                            cy={100}
+                            outerRadius={130}
                             fill='#8884d8'
-                        /> */}
+                        />
+                    </Col>
+                    <Col md={4} lg={4}>
+                        cost vs profit
+                        <PieChart 
+                            bsStyle='primary'
+                            displayData={this.state.mockData}
+                            displayKey='product'
+                            displayValue='totalCost'
+                            width={800}
+                            height={300}
+                            cx={300}
+                            cy={100}
+                            outerRadius={130}
+                            fill='#8884d8'
+                        />
                     </Col>
                 </Row>
                 <Row>
