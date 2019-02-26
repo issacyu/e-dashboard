@@ -110,13 +110,15 @@ class Overview extends Component {
     render(){
         return(
             <div>
-                <Row className="show-grid text-center">
+                <Row className="show-grid">
                     <Col md={4} lg={4}>
                         <Panel>
-                            <Row>SALES: $71365.98</Row>
-                            <Row>RENVENUE: $45265.28</Row>
-                            <Row>ORDER: 64031</Row>
-                            <Row>RETURN: 235</Row>
+                            <ul class="list-group">
+                                <li class="list-group-item">Sales: $71365.98</li>
+                                <li class="list-group-item">Renvenue: $45265.28</li>
+                                <li class="list-group-item">Order: 64031</li>
+                                <li class="list-group-item">Return: 235</li>
+                            </ul>
                         </Panel>
                     </Col>
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Panel, Table } from 'react-bootstrap';
 import * as actions from '../../store/actions/inventory'
 
 import DataGrid from '../../components/Table/DataGrid/DataGrid';
@@ -146,77 +146,93 @@ class Inventory extends Component {
         if(lowStockItem.length > 0) {
             alert = 
                 <Row>
-                    <Alert title='Low Stock Warning' messages={lowStockItem.map(i => i.product)}/>
+                    <Col md={12} lg={12}>   
+                        <Alert title='Low Stock Warning' messages={lowStockItem.map(i => i.product)}/>
+                    </Col>
                 </Row>
         }
 
         return(
-            <>            
-            {alert}
-            <Row>
-                <Col md={4} lg={4}>
-                    <PieChart 
-                        bsStyle='primary'
-                        heading='Cost By Category'
-                        width={800}
-                        height={400}
-                        cx={300}
-                        cy={200}
-                        outerRadius={200}
-                        fill='#8884d8'
-                        displayKey='category'
-                        displayValue='totalCost'
-                        displayData={this.state.inventoryData}
-                    />
-                </Col>
-                <Col md={4} lg={4}>
-                    <PieChart 
-                        bsStyle='primary'
-                        heading='Cost By Product'
-                        width={800}
-                        height={400}
-                        cx={300}
-                        cy={200}
-                        outerRadius={200}
-                        fill='#8884d8'
-                        displayKey='product'
-                        displayValue='totalCost'
-                        displayData={this.state.inventoryData}
-                    />
-                </Col>
-                <Col md={4} lg={4}>
-                    <PieChart 
-                        bsStyle='primary'
-                        heading='Category'
-                        width={800}
-                        height={400}
-                        cx={300}
-                        cy={200}
-                        outerRadius={200}
-                        fill='#8884d8'
-                        displayKey='category'
-                        displayValue='quantity'
-                        displayData={this.state.inventoryData}
-                    />
-                </Col>
-            </Row>
-            <Row>
-                <DataGrid 
-                    data={this.state.manufacturerData} 
-                    title='Manufacturer'
-                    columns={ManufacturerColumns(this.onManufacturerRenderEditableCellHandler)}
-                    emptyRow={EmptyRow('MANUFACTURER')}
-                />
-            </Row>
-            <Row>
-                <DataGrid 
-                    data={this.state.inventoryData} 
-                    title='Inventory'
-                    columns={InventoryColumns(this.onInventoryRenderEditableCellHandler)}
-                    onSaveHandler={this.onSaveInventoryData}
-                />
-            </Row>
-            </>
+            <div>    
+                {alert}
+                <Row className="show-grid">
+                    <Col md={3} lg={3}>
+                        <Panel>
+                            <ul class="list-group">
+                                <li class="list-group-item">Total Item Left: 200</li>
+                                <li class="list-group-item">Total Value of Item: $2000</li>
+                                <li class="list-group-item">Average Item cost: $45.28</li>
+                                <li class="list-group-item">Number of Item: 200</li>
+                            </ul>
+                        </Panel>
+                    </Col>
+                    <Col md={3} lg={3}>
+                        <PieChart 
+                            bsStyle='primary'
+                            heading='Cost By Category'
+                            width={800}
+                            height={300}
+                            cx={220}
+                            cy={100}
+                            outerRadius={130}
+                            fill='#8884d8'
+                            displayKey='category'
+                            displayValue='totalCost'
+                            displayData={this.state.inventoryData}
+                        />
+                    </Col>
+                    <Col md={3} lg={3}>
+                        <PieChart 
+                            bsStyle='primary'
+                            heading='Cost By Product'
+                            width={800}
+                            height={300}
+                            cx={220}
+                            cy={100}
+                            outerRadius={130}
+                            fill='#8884d8'
+                            displayKey='product'
+                            displayValue='totalCost'
+                            displayData={this.state.inventoryData}
+                        />
+                    </Col>
+                    <Col md={3} lg={3}>
+                        <PieChart 
+                            bsStyle='primary'
+                            heading='Category'
+                            width={800}
+                            height={300}
+                            cx={220}
+                            cy={100}
+                            outerRadius={130}
+                            fill='#8884d8'
+                            displayKey='category'
+                            displayValue='quantity'
+                            displayData={this.state.inventoryData}
+                        />
+                    </Col>
+                </Row>
+                {/* <Row>
+                    <Col md={12} lg={12}>
+                        <DataGrid 
+                            data={this.state.manufacturerData} 
+                            title='Manufacturer'
+                            columns={ManufacturerColumns(this.onManufacturerRenderEditableCellHandler)}
+                            emptyRow={EmptyRow('MANUFACTURER')}
+                        />
+                    </Col>
+                </Row> */}
+                <Row>
+                    <Col md={12} lg={12}>
+                        <DataGrid 
+                            data={this.state.inventoryData} 
+                            title='Inventory'
+                            columns={InventoryColumns(this.onInventoryRenderEditableCellHandler)}
+                            onSaveHandler={this.onSaveInventoryData}
+                        />
+                    </Col>
+                </Row>
+            </div>
         )
     }
 }

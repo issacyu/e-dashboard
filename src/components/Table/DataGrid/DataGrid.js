@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Chance from "chance";
-import { Panel, Button } from 'react-bootstrap';
+import { Panel, Button} from 'react-bootstrap';
 import ReactTable from 'react-table';
 import checkboxHOC from "react-table/lib/hoc/selectTable";
 
