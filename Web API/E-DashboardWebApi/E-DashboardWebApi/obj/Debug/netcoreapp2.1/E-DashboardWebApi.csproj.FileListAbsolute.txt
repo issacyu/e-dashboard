@@ -1,0 +1,14 @@
+C:\Users\issac\Documents\React\e-dashboard\e-dashboard\Web API\E-DashboardWebApi\E-DashboardWebApi\bin\Debug\netcoreapp2.1\E-DashboardWebApi.deps.json
+C:\Users\issac\Documents\React\e-dashboard\e-dashboard\Web API\E-DashboardWebApi\E-DashboardWebApi\bin\Debug\netcoreapp2.1\E-DashboardWebApi.runtimeconfig.json
+C:\Users\issac\Documents\React\e-dashboard\e-dashboard\Web API\E-DashboardWebApi\E-DashboardWebApi\bin\Debug\netcoreapp2.1\E-DashboardWebApi.runtimeconfig.dev.json
+C:\Users\issac\Documents\React\e-dashboard\e-dashboard\Web API\E-DashboardWebApi\E-DashboardWebApi\bin\Debug\netcoreapp2.1\E-DashboardWebApi.dll
+C:\Users\issac\Documents\React\e-dashboard\e-dashboard\Web API\E-DashboardWebApi\E-DashboardWebApi\bin\Debug\netcoreapp2.1\E-DashboardWebApi.pdb
+C:\Users\issac\Documents\React\e-dashboard\e-dashboard\Web API\E-DashboardWebApi\E-DashboardWebApi\obj\Debug\netcoreapp2.1\E-DashboardWebApi.csprojAssemblyReference.cache
+C:\Users\issac\Documents\React\e-dashboard\e-dashboard\Web API\E-DashboardWebApi\E-DashboardWebApi\obj\Debug\netcoreapp2.1\E-DashboardWebApi.csproj.CoreCompileInputs.cache
+C:\Users\issac\Documents\React\e-dashboard\e-dashboard\Web API\E-DashboardWebApi\E-DashboardWebApi\obj\Debug\netcoreapp2.1\E-DashboardWebApi.RazorAssemblyInfo.cache
+C:\Users\issac\Documents\React\e-dashboard\e-dashboard\Web API\E-DashboardWebApi\E-DashboardWebApi\obj\Debug\netcoreapp2.1\E-DashboardWebApi.RazorAssemblyInfo.cs
+C:\Users\issac\Documents\React\e-dashboard\e-dashboard\Web API\E-DashboardWebApi\E-DashboardWebApi\obj\Debug\netcoreapp2.1\E-DashboardWebApi.AssemblyInfoInputs.cache
+C:\Users\issac\Documents\React\e-dashboard\e-dashboard\Web API\E-DashboardWebApi\E-DashboardWebApi\obj\Debug\netcoreapp2.1\E-DashboardWebApi.AssemblyInfo.cs
+C:\Users\issac\Documents\React\e-dashboard\e-dashboard\Web API\E-DashboardWebApi\E-DashboardWebApi\obj\Debug\netcoreapp2.1\E-DashboardWebApi.RazorTargetAssemblyInfo.cache
+C:\Users\issac\Documents\React\e-dashboard\e-dashboard\Web API\E-DashboardWebApi\E-DashboardWebApi\obj\Debug\netcoreapp2.1\E-DashboardWebApi.dll
+C:\Users\issac\Documents\React\e-dashboard\e-dashboard\Web API\E-DashboardWebApi\E-DashboardWebApi\obj\Debug\netcoreapp2.1\E-DashboardWebApi.pdb
