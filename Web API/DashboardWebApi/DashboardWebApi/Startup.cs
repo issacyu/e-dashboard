@@ -40,6 +40,12 @@ namespace DashboardWebApi
                 app.UseHsts();
             }
 
+            // AutoMapper cnfiguration for entities and view models.
+            AutoMapper.Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<Entities.Sales, ViewModels.SalesViewModel>();
+            });
+
             app.UseHttpsRedirection();
             app.UseMvc();
         }
