@@ -10,6 +10,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
+
+using DashboardWebApi.Services;
+using DashboardWebApi.Entities;
 
 namespace DashboardWebApi
 {
@@ -25,7 +29,14 @@ namespace DashboardWebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string connectionString = Configuration["DefaultConnection"];
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddDbContext<DashboardContext>(x => x.UseSqlServer(connectionString));
+
+            // Register the repository.
+            services.AddScoped<ISalesRepostory, SalesRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

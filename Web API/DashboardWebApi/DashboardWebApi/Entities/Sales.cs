@@ -27,6 +27,8 @@ namespace DashboardWebApi.Entities
 
         public decimal CostPerItem { get; set; }
 
+        public decimal OtherCost { get; set; }
+
         public decimal TotalCost { get; set; }
 
         public decimal NetProfit { get; set; }
