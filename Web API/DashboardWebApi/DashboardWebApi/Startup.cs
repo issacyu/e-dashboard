@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using DashboardWebApi.Services;
 using DashboardWebApi.Entities;
 using DashboardWebApi.ViewModels;
+using Microsoft.AspNetCore.Http;
 
 namespace DashboardWebApi
 {
@@ -50,9 +51,19 @@ namespace DashboardWebApi
             else
             {
                 app.UseHsts();
+
+                // Global exception handling.
+                app.UseExceptionHandler(appBuilder =>
+                {
+                    appBuilder.Run(async context =>
+                    {
+                        context.Response.StatusCode = 500;
+                        await context.Response.WriteAsync("An unexpected error happened. Try again later.");
+                    });
+                });
             }
 
-            // AutoMapper cnfiguration for entities and view models.
+            // AutoMapper configuration for entities and view models.
             AutoMapper.Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<Sale, SaleViewModel>();
