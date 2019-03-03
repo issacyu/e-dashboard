@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 
 using DashboardWebApi.Services;
+using DashboardWebApi.Services.Interfaces;
 using DashboardWebApi.Entities;
 using DashboardWebApi.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -39,6 +40,7 @@ namespace DashboardWebApi
 
             // Register the repository.
             services.AddScoped<ISaleRepostory, SaleRepository>();
+            services.AddScoped<IInventoryRepository, InventoryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,6 +69,7 @@ namespace DashboardWebApi
             AutoMapper.Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<Sale, SaleViewModel>();
+                cfg.CreateMap<Inventory, InventoryViewModel>();
             });
 
             app.UseHttpsRedirection();
