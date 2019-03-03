@@ -10,5 +10,6 @@ namespace DashboardWebApi.Services
     public interface ISaleRepostory
     {
         IEnumerable<Sale> GetSales();
+        Sale GetSale(Guid id);
     }
 }

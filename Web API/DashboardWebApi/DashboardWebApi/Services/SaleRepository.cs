@@ -19,6 +19,11 @@ namespace DashboardWebApi.Services
             return Sales;
         }
 
+        public Sale GetSale(Guid id)
+        {
+            return Sales.FirstOrDefault(s => s.Id == id);
+        }
+
         private DashboardContext _context;
         private IEnumerable<Sale> Sales => _context.Sales;
     }

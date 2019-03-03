@@ -22,10 +22,24 @@ namespace DashboardWebApi.Controllers
         [HttpGet()]
         public IActionResult GetSales()
         {
-            var salesFromRepo = _salesRepostory.GetSales();
+            IEnumerable<Sale> salesFromRepo = _salesRepostory.GetSales();
 
             IEnumerable<SaleViewModel> sales = Mapper.Map<IEnumerable<SaleViewModel>>(salesFromRepo);
             return Ok(sales);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetSale(Guid id)
+        {
+            Sale saleFromRepo = _salesRepostory.GetSale(id);
+
+            if(saleFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            SaleViewModel sale = Mapper.Map<SaleViewModel>(saleFromRepo);
+            return Ok(sale);
         }
 
         private ISaleRepostory _salesRepostory;
