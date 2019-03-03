@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DashboardWebApi.Entities
 {
-    public class Sales
+    public class Sale
     {
         public Guid Id { get; set; }
 

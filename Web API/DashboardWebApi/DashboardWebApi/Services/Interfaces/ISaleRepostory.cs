@@ -7,8 +7,8 @@ using DashboardWebApi.Entities;
 
 namespace DashboardWebApi.Services
 {
-    public interface ISalesRepostory
+    public interface ISaleRepostory
     {
-        IEnumerable<Sales> GetSales();
+        IEnumerable<Sale> GetSales();
     }
 }

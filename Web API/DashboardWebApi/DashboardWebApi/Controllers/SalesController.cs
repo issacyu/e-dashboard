@@ -14,7 +14,7 @@ namespace DashboardWebApi.Controllers
     [Route("api/sales")]
     public class SalesController : Controller
     {
-        public SalesController(ISalesRepostory salesRepostory)
+        public SalesController(ISaleRepostory salesRepostory)
         {
             _salesRepostory = salesRepostory;
         }
@@ -24,10 +24,10 @@ namespace DashboardWebApi.Controllers
         {
             var salesFromRepo = _salesRepostory.GetSales();
 
-            IEnumerable<SalesViewModel> sales = Mapper.Map<IEnumerable<SalesViewModel>>(salesFromRepo);
+            IEnumerable<SaleViewModel> sales = Mapper.Map<IEnumerable<SaleViewModel>>(salesFromRepo);
             return Ok(sales);
         }
 
-        private ISalesRepostory _salesRepostory;
+        private ISaleRepostory _salesRepostory;
     }
 }

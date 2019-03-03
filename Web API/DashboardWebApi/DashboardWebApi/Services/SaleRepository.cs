@@ -7,19 +7,19 @@ using DashboardWebApi.Entities;
 
 namespace DashboardWebApi.Services
 {
-    public class SalesRepository : ISalesRepostory
+    public class SaleRepository : ISaleRepostory
     {
-        public SalesRepository(DashboardContext context)
+        public SaleRepository(DashboardContext context)
         {
             _context = context;
         }
 
-        public IEnumerable<Sales> GetSales()
+        public IEnumerable<Sale> GetSales()
         {
             return Sales;
         }
 
         private DashboardContext _context;
-        private IEnumerable<Sales> Sales => _context.Sales;
+        private IEnumerable<Sale> Sales => _context.Sales;
     }
 }

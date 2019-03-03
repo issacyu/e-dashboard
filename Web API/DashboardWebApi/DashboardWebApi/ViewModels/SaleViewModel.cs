@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DashboardWebApi.ViewModels
 {
-    public class SalesViewModel
+    public class SaleViewModel
     {
         public Guid Id { get; set; }
 

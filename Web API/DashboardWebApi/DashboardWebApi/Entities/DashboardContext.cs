@@ -13,6 +13,6 @@ namespace DashboardWebApi.Entities
 
         }
 
-        public DbSet<Sales> Sales { get; set; }
+        public DbSet<Sale> Sales { get; set; }
     }
 }

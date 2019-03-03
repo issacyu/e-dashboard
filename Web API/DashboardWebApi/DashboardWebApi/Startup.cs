@@ -37,7 +37,7 @@ namespace DashboardWebApi
             services.AddDbContext<DashboardContext>(x => x.UseSqlServer(connectionString));
 
             // Register the repository.
-            services.AddScoped<ISalesRepostory, SalesRepository>();
+            services.AddScoped<ISaleRepostory, SaleRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,7 +55,7 @@ namespace DashboardWebApi
             // AutoMapper cnfiguration for entities and view models.
             AutoMapper.Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<Sales, SalesViewModel>();
+                cfg.CreateMap<Sale, SaleViewModel>();
             });
 
             app.UseHttpsRedirection();
