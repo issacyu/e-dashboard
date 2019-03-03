@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 
 using DashboardWebApi.Services;
 using DashboardWebApi.Entities;
+using DashboardWebApi.ViewModels;
 
 namespace DashboardWebApi
 {
@@ -29,7 +30,7 @@ namespace DashboardWebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string connectionString = Configuration["DefaultConnection"];
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -54,7 +55,7 @@ namespace DashboardWebApi
             // AutoMapper cnfiguration for entities and view models.
             AutoMapper.Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<Entities.Sales, ViewModels.SalesViewModel>();
+                cfg.CreateMap<Sales, SalesViewModel>();
             });
 
             app.UseHttpsRedirection();
