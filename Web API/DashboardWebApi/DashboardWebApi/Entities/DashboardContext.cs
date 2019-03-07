@@ -14,5 +14,6 @@ namespace DashboardWebApi.Entities
         }
 
         public DbSet<Sale> Sales { get; set; }
+        //public DbSet<Inventory> Inventories { get; set; }
     }
 }

@@ -69,6 +69,7 @@ namespace DashboardWebApi
             AutoMapper.Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<Sale, SaleViewModel>();
+                cfg.CreateMap<Sale, SaleForUpdateViewModel>();
                 cfg.CreateMap<Inventory, InventoryViewModel>();
             });
 

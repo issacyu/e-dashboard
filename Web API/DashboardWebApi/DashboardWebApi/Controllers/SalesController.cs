@@ -8,6 +8,7 @@ using AutoMapper;
 using DashboardWebApi.Services;
 using DashboardWebApi.Entities;
 using DashboardWebApi.ViewModels;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace DashboardWebApi.Controllers
 {
@@ -40,6 +41,22 @@ namespace DashboardWebApi.Controllers
 
             SaleViewModel sale = Mapper.Map<SaleViewModel>(saleFromRepo);
             return Ok(sale);
+        }
+
+        [HttpPatch("salecollection")]
+        public IActionResult PartiallyUpdateSaleCollection([FromBody] JsonPatchDocument<IEnumerable<SaleForUpdateViewModel>> patchDoc)
+        {
+            if(patchDoc == null)
+            {
+                return BadRequest();
+            }
+
+            IEnumerable<Sale> saleCollectionFromRepo = _salesRepostory.GetSales().ToList();
+
+            IEnumerable<SaleForUpdateViewModel> saleCollection = Mapper.Map<IEnumerable<SaleForUpdateViewModel>>(saleCollectionFromRepo);
+            patchDoc.ApplyTo(saleCollection);
+
+            return NoContent();
         }
 
         private ISaleRepostory _salesRepostory;
