@@ -65,8 +65,6 @@ namespace DashboardWebApi.Controllers
                 {
                     _salesRepostory.AddSale(s);
                 }
-
-                //saleCollectionFromRepo.RemoveAll(x => !updatedSaleCollection.Exists(y => Equals(x.Id, y.Id)));
             }
 
             _salesRepostory.RemoveSale(updatedSaleCollection);
@@ -75,9 +73,7 @@ namespace DashboardWebApi.Controllers
             {
                 throw new Exception("Patching sale collection failed on save");
             }
-
-            
-
+        
             return NoContent();
         }
 

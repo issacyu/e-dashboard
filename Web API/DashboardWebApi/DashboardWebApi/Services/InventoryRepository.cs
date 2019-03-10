@@ -4,10 +4,22 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using DashboardWebApi.Services.Interfaces;
+using DashboardWebApi.Entities;
 
 namespace DashboardWebApi.Services
 {
     public class InventoryRepository : IInventoryRepository
     {
+        public InventoryRepository(DashboardContext context)
+        {
+            _context = context;
+        }
+        public IEnumerable<Inventory> GetInventories()
+        {
+            return _inventories;
+        }
+
+        private DashboardContext _context;
+        private IEnumerable<Inventory> _inventories => _context.Inventories;       
     }
 }

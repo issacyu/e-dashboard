@@ -15,12 +15,12 @@ namespace DashboardWebApi.Services
 
         public IEnumerable<Sale> GetSales()
         {
-            return Sales;
+            return _sales;
         }
 
         public Sale GetSale(Guid id)
         {
-            return Sales.FirstOrDefault(s => s.Id == id);
+            return _sales.FirstOrDefault(s => s.Id == id);
         }
 
         public void AddSale(Sale sale)
@@ -42,7 +42,7 @@ namespace DashboardWebApi.Services
 
         public void RemoveSale(IList<Sale> removeFromSaleCollection)
         {
-            foreach(Sale s in Sales)
+            foreach(Sale s in _sales)
             {
                 Sale sa = removeFromSaleCollection.FirstOrDefault(x => Equals(x.Id, s.Id));
                 if(sa == null)
@@ -63,6 +63,6 @@ namespace DashboardWebApi.Services
         }
 
         private DashboardContext _context;
-        private IEnumerable<Sale> Sales => _context.Sales;
+        private IEnumerable<Sale> _sales => _context.Sales;
     }
 }
