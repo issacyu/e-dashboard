@@ -10,5 +10,6 @@ namespace DashboardWebApi.Services.Interfaces
     public interface IInventoryRepository
     {
         IEnumerable<Inventory> GetInventories();
+        Inventory GetInventory(Guid id);
     }
 }

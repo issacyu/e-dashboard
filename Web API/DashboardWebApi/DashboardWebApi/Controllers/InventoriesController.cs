@@ -29,6 +29,20 @@ namespace DashboardWebApi.Controllers
             return Ok(inventories);
         }
 
+        [HttpGet("{id}")]
+        public IActionResult GetInventory(Guid id)
+        {
+            Inventory inventoryFromRepo = _inventoryRepository.GetInventory(id);
+
+            if (inventoryFromRepo == null)
+            {
+                return BadRequest();
+            }
+
+            InventoryViewModel inventory = Mapper.Map<InventoryViewModel>(inventoryFromRepo);
+            return Ok(inventory);
+        }
+
         private IInventoryRepository _inventoryRepository;
     }
 }

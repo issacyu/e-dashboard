@@ -14,9 +14,15 @@ namespace DashboardWebApi.Services
         {
             _context = context;
         }
+
         public IEnumerable<Inventory> GetInventories()
         {
             return _inventories;
+        }
+
+        public Inventory GetInventory(Guid id)
+        {
+            return _inventories.FirstOrDefault(i => Equals(i.Id, id));
         }
 
         private DashboardContext _context;
