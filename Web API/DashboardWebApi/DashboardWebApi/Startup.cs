@@ -72,6 +72,7 @@ namespace DashboardWebApi
                 cfg.CreateMap<Sale, SaleForUpdateViewModel>();
                 cfg.CreateMap<SaleForUpdateViewModel, Sale>();
                 cfg.CreateMap<Inventory, InventoryViewModel>();
+                cfg.CreateMap<InventoryViewModel, Inventory>();
             });
 
             app.UseHttpsRedirection();
