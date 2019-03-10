@@ -7,6 +7,8 @@ namespace DashboardWebApi.ViewModels
 {
     public class SaleForUpdateViewModel
     {
+        public Guid Id { get; set; }
+
         public DateTime DateSold { get; set; }
 
         public string Product { get; set; }

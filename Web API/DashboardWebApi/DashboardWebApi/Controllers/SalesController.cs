@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 
 using DashboardWebApi.Services;
@@ -46,15 +45,38 @@ namespace DashboardWebApi.Controllers
         [HttpPatch("salecollection")]
         public IActionResult PartiallyUpdateSaleCollection([FromBody] JsonPatchDocument<IEnumerable<SaleForUpdateViewModel>> patchDoc)
         {
-            if(patchDoc == null)
+            List<Sale> saleCollectionFromRepo = _salesRepostory.GetSales().ToList();
+            if (patchDoc == null)
             {
                 return BadRequest();
             }
 
-            IEnumerable<Sale> saleCollectionFromRepo = _salesRepostory.GetSales().ToList();
+            IEnumerable<SaleForUpdateViewModel> saleCollectionViewModel = Mapper.Map<IEnumerable<SaleForUpdateViewModel>>(saleCollectionFromRepo);
+            patchDoc.ApplyTo(saleCollectionViewModel);
+            List<Sale> updatedSaleCollection = Mapper.Map<List<Sale>>(saleCollectionViewModel);
 
-            IEnumerable<SaleForUpdateViewModel> saleCollection = Mapper.Map<IEnumerable<SaleForUpdateViewModel>>(saleCollectionFromRepo);
-            patchDoc.ApplyTo(saleCollection);
+            foreach(Sale s in updatedSaleCollection)
+            {
+                if(_salesRepostory.SaleExists(s))
+                {
+                    _salesRepostory.UpdateSale(s);
+                }
+                else
+                {
+                    _salesRepostory.AddSale(s);
+                }
+
+                //saleCollectionFromRepo.RemoveAll(x => !updatedSaleCollection.Exists(y => Equals(x.Id, y.Id)));
+            }
+
+            _salesRepostory.RemoveSale(updatedSaleCollection);
+
+            if (!_salesRepostory.Save())
+            {
+                throw new Exception("Patching sale collection failed on save");
+            }
+
+            
 
             return NoContent();
         }

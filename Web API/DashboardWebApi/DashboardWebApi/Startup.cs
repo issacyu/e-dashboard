@@ -70,6 +70,7 @@ namespace DashboardWebApi
             {
                 cfg.CreateMap<Sale, SaleViewModel>();
                 cfg.CreateMap<Sale, SaleForUpdateViewModel>();
+                cfg.CreateMap<SaleForUpdateViewModel, Sale>();
                 cfg.CreateMap<Inventory, InventoryViewModel>();
             });
 

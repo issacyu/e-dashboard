@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using DashboardWebApi.Entities;
+using DashboardWebApi.ViewModels;
 
 namespace DashboardWebApi.Services
 {
@@ -11,5 +12,10 @@ namespace DashboardWebApi.Services
     {
         IEnumerable<Sale> GetSales();
         Sale GetSale(Guid id);
+        void AddSale(Sale sale);
+        void UpdateSale(Sale sale);
+        void RemoveSale(IList<Sale> removeFromSaleCollection);
+        bool SaleExists(Sale sale);
+        bool Save();
     }
 }
