@@ -45,12 +45,13 @@ namespace DashboardWebApi.Controllers
         [HttpPatch("salecollection")]
         public IActionResult PartiallyUpdateSaleCollection([FromBody] JsonPatchDocument<IEnumerable<SaleForUpdateViewModel>> patchDoc)
         {
-            List<Sale> saleCollectionFromRepo = _salesRepostory.GetSales().ToList();
+            
             if (patchDoc == null)
             {
                 return BadRequest();
             }
 
+            List<Sale> saleCollectionFromRepo = _salesRepostory.GetSales().ToList();
             IEnumerable<SaleForUpdateViewModel> saleCollectionViewModel = Mapper.Map<IEnumerable<SaleForUpdateViewModel>>(saleCollectionFromRepo);
             patchDoc.ApplyTo(saleCollectionViewModel);
             List<Sale> updatedSaleCollection = Mapper.Map<List<Sale>>(saleCollectionViewModel);

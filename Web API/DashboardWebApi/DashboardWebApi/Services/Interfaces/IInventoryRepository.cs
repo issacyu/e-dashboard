@@ -11,5 +11,10 @@ namespace DashboardWebApi.Services.Interfaces
     {
         IEnumerable<Inventory> GetInventories();
         Inventory GetInventory(Guid id);
+        void AddInventory(Inventory inventory);
+        void UpdateInventory(Inventory inventory);
+        void RemoveInventory(IEnumerable<Inventory> removeFromInventoryCollection);
+        bool InventoryExists(Inventory inventory);
+        bool Save();
     }
 }

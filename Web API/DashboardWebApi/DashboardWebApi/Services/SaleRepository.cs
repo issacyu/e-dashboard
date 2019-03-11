@@ -54,7 +54,7 @@ namespace DashboardWebApi.Services
 
         public bool SaleExists(Sale sale)
         {
-            return (_context.Sales.FirstOrDefault(s => Equals(s.Id, sale.Id)) != null);
+            return _context.Sales.FirstOrDefault(s => Equals(s.Id, sale.Id)) != null;
         }
 
         public bool Save()
