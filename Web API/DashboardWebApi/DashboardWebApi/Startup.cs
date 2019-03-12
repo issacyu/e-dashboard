@@ -75,6 +75,13 @@ namespace DashboardWebApi
                 cfg.CreateMap<InventoryViewModel, Inventory>();
             });
 
+            // Allow CORS
+            app.Use((context, next) =>
+            {
+                context.Response.Headers["Access-Control-Allow-Origin"] = "*";
+                return next.Invoke();
+            });
+
             app.UseHttpsRedirection();
             app.UseMvc();
         }
