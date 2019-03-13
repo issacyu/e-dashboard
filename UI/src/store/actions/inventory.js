@@ -5,7 +5,7 @@ import * as actionTypes from './actionTypes';
 export const fetchInventoryDataSuccess = (data) => {
     return {
         type: actionTypes.FETCH_INVENTORY_DATA_SUCCESS,
-        InventoryData: data
+        inventoryData: data
     };
 }
 
@@ -24,8 +24,19 @@ export const fetchInventoryDataStart = () => {
 
 export const fetchInventoryData = () => {
     return dispatch => {
-        dispatch(fetchInventoryDataStart());
-        // use axios to fetch data here.
+        try {
+            dispatch(fetchInventoryDataStart());
+            const getData = async() => {
+                return await axios.get('api/inventories');
+            }
+            dispatch(getData().then(res => 
+                dispatch(fetchInventoryDataSuccess(res.data))
+            ));
+        }
+        catch(err) {
+            dispatch(fetchInventoryDataFail(err));
+        }
+        
     }
 }
 

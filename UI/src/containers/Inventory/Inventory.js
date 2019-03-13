@@ -38,65 +38,11 @@ class Inventory extends Component {
             }
         ],
 
-        inventoryData:
-        [
-            {
-                product: 'iPhone Xs',
-                quantity: 10,
-                price: 1300,
-                category: 'electronic',
-                model: '128gb',
-                type: '',
-                color: 'gold',
-                condition: 'new',
-                manufacturer: 'Apple',
-                cost: 1200,
-                totalCost: 1200
-            },
-            {
-                product: 'iPhone Xs',
-                quantity: 5,
-                price: 1300,
-                category: 'electronic',
-                model: '128gb',
-                type: '',
-                color: 'gold',
-                condition: 'new',
-                manufacturer: 'Apple',
-                cost: 1200,
-                totalCost: 1200
-            },
-            {
-                product: 'Samsung Galaxy Note 10',
-                quantity: 5,
-                price: 799,
-                category: 'electronic',
-                model: '128gb',
-                type: '',
-                color: 'Black',
-                condition: 'new',
-                manufacturer: 'Samsung',
-                cost: 500,
-                totalCost: 560
-            },
-            {
-                product: 'LED Bulb',
-                quantity: 1000,
-                price: 9.99,
-                category: 'home',
-                model: '100 Watt',
-                type: 'LED',
-                color: 'Warm White',
-                condition: 'new',
-                manufacturer: 'Mr.LED',
-                cost: 500,
-                totalCost: 700
-            },
-        ]
+        inventoryData:[]
     };
 
     componentDidMount() {
-
+        this.props.onFetchInventoryData();
     }
 
     onSaveInventoryData = () => {
@@ -123,21 +69,24 @@ class Inventory extends Component {
     };
 
     onInventoryRenderEditableCellHandler = (cellInfo) =>{
-        return (
-            <div
-                style={{ backgroundColor: "#fafafa" }}
-                contentEditable
-                suppressContentEditableWarning
-                onBlur={e => {
-                    const data = [...this.state.inventoryData];
-                    data[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
-                    this.setState({ data });
-                }}
-                dangerouslySetInnerHTML={{
-                    __html: this.state.inventoryData[cellInfo.index][cellInfo.column.id]
-                }}
-          />
-        )
+        // Avoid exception! We don't want to modify an empty array.
+        if(this.state.inventoryData.length !== 0) {
+            return (
+                <div
+                    style={{ backgroundColor: "#fafafa" }}
+                    contentEditable
+                    suppressContentEditableWarning
+                    onBlur={e => {
+                        const data = [...this.state.inventoryData];
+                        data[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
+                        this.setState({ inventoryData: data });
+                    }}
+                    dangerouslySetInnerHTML={{
+                        __html: this.state.inventoryData[cellInfo.index][cellInfo.column.id]
+                    }}
+                />
+            );
+        }
     };
 
     render(){
@@ -178,7 +127,7 @@ class Inventory extends Component {
                             fill='#8884d8'
                             displayKey='category'
                             displayValue='totalCost'
-                            displayData={this.state.inventoryData}
+                            displayData={this.props.inventoryData}
                         />
                     </Col>
                     <Col md={3} lg={3}>
@@ -193,7 +142,7 @@ class Inventory extends Component {
                             fill='#8884d8'
                             displayKey='product'
                             displayValue='totalCost'
-                            displayData={this.state.inventoryData}
+                            displayData={this.props.inventoryData}
                         />
                     </Col>
                     <Col md={3} lg={3}>
@@ -208,7 +157,7 @@ class Inventory extends Component {
                             fill='#8884d8'
                             displayKey='category'
                             displayValue='quantity'
-                            displayData={this.state.inventoryData}
+                            displayData={this.props.inventoryData}
                         />
                     </Col>
                 </Row>
@@ -225,7 +174,9 @@ class Inventory extends Component {
                 <Row>
                     <Col md={12} lg={12}>
                         <DataGrid 
-                            data={this.state.inventoryData} 
+                            //The key uses to notify the child component to re-render.
+                            key={this.props.inventoryData}
+                            data={this.props.inventoryData} 
                             title='Inventory'
                             columns={InventoryColumns(this.onInventoryRenderEditableCellHandler)}
                             onSaveHandler={this.onSaveInventoryData}
@@ -239,11 +190,13 @@ class Inventory extends Component {
 
 const mapStateToProps = state => {
     return {
+        inventoryData: state.inventory.inventoryData
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        onFetchInventoryData: () => dispatch(actions.fetchInventoryData()),
         onSaveInventoryData: (newData) => dispatch(actions.saveInventoryData(newData))
     };
 };

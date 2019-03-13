@@ -27,7 +27,7 @@ export const fetchOverviewData = () => {
         try {
             dispatch(fetchOverviewDataStart());
             const getData = async() => {
-                return await axios.get('/sales/-LYsoA9rchXHr56gRPpY.json');   
+                return await axios.get('api/sales');   
             }
             dispatch(getData().then( res => 
                 dispatch(fetchOverviewDataSuccess(res.data))
