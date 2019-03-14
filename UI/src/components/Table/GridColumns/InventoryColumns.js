@@ -47,6 +47,11 @@ const inventoryColumns = (onRenderEditableCellHandler) => {
             Cell: onRenderEditableCellHandler
         }, 
         {
+            Header: 'Fee',
+            accessor: 'fee',
+            Cell: onRenderEditableCellHandler
+        },
+        {
             Header: 'Cost',
             accessor: 'cost',
             Cell: onRenderEditableCellHandler

@@ -45,6 +45,12 @@ class Inventory extends Component {
         this.props.onFetchInventoryData();
     }
 
+    componentDidUpdate(prevProps) {
+        if(this.props.inventoryData !== prevProps.inventoryData) {
+            this.setState({inventoryData: this.props.inventoryData})
+        }
+    }
+
     onSaveInventoryData = () => {
         const newInventoryData = [...this.state.inventoryData];
         this.props.onSaveInventoryData(newInventoryData);
@@ -71,6 +77,7 @@ class Inventory extends Component {
     onInventoryRenderEditableCellHandler = (cellInfo) =>{
         // Avoid exception! We don't want to modify an empty array.
         if(this.state.inventoryData.length !== 0) {
+            console.log('here!0');
             return (
                 <div
                     style={{ backgroundColor: "#fafafa" }}
