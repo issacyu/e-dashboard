@@ -64,7 +64,7 @@ export const saveOverviewData = (newData) => {
         try {
             dispatch(saveOverviewDataStart());
             const postData = async() => {
-                return await axios.post('/sales/-LYsoA9rchXHr56gRPpY.json', newData);   
+                return await axios.post('/api/salecollection', newData);   
             }
             dispatch(postData().then( res => 
                 dispatch(saveOverviewDataSuccess(res.data))

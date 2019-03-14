@@ -102,7 +102,7 @@ class Overview extends Component {
         }
     }
 
-    onSaveHandler = () => {
+    onSaveOverviewHandler = () => {
         const newOverviewData = [...this.state.salesData];
         this.props.onSaveOverviewData(newOverviewData);
     }
@@ -176,7 +176,7 @@ class Overview extends Component {
                             key={this.props.overviewData}
                             data={this.props.overviewData}
                             columns={salesTrackerColumns(this.onSalesRenderEditableCellHandler)}
-                            onSaveHandler={this.onSaveHandler}
+                            onSaveHandler={this.onSaveOverviewHandler}
                             />
                         </Col>
                 </Row>
