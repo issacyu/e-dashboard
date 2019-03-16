@@ -4,14 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Cors;
+
 using DashboardWebApi.Services;
 using DashboardWebApi.Entities;
 using DashboardWebApi.ViewModels;
-using Microsoft.AspNetCore.JsonPatch;
 
 namespace DashboardWebApi.Controllers
 {
     [Route("api/sales")]
+    [EnableCors("CorsPolicy")]
     public class SalesController : Controller
     {
         public SalesController(ISaleRepostory salesRepostory)

@@ -34,6 +34,16 @@ namespace DashboardWebApi
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
+            // Enable CORS
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddDbContext<DashboardContext>(x => x.UseSqlServer(connectionString));
@@ -75,13 +85,14 @@ namespace DashboardWebApi
                 cfg.CreateMap<InventoryViewModel, Inventory>();
             });
 
-            // Allow CORS
+            // Enable CORS
             app.Use((context, next) =>
             {
                 context.Response.Headers["Access-Control-Allow-Origin"] = "*";
                 return next.Invoke();
             });
 
+            app.UseCors("CorsPolicy");
             app.UseHttpsRedirection();
             app.UseMvc();
         }
