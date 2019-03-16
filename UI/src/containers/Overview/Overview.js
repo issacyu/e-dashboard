@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import * as JsonPatch from 'fast-json-patch';
 import * as actions from '../../store/actions/overview'
 import Card from '../../components/Card/Card';
 import { Row, Col, Panel } from 'react-bootstrap';
@@ -14,6 +15,7 @@ class Overview extends Component {
 
     state = {
         salesData: [],
+        origSalesData: [],
         mockData: 
         [
             {
@@ -77,7 +79,10 @@ class Overview extends Component {
 
     componentDidUpdate(prevProps) {
         if(this.props.overviewData !== prevProps.overviewData) {
-            this.setState({salesData: this.props.overviewData})
+            this.setState({
+                salesData: JSON.parse(JSON.stringify(this.props.overviewData)),
+                origSalesData: JSON.parse(JSON.stringify(this.props.overviewData))
+            })
         }
     }
 
@@ -103,8 +108,8 @@ class Overview extends Component {
     }
 
     onSaveOverviewHandler = () => {
-        const newOverviewData = [...this.state.salesData];
-        this.props.onSaveOverviewData(newOverviewData);
+        const patchDoc = JsonPatch.compare(this.state.origSalesData, this.state.salesData);
+        this.props.onSaveOverviewData(patchDoc, this.state.salesData);
     }
 
     render(){
@@ -178,7 +183,7 @@ class Overview extends Component {
                             columns={salesTrackerColumns(this.onSalesRenderEditableCellHandler)}
                             onSaveHandler={this.onSaveOverviewHandler}
                             />
-                        </Col>
+                    </Col>
                 </Row>
             </div>
         )
@@ -194,7 +199,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onFetchOverviewData: () => dispatch(actions.fetchOverviewData()),
-        onSaveOverviewData: (newData) => dispatch(actions.saveOverviewData(newData))
+        onSaveOverviewData: (patchDoc, salesData) => dispatch(actions.saveOverviewData(patchDoc, salesData))
     };
 };
 

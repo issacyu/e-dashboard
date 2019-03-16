@@ -7,8 +7,8 @@ const salesTrackerColumns = (onRenderEditableCellHandler) => {
                 Cell: onRenderEditableCellHandler
             }, 
             {
-                Header: 'Item Name',
-                accessor: 'itemName',
+                Header: 'Product',
+                accessor: 'product',
                 Cell: onRenderEditableCellHandler
             }, 
             {

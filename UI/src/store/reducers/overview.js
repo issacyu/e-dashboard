@@ -32,8 +32,11 @@ const saveOverviewDataSuccess = (state, action) => {
     })
 }
 
-const saveOverviewDataFail = (state) => {
-    return updateObject(state, {loading: false})
+const saveOverviewDataFail = (state, action) => {
+    return updateObject(state, {
+        error: action.error,
+        loading: false
+    })
 }
 
 const reducer = (state = initialState, action) => {

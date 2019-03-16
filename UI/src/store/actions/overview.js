@@ -42,14 +42,14 @@ export const fetchOverviewData = () => {
 export const saveOverviewDataSuccess = (data) => {
     return {
         type: actionTypes.SAVE_OVERVIEW_DATA_SUCCESS,
-        overviewData: data,
+        overviewData: data
     };
 }
 
-export const saveOverviewDataFail = (error) => {
+export const saveOverviewDataFail = (error = '') => {
     return {
         type: actionTypes.SAVE_OVERVIEW_DATA_FAIL,
-        error: error,
+        error: error
     };
 }
 
@@ -59,16 +59,23 @@ export const saveOverviewDataStart = () => {
     };
 }
 
-export const saveOverviewData = (newData) => {
-    return dispatch => {
+export const saveOverviewData = (patchDoc, salesData) => {
+    return async dispatch => {
         try {
             dispatch(saveOverviewDataStart());
-            const postData = async() => {
-                return await axios.post('/api/salecollection', newData);   
+            const saveData = async () => {
+                return axios.patch('api/sales/salecollection', patchDoc)
+                    .then(res => res);   
             }
-            dispatch(postData().then( res => 
-                dispatch(saveOverviewDataSuccess(res.data))
-            ));
+
+            const response = await saveData();
+
+            if(response.status === 204){
+                dispatch(saveOverviewDataSuccess(salesData))
+            }
+            else{
+                dispatch(saveOverviewDataFail())
+            }
         }
         catch(err) {
             dispatch(saveOverviewDataFail(err))
