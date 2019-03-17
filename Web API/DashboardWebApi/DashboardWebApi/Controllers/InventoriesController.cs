@@ -5,14 +5,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Cors;
 
 using DashboardWebApi.Services;
 using DashboardWebApi.Services.Interfaces;
 using DashboardWebApi.Entities;
 using DashboardWebApi.ViewModels;
 
+
 namespace DashboardWebApi.Controllers
 {
+    [EnableCors("CorsPolicy")]
     [Route("api/inventories")]
     public class InventoriesController : Controller
     {
