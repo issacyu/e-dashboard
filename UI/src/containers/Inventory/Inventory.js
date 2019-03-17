@@ -7,8 +7,7 @@ import * as actions from '../../store/actions/inventory'
 import DataGrid from '../../components/Table/DataGrid/DataGrid';
 import PieChart from '../../components/Charts/PieChart';
 import Alert from '../../components/Alert/Alert';
-import ManufacturerColumns from '../../components/Table/GridColumns/ManufacturerColumn';
-import InventoryColumns from '../../components/Table/GridColumns/InventoryColumns';
+import * as GridColumns from '../../components/Table/GridColumns/GridColumns';
 import EmptyRow from '../../components/Table/GridRows/GridRow';
 
 class Inventory extends Component {
@@ -189,7 +188,7 @@ class Inventory extends Component {
                             key={this.props.inventoryData}
                             data={this.props.inventoryData} 
                             title='Inventory'
-                            columns={InventoryColumns(this.onInventoryRenderEditableCellHandler)}
+                            columns={GridColumns.INVENTORY_COLUMNS(this.onInventoryRenderEditableCellHandler)}
                             onSaveHandler={this.onSaveInventoryData}
                         />
                     </Col>

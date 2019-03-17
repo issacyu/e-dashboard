@@ -9,7 +9,7 @@ import BarChart from '../../components/Charts/BarChart';
 import LineChart from '../../components/Charts/LineChart';
 import PieChart from '../../components/Charts/PieChart';
 import DataGrid from '../../components/Table/DataGrid/DataGrid';
-import salesTrackerColumns from '../../components/Table/GridColumns/SalesTrackerColumns';
+import * as GridColumns from '../../components/Table/GridColumns/GridColumns';
 
 class Overview extends Component {
 
@@ -180,7 +180,7 @@ class Overview extends Component {
                             //The key uses to notify the child component to re-render.
                             key={this.props.overviewData}
                             data={this.props.overviewData}
-                            columns={salesTrackerColumns(this.onSalesRenderEditableCellHandler)}
+                            columns={GridColumns.SALES_COLUMNS(this.onSalesRenderEditableCellHandler)}
                             onSaveHandler={this.onSaveOverviewHandler}
                             />
                     </Col>
