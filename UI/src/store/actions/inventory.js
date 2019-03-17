@@ -43,11 +43,11 @@ export const fetchInventoryData = () => {
 export const saveInventoryDataSuccess = (data) => {
     return {
         type: actionTypes.SAVE_INVENTORY_DATA_SUCCESS,
-        overviewData: data,
+        inventoryData: data,
     };
 }
 
-export const saveInventoryDataFail = (error) => {
+export const saveInventoryDataFail = (error = '') => {
     return {
         type: actionTypes.SAVE_INVENTORY_DATA_FAIL,
         error: error,
@@ -60,16 +60,23 @@ export const saveInventoryDataStart = () => {
     };
 }
 
-export const saveInventoryData = (newData) => {
-    return dispatch => {
+export const saveInventoryData = (patchDoc, inventoryData) => {
+    return async dispatch => {
         try {
             dispatch(saveInventoryDataStart());
-            const postData = async() => {
-                return await axios.post('/inventory.json', newData);   
+            const saveData = async() => {
+                return axios.patch('api/inventories/inventorycollection', patchDoc)
+                .then(res => res);   
             }
-            dispatch(postData().then( res => 
-                dispatch(saveInventoryDataSuccess(res.data))
-            ));
+
+            const response = await saveData();
+
+            if(response.status === 204){
+                dispatch(saveInventoryDataSuccess(inventoryData));
+            }
+            else{
+                dispatch(saveInventoryDataFail());
+            }
         }
         catch(err) {
             dispatch(saveInventoryDataFail(err))

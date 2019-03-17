@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Row, Col, Panel, Table } from 'react-bootstrap';
+import * as JsonPatch from 'fast-json-patch';
 import * as actions from '../../store/actions/inventory'
 
 import DataGrid from '../../components/Table/DataGrid/DataGrid';
@@ -38,7 +39,8 @@ class Inventory extends Component {
             }
         ],
 
-        inventoryData:[]
+        inventoryData:[],
+        origInventoryData: []
     };
 
     componentDidMount() {
@@ -47,13 +49,16 @@ class Inventory extends Component {
 
     componentDidUpdate(prevProps) {
         if(this.props.inventoryData !== prevProps.inventoryData) {
-            this.setState({inventoryData: this.props.inventoryData})
+            this.setState({
+                inventoryData: JSON.parse(JSON.stringify(this.props.inventoryData)),
+                origInventoryData: JSON.parse(JSON.stringify(this.props.inventoryData))
+            })
         }
     }
 
     onSaveInventoryData = () => {
-        const newInventoryData = [...this.state.inventoryData];
-        this.props.onSaveInventoryData(newInventoryData);
+        const patchDoc = JsonPatch.compare(this.state.origInventoryData, this.state.inventoryData);
+        this.props.onSaveInventoryData(patchDoc, this.state.inventoryData);
     }
 
     onManufacturerRenderEditableCellHandler = (cellInfo) =>{
@@ -77,7 +82,6 @@ class Inventory extends Component {
     onInventoryRenderEditableCellHandler = (cellInfo) =>{
         // Avoid exception! We don't want to modify an empty array.
         if(this.state.inventoryData.length !== 0) {
-            console.log('here!0');
             return (
                 <div
                     style={{ backgroundColor: "#fafafa" }}
@@ -204,7 +208,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onFetchInventoryData: () => dispatch(actions.fetchInventoryData()),
-        onSaveInventoryData: (newData) => dispatch(actions.saveInventoryData(newData))
+        onSaveInventoryData: (patchDoc, inventoryData) => dispatch(actions.saveInventoryData(patchDoc, inventoryData))
     };
 };
 
