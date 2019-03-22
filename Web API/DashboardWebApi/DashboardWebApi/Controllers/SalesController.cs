@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Cors;
 using DashboardWebApi.Services;
 using DashboardWebApi.Entities;
 using DashboardWebApi.ViewModels;
+using Microsoft.AspNetCore.JsonPatch.Operations;
 
 namespace DashboardWebApi.Controllers
 {
@@ -48,14 +49,16 @@ namespace DashboardWebApi.Controllers
         [HttpPatch("salecollection")]
         public IActionResult PartiallyUpdateSaleCollection([FromBody] JsonPatchDocument<IEnumerable<SaleForUpdateViewModel>> patchDoc)
         {
-            
             if (patchDoc == null)
             {
                 return BadRequest();
             }
 
+            ModifyPatchPath(patchDoc);
+
             List<Sale> saleCollectionFromRepo = _salesRepostory.GetSales().ToList();
-            IEnumerable<SaleForUpdateViewModel> saleCollectionViewModel = Mapper.Map<IEnumerable<SaleForUpdateViewModel>>(saleCollectionFromRepo);
+            IEnumerable<SaleForUpdateViewModel> saleCollectionViewModel = 
+                Mapper.Map<IEnumerable<SaleForUpdateViewModel>>(saleCollectionFromRepo);
             patchDoc.ApplyTo(saleCollectionViewModel);
             List<Sale> updatedSaleCollection = Mapper.Map<List<Sale>>(saleCollectionViewModel);
 
@@ -79,6 +82,27 @@ namespace DashboardWebApi.Controllers
             }
         
             return NoContent();
+        }
+
+        /// <summary>
+        /// Handle the edge case when adding new row to any data grid.
+        /// When adding new row to a grid, the path in patchDoc should
+        /// be "/-"(it means adding new array item to the end of array).
+        /// </summary>
+        /// <param name="patchDoc">The json patch document.</param>
+        private void ModifyPatchPath(JsonPatchDocument<IEnumerable<SaleForUpdateViewModel>> patchDoc)
+        {
+            foreach(Operation operation in patchDoc.Operations)
+            {
+                int index = 0;
+                if (operation.OperationType.ToString() == "Add" && int.TryParse(operation.path.Split("/")[1], out index))
+                {
+                    if(index >= _salesRepostory.GetSales().Count())
+                    {
+                        operation.path = "/-";
+                    }
+                }
+            }
         }
 
         private ISaleRepostory _salesRepostory;
