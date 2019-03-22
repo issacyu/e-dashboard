@@ -37,23 +37,6 @@ const withGridFunction = (WrappedComponent) => {
             })
         };
 
-        toggleAll = () => {
-            const selectAll = this.state.selectAll ? false : true;
-            const selection = [];
-            if (selectAll) {
-              const wrappedInstance = this.checkboxTable.getWrappedInstance();
-              const currentRecords = wrappedInstance.getResolvedState().sortedData;
-              currentRecords.forEach(item => {
-                selection.push(item._original._id);
-              });
-            }
-            this.setState({ 
-                selectAll, 
-                selection,
-                disableDeleteButton: selection.length === 0
-            });
-          };
-
         isSelected = key => {
             return this.state.selection.includes(key);
         };
