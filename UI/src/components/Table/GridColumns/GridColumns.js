@@ -129,22 +129,17 @@ export const SALES_COLUMNS = (onRenderEditableCellHandler) => {
             },
             {
                 Header: 'Shipping & Handling Fee',
-                accessor: 'shippingAndHandlingFee',
+                accessor: 'shippingHandlingFee',
                 Cell: onRenderEditableCellHandler
             },            
             {
-                Header: 'eBay Fee',
-                accessor: 'ebayFee',
+                Header: 'Amazon Fee',
+                accessor: 'amazonFee',
                 Cell: onRenderEditableCellHandler
             },
             {
-                Header: 'PayPal Fee',
-                accessor: 'paypalFee',
-                Cell: onRenderEditableCellHandler
-            },
-            {
-                Header: 'Other Fee',
-                accessor: 'otherFee',
+                Header: 'Credit Card Fee',
+                accessor: 'creditCardFee',
                 Cell: onRenderEditableCellHandler
             },
             {
@@ -152,6 +147,11 @@ export const SALES_COLUMNS = (onRenderEditableCellHandler) => {
                 accessor: 'costPerItem',
                 Cell: onRenderEditableCellHandler
             }, 
+            {
+                Header: 'Other Cost',
+                accessor: 'otherCost',
+                Cell: onRenderEditableCellHandler
+            },
             {
                 Header: 'Total Cost',
                 accessor: 'totalCost',

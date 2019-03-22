@@ -20,6 +20,22 @@ const EMPTY_MANUFACTURER_ROW = {
     address: ''
 }
 
+const EMPTY_SALES_ROW = {
+    id: '',
+    dateSold: '',
+    product: '',
+    quantity: '',
+    soldPrice: '',
+    shippingCharged: '',
+    shippingHandlingFee: '',
+    amazonFee: '',
+    creditCardFee: '',
+    costPerItem: '',
+    otherCost: '',
+    totalCost: '',
+    netProfit: ''
+}
+
 const getEmptyRow = (type) => {
     switch(type) {
         case 'INVENTORY':
@@ -27,7 +43,7 @@ const getEmptyRow = (type) => {
         case 'MANUFACTURER':
             return EMPTY_MANUFACTURER_ROW;
         default:
-            return {};
+            return EMPTY_SALES_ROW;
     }
 }
 

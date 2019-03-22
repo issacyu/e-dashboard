@@ -81,12 +81,12 @@ class DataGrid extends Component {
     //     console.log("Button clicked!!!");
     // };
  
-    onDeleteRowHandler = () => {
-        const dataClone = [...this.state.data];
-        const newData = dataClone.filter(r => !this.state.selection.includes(r._id));
+    // onDeleteRowHandler = () => {
+    //     const dataClone = [...this.state.data];
+    //     const newData = dataClone.filter(r => !this.state.selection.includes(r._id));
 
-        this.setState({data: [...newData]});
-    };
+    //     this.setState({data: [...newData]});
+    // };
  
     // TODO Right now the function is not function correctlly because it's not updating the data in parent component.
     // TODO It will be fixed when implement the logic with redux.
@@ -124,16 +124,17 @@ class DataGrid extends Component {
                 <Panel>
                     <CheckboxTable
                         className="-striped -highlight"
+                        keyField='id'
                         defaultPageSize={10}
                         ref={r => (this.checkboxTable = r)}
                         data={this.state.data}
                         columns={this.props.columns}
-                        {...checkboxProps}
+                        {...this.props.checkboxProps}
                     />
                     <Panel.Footer>
                         <Button onClick={() => {this.props.onSaveHandler()}} bsStyle='primary'>Save</Button>
-                        <Button onClick={() => {this.onAddRowHandler(this.props.emptyRow)}} bsStyle='success'>Add</Button>
-                        <Button onClick={() => {this.onDeleteRowHandler()}} disabled={this.state.disableDeleteButton} bsStyle='danger'>Delete</Button>
+                        <Button onClick={() => {this.props.onAddRowHandler(this.props.emptyRow)}} bsStyle='success'>Add</Button>
+                        <Button onClick={() => {this.props.onDeleteRowHandler()}} disabled={this.props.disableDeleteButton} bsStyle='danger'>Delete</Button>
                     </Panel.Footer>
                 </Panel>
             </div>

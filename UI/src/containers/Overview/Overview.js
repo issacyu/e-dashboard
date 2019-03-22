@@ -10,6 +10,8 @@ import LineChart from '../../components/Charts/LineChart';
 import PieChart from '../../components/Charts/PieChart';
 import DataGrid from '../../components/Table/DataGrid/DataGrid';
 import * as GridColumns from '../../components/Table/GridColumns/GridColumns';
+import WithGridFunction from '../../hoc/WithGridFunction/WithGridFunction';
+import EmptyRow from '../../components/Table/GridRows/GridRow';
 
 class Overview extends Component {
 
@@ -78,10 +80,21 @@ class Overview extends Component {
     }
 
     componentDidUpdate(prevProps) {
+        // For the initial load.
         if(this.props.overviewData !== prevProps.overviewData) {
+            const gridData = this.props.overviewData;
             this.setState({
-                salesData: JSON.parse(JSON.stringify(this.props.overviewData)),
-                origSalesData: JSON.parse(JSON.stringify(this.props.overviewData))
+                salesData: JSON.parse(JSON.stringify(gridData)),
+                origSalesData: JSON.parse(JSON.stringify(gridData))
+            })
+            // Assign data to HOC state.
+            this.props.setData(gridData);
+        }
+        // When add or remove data from grid, we want to assign new data to the state.
+        // The this.props.data is from HOC.
+        if(this.props.data !== prevProps.data){
+            this.setState({
+                salesData: JSON.parse(JSON.stringify(this.props.data))
             })
         }
     }
@@ -110,6 +123,7 @@ class Overview extends Component {
     onSaveOverviewHandler = () => {
         const patchDoc = JsonPatch.compare(this.state.origSalesData, this.state.salesData);
         this.props.onSaveOverviewData(patchDoc, this.state.salesData);
+        this.setState({origSalesData: JSON.parse(JSON.stringify(this.state.salesData))});
     }
 
     render(){
@@ -178,11 +192,16 @@ class Overview extends Component {
                     <Col md={12} lg={12}>
                         <DataGrid 
                             //The key uses to notify the child component to re-render.
-                            key={this.props.overviewData}
-                            data={this.props.overviewData}
+                            key={this.state.salesData}
+                            data={this.state.salesData}
+                            emptyRow={EmptyRow()}
                             columns={GridColumns.SALES_COLUMNS(this.onSalesRenderEditableCellHandler)}
                             onSaveHandler={this.onSaveOverviewHandler}
-                            />
+                            checkboxProps={this.props.checkboxProps}
+                            disableDeleteButton={this.props.disableDeleteButton}
+                            onDeleteRowHandler={this.props.onDeleteRowHandler}
+                            onAddRowHandler={this.props.onAddRowHandler}
+                        />
                     </Col>
                 </Row>
             </div>
@@ -203,4 +222,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Overview);
+export default connect(mapStateToProps, mapDispatchToProps)(WithGridFunction(Overview));
