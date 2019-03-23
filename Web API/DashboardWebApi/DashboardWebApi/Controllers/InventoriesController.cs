@@ -11,7 +11,7 @@ using DashboardWebApi.Services;
 using DashboardWebApi.Services.Interfaces;
 using DashboardWebApi.Entities;
 using DashboardWebApi.ViewModels;
-
+using Microsoft.AspNetCore.JsonPatch.Operations;
 
 namespace DashboardWebApi.Controllers
 {
@@ -55,6 +55,8 @@ namespace DashboardWebApi.Controllers
                 return BadRequest();
             }
 
+            ModifyPatchPath(patchDoc, _inventoryRepository.GetInventories().Count());
+
             IEnumerable<Inventory> inventoryCollectionFromRepo = _inventoryRepository.GetInventories();
             IEnumerable<InventoryForUpdateViewModel> inventoryCollectionViewModel = Mapper.Map<IEnumerable<InventoryForUpdateViewModel>>(inventoryCollectionFromRepo);
             patchDoc.ApplyTo(inventoryCollectionViewModel);
@@ -80,6 +82,27 @@ namespace DashboardWebApi.Controllers
             }
 
             return NoContent();
+        }
+
+        /// <summary>
+        /// Handle the edge case when adding new row to any data grid.
+        /// When adding new row to a grid, the path in patchDoc should
+        /// be "/-"(it means adding new array item to the end of array).
+        /// </summary>
+        /// <param name="patchDoc">The json patch document.</param>
+        private void ModifyPatchPath(JsonPatchDocument<IEnumerable<InventoryForUpdateViewModel>> patchDoc, int collectionSize)
+        {
+            foreach (Operation operation in patchDoc.Operations)
+            {
+                int index = 0;
+                if (operation.OperationType.ToString() == "Add" && int.TryParse(operation.path.Split("/")[1], out index))
+                {
+                    if (index >= collectionSize)
+                    {
+                        operation.path = "/-";
+                    }
+                }
+            }
         }
 
         private IInventoryRepository _inventoryRepository;

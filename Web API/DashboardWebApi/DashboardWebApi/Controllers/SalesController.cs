@@ -54,7 +54,7 @@ namespace DashboardWebApi.Controllers
                 return BadRequest();
             }
 
-            ModifyPatchPath(patchDoc);
+            ModifyPatchPath(patchDoc, _salesRepostory.GetSales().Count());
 
             List<Sale> saleCollectionFromRepo = _salesRepostory.GetSales().ToList();
             IEnumerable<SaleForUpdateViewModel> saleCollectionViewModel = 
@@ -90,14 +90,14 @@ namespace DashboardWebApi.Controllers
         /// be "/-"(it means adding new array item to the end of array).
         /// </summary>
         /// <param name="patchDoc">The json patch document.</param>
-        private void ModifyPatchPath(JsonPatchDocument<IEnumerable<SaleForUpdateViewModel>> patchDoc)
+        private void ModifyPatchPath(JsonPatchDocument<IEnumerable<SaleForUpdateViewModel>> patchDoc, int collectionSize)
         {
             foreach(Operation operation in patchDoc.Operations)
             {
                 int index = 0;
                 if (operation.OperationType.ToString() == "Add" && int.TryParse(operation.path.Split("/")[1], out index))
                 {
-                    if(index >= _salesRepostory.GetSales().Count())
+                    if(index >= collectionSize)
                     {
                         operation.path = "/-";
                     }
