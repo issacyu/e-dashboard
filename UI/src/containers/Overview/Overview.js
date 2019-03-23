@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as JsonPatch from 'fast-json-patch';
 import * as actions from '../../store/actions/overview'
-import Card from '../../components/Card/Card';
 import { Row, Col, Panel } from 'react-bootstrap';
 
 import BarChart from '../../components/Charts/BarChart';
