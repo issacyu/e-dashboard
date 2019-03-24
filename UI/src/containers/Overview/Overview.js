@@ -11,12 +11,14 @@ import DataGrid from '../../components/Table/DataGrid/DataGrid';
 import * as GridColumns from '../../components/Table/GridColumns/GridColumns';
 import WithGridFunction from '../../hoc/WithGridFunction/WithGridFunction';
 import EmptyRow from '../../components/Table/GridRows/GridRow';
+import * as Utility from '../../components/Charts/Utilities';
 
 class Overview extends Component {
 
     state = {
         salesData: [],
         origSalesData: [],
+        topFiveProduct: [],
         mockData: 
         [
             {
@@ -88,6 +90,7 @@ class Overview extends Component {
             })
             // Assign data to HOC state.
             this.props.setData(gridData);
+            this.setState({topFiveProduct: Utility.getTopFive(gridData, 'product', 'quantity')});
         }
         // When add or remove data from grid, we want to assign new data to the state.
         // The this.props.data is from HOC.
@@ -150,6 +153,9 @@ class Overview extends Component {
                         <BarChart 
                             width={600}
                             height={300}
+                            data={this.state.topFiveProduct}
+                            displayKey='product'
+                            displayValue='quantity'
                         />
                     </Col>
                     <Col md={3} lg={3}>
