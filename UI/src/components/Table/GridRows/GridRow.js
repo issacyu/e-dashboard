@@ -25,6 +25,7 @@ const EMPTY_SALES_ROW = {
     dateSold: '',
     product: '',
     quantity: '',
+    status: '',
     soldPrice: '',
     shippingCharged: '',
     shippingHandlingFee: '',

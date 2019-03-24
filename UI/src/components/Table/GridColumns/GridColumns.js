@@ -123,6 +123,11 @@ export const SALES_COLUMNS = (onRenderEditableCellHandler) => {
                 Cell: onRenderEditableCellHandler
             }, 
             {
+                Header: 'Status',
+                accessor: 'status',
+                Cell: onRenderEditableCellHandler
+            }, 
+            {
                 Header: 'Shipping Charged',
                 accessor: 'shippingCharged',
                 Cell: onRenderEditableCellHandler
