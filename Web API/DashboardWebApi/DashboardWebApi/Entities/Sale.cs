@@ -19,6 +19,8 @@ namespace DashboardWebApi.Entities
 
         public decimal SoldPrice { get; set; }
 
+        public string Status { get; set; }
+
         public decimal ShippingCharged { get; set; }
 
         public decimal ShippingHandlingFee { get; set; }

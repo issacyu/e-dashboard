@@ -12,3 +12,4 @@ C:\Users\issac\Documents\React\e-dashboard\e-dashboard\Web API\DashboardWebApi\D
 C:\Users\issac\Documents\React\e-dashboard\e-dashboard\Web API\DashboardWebApi\DashboardWebApi\obj\Debug\netcoreapp2.1\DashboardWebApi.dll
 C:\Users\issac\Documents\React\e-dashboard\e-dashboard\Web API\DashboardWebApi\DashboardWebApi\obj\Debug\netcoreapp2.1\DashboardWebApi.pdb
 C:\Users\issac\Documents\React\e-dashboard\e-dashboard\Web API\DashboardWebApi\DashboardWebApi\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
+C:\Users\issac\Documents\React\e-dashboard\e-dashboard\Web API\DashboardWebApi\DashboardWebApi\obj\Debug\netcoreapp2.1\DashboardWebApi.csprojAssemblyReference.cache
