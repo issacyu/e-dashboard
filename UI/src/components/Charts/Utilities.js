@@ -22,3 +22,16 @@ export const getTopFive = (data, key, value) => {
          return b[value] - a[value]
     });
 }
+
+export const getCompleteVsReturn = (data) => {
+    let status = [{Status: 'Completed', Number: 0}, {Status: 'Returned', Number: 0}]
+    data.forEach(x => {
+        if(x.status === 'Completed'){
+            status[0].Number = status[0].Number + 1;
+        }
+        if(x.status === 'Returned'){
+            status[1].Number = status[1].Number + 1;
+        }
+    })
+    return status;
+}

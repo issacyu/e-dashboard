@@ -19,6 +19,7 @@ class Overview extends Component {
         salesData: [],
         origSalesData: [],
         topFiveProduct: [],
+        completeVsReturn: [],
         mockData: 
         [
             {
@@ -90,7 +91,10 @@ class Overview extends Component {
             })
             // Assign data to HOC state.
             this.props.setData(gridData);
-            this.setState({topFiveProduct: Utility.getTopFive(gridData, 'product', 'quantity')});
+            this.setState({
+                topFiveProduct: Utility.getTopFive(gridData, 'product', 'quantity'),
+                completeVsReturn: Utility.getCompleteVsReturn(gridData)
+            });
         }
         // When add or remove data from grid, we want to assign new data to the state.
         // The this.props.data is from HOC.
@@ -181,9 +185,9 @@ class Overview extends Component {
                         cost vs profit
                         <PieChart 
                             bsStyle='primary'
-                            displayData={this.state.mockData}
-                            displayKey='product'
-                            displayValue='totalCost'
+                            displayData={this.state.completeVsReturn}
+                            displayKey='Status'
+                            displayValue='Number'
                             width={800}
                             height={300}
                             cx={220}
