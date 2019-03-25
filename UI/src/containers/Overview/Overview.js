@@ -20,6 +20,7 @@ class Overview extends Component {
         origSalesData: [],
         topFiveProduct: [],
         completeVsReturn: [],
+        saleAndProfit: [],
         mockData: 
         [
             {
@@ -93,7 +94,8 @@ class Overview extends Component {
             this.props.setData(gridData);
             this.setState({
                 topFiveProduct: Utility.getTopFive(gridData, 'product', 'quantity'),
-                completeVsReturn: Utility.getCompleteVsReturn(gridData)
+                completeVsReturn: Utility.getCompleteVsReturn(gridData),
+                saleAndProfit: Utility.getSaleAndProfit(gridData)
             });
         }
         // When add or remove data from grid, we want to assign new data to the state.
@@ -148,7 +150,9 @@ class Overview extends Component {
                     </Col>
 
                     <Col md={8} lg={8}>
-                        <LineChart />
+                        <LineChart 
+                            data={this.state.saleAndProfit}
+                        />
                     </Col>
                 </Row>
                 <Row>

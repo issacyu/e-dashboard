@@ -35,3 +35,35 @@ export const getCompleteVsReturn = (data) => {
     })
     return status;
 }
+
+export const getSaleAndProfit = (data) => {
+    let date = new Date();
+    let map = new Map();
+    map.set(getMonthAndYear(date), {Sales: 0, Profit: 0});
+    for(let i = 0; i < 12; i++){
+        date.setMonth(date.getMonth() - 1);
+        const monthAndYear = getMonthAndYear(date);
+        map.set(monthAndYear, {Sales: 0, Profit: 0});
+    }
+    for(let d of data){
+        const monthAndYear = getMonthAndYear(new Date(d.dateSold));
+        if(map.has(monthAndYear)){
+            let sale = map.get(monthAndYear);
+            sale.Sales = sale.Sales + d.soldPrice;
+            sale.Profit = sale.Profit + d.netProfit;
+            map.set(monthAndYear, sale);
+        }
+    }
+    return [...map].map(x => {
+        let obj = {};
+        obj.Date = x[0];
+        obj.Sales = x[1].Sales;
+        obj.Profit = x[1].Profit;
+        return obj;
+    });
+}
+
+const getMonthAndYear = (date) => {
+    const localDate = date.toLocaleDateString().split('/');
+    return localDate[0] + '/' + localDate[2]
+}

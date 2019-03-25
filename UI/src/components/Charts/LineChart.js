@@ -26,18 +26,19 @@ const data = [
 ];
 
 const lineChart = (props) => {
+    console.log(props.data);
     return (
         <Panel>
             <ResponsiveContainer width="98.5%" height={300}>
-                <LineChart width={props.width} height={props.height} data={data}
+                <LineChart width={props.width} height={props.height} data={props.data}
                     margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-                    <XAxis dataKey="name"/>
-                    <XAxis dataKey="name"/>
+                    <XAxis dataKey="Date"/>
+                    <XAxis dataKey="Date"/>
                     <YAxis/>
                     <Tooltip/>
                     <Legend />
-                    <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{r: 8}}/>
-                    <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+                    <Line type="monotone" dataKey="Sales" stroke="#8884d8" activeDot={{r: 8}}/>
+                    <Line type="monotone" dataKey="Profit" stroke="#82ca9d" />
                 </LineChart>
             </ResponsiveContainer>
         </Panel>
