@@ -59,15 +59,16 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 const pieChart = (props) => {
     return (
         <Panel>
-            <ResponsiveContainer width="98.8%" height={300}>
+            <Panel.Title style={{textAlign: 'center'}}>
+                {props.title}
+            </Panel.Title>
+            <ResponsiveContainer width="98.8%" height={350}>
                 <PieChart width={props.width} height={props.height}
                     margin={{top: 35, bottom: 5}}>
                     <Legend />
                     <Tooltip />
                     <Pie
-                        data={processData(props.displayData, props.displayKey, props.displayValue)} 
-                        cx={props.cx} 
-                        cy={props.cy} 
+                        data={processData(props.displayData, props.displayKey, props.displayValue)}  
                         labelLine={false}
                         label={renderCustomizedLabel}
                         outerRadius={props.outerRadius} 

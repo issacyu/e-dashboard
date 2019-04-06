@@ -12,6 +12,7 @@ import * as GridColumns from '../../components/Table/GridColumns/GridColumns';
 import WithGridFunction from '../../hoc/WithGridFunction/WithGridFunction';
 import EmptyRow from '../../components/Table/GridRows/GridRow';
 import * as Utility from '../../components/Charts/Utilities';
+import SalePanelGroup from '../../components/Panel/SalePanelGroup';
 
 class Overview extends Component {
 
@@ -137,28 +138,18 @@ class Overview extends Component {
     render(){
         return(
             <div>
+                <SalePanelGroup />
                 <Row className="show-grid">
-                    <Col md={4} lg={4}>
-                        <Panel>
-                            <ul class="list-group">
-                                <li class="list-group-item">Sales: $71365.98</li>
-                                <li class="list-group-item">Renvenue: $45265.28</li>
-                                <li class="list-group-item">Order: 64031</li>
-                                <li class="list-group-item">Return: 235</li>
-                            </ul>
-                        </Panel>
-                    </Col>
-
-                    <Col md={8} lg={8}>
+                    <Col md={12} lg={12}>
                         <LineChart 
                             data={this.state.saleAndProfit}
                         />
                     </Col>
                 </Row>
                 <Row>
-                    <Col md={3} lg={3}>
-                        Top 5 selling products
+                    <Col md={12} lg={4}>
                         <BarChart 
+                            title='Top 5 Selling Products'
                             width={600}
                             height={300}
                             data={this.state.topFiveProduct}
@@ -166,10 +157,9 @@ class Overview extends Component {
                             displayValue='quantity'
                         />
                     </Col>
-                    <Col md={3} lg={3}>
-                        Category
+                    <Col md={12} lg={4}>
                         <PieChart 
-                            bsStyle='primary'
+                            title='Profit vs Cost'
                             displayData={this.state.mockData}
                             displayKey='product'
                             displayValue='totalCost'
@@ -181,14 +171,9 @@ class Overview extends Component {
                             fill='#8884d8'
                         />
                     </Col>
-                    <Col md={3} lg={3}>
-                        Category trending
-                        <LineChart />
-                    </Col>
-                    <Col md={3} lg={3}>
-                        cost vs profit
+                    <Col md={12} lg={4}>
                         <PieChart 
-                            bsStyle='primary'
+                            title='Complete Order vs Return Order'
                             displayData={this.state.completeVsReturn}
                             displayKey='Status'
                             displayValue='Number'

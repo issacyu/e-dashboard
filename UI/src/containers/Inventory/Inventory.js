@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Panel } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import * as JsonPatch from 'fast-json-patch';
 import * as actions from '../../store/actions/inventory'
 
@@ -10,6 +10,9 @@ import Alert from '../../components/Alert/Alert';
 import * as GridColumns from '../../components/Table/GridColumns/GridColumns';
 import WithGridFunction from '../../hoc/WithGridFunction/WithGridFunction';
 import EmptyRow from '../../components/Table/GridRows/GridRow';
+import InventoryPanelGroup from '../../components/Panel/InventoryPanelGroup';
+import LineChart from '../../components/Charts/LineChart';
+
 
 class Inventory extends Component {
 
@@ -127,21 +130,12 @@ class Inventory extends Component {
         return(
             <div>    
                 {alert}
+                <InventoryPanelGroup />
                 <Row className="show-grid">
-                    <Col md={3} lg={3}>
-                        <Panel>
-                            <ul class="list-group">
-                                <li class="list-group-item">Total Item Left: 200</li>
-                                <li class="list-group-item">Total Value of Item: $2000</li>
-                                <li class="list-group-item">Average Item cost: $45.28</li>
-                                <li class="list-group-item">Number of Item: 200</li>
-                            </ul>
-                        </Panel>
-                    </Col>
-                    <Col md={3} lg={3}>
+                    <Col md={6} lg={4}>
                         <PieChart 
                             bsStyle='primary'
-                            heading='Cost By Category'
+                            title='Category'
                             width={800}
                             height={300}
                             cx={220}
@@ -153,34 +147,9 @@ class Inventory extends Component {
                             displayData={this.props.inventoryData}
                         />
                     </Col>
-                    <Col md={3} lg={3}>
-                        <PieChart 
-                            bsStyle='primary'
-                            heading='Cost By Product'
-                            width={800}
-                            height={300}
-                            cx={220}
-                            cy={100}
-                            outerRadius={130}
-                            fill='#8884d8'
-                            displayKey='product'
-                            displayValue='totalCost'
-                            displayData={this.props.inventoryData}
-                        />
-                    </Col>
-                    <Col md={3} lg={3}>
-                        <PieChart 
-                            bsStyle='primary'
-                            heading='Category'
-                            width={800}
-                            height={300}
-                            cx={220}
-                            cy={100}
-                            outerRadius={130}
-                            fill='#8884d8'
-                            displayKey='category'
-                            displayValue='quantity'
-                            displayData={this.props.inventoryData}
+                    <Col md={6} lg={8}>
+                        <LineChart 
+                            data={this.state.saleAndProfit}
                         />
                     </Col>
                 </Row>

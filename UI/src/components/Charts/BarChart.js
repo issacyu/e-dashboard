@@ -16,7 +16,10 @@ const BarCharts = (props) => {
     return (
         <Col>
             <Panel>
-                <ResponsiveContainer width="98.8%" height={300}>
+                <Panel.Title style={{textAlign: 'center'}}>
+                    {props.title}
+                </Panel.Title>
+                <ResponsiveContainer width="98.8%" height={350}>
                     <BarChart width={props.width} height={props.height} data={props.data}
                         margin={{top: 5, right: 30, left: 20, bottom: 5}} layout="vertical">
                         <XAxis type="number"/>
