@@ -13,6 +13,7 @@ import WithGridFunction from '../../hoc/WithGridFunction/WithGridFunction';
 import EmptyRow from '../../components/Table/GridRows/GridRow';
 import * as Utility from '../../components/Charts/Utilities';
 import SalePanelGroup from '../../components/Panel/SalePanelGroup';
+import Modal from '../../components/Modal/Modal';
 
 class Overview extends Component {
 
@@ -22,6 +23,7 @@ class Overview extends Component {
         topFiveProduct: [],
         completeVsReturn: [],
         saleAndProfit: [],
+        showModal: false,
         mockData: 
         [
             {
@@ -133,6 +135,10 @@ class Overview extends Component {
         const patchDoc = JsonPatch.compare(this.state.origSalesData, this.state.salesData);
         this.props.onSaveOverviewData(patchDoc, this.state.salesData);
         this.setState({origSalesData: JSON.parse(JSON.stringify(this.state.salesData))});
+        //if(this.props.error === ''){
+            this.props.toggleModal('Success', 'Sales are saved successfully.', '');
+        //}
+        
     }
 
     render(){

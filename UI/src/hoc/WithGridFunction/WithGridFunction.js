@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 
+import Modal from '../../components/Modal/Modal';
 import Chance from "chance";
 
 const withGridFunction = (WrappedComponent) => {
@@ -9,7 +10,11 @@ const withGridFunction = (WrappedComponent) => {
             selection: [],
             selectAll: false,
             data: [],
-            disableDeleteButton: true
+            disableDeleteButton: true,
+            showModal: false,
+            modalTitle: '',
+            modalBody: '',
+            modalStyle: ''
         }
 
         setData = (data) => {
@@ -41,6 +46,15 @@ const withGridFunction = (WrappedComponent) => {
             return this.state.selection.includes(key);
         };
 
+        onToggleModalHandler = (modalTitle, modalBody, modalStyle) => {
+            this.setState((prevState) => ({
+                showModal: !prevState.showModal,
+                modalTitle: modalTitle,
+                modalBody: modalBody,
+                modalStyle: modalStyle
+            }))
+        };
+
         onDeleteRowHandler = () => {
             const dataClone = [...this.state.data];
             const newData = dataClone.filter(r => !this.state.selection.includes(r.id));
@@ -68,11 +82,19 @@ const withGridFunction = (WrappedComponent) => {
 
             return(
                 <div>
+                    <Modal 
+                        showModal={this.state.showModal}
+                        title={this.state.modalTitle}
+                        body={this.state.modalBody}
+                        style={this.state.modalStyle}
+                        toggle={this.onToggleModalHandler}
+                    />
                     <WrappedComponent 
                         setData={this.setData} 
                         checkboxProps ={checkboxProps}
                         onDeleteRowHandler={this.onDeleteRowHandler}
                         onAddRowHandler={this.onAddRowHandler}
+                        toggleModal={this.onToggleModalHandler}
                         {...this.state}
                         {...this.props} 
                     />

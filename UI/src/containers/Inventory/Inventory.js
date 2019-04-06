@@ -17,31 +17,6 @@ import LineChart from '../../components/Charts/LineChart';
 class Inventory extends Component {
 
     state = {
-        manufacturerData: 
-        [
-            {
-                manufacturer: 'Apple',
-                name: 'Steve Job',
-                phone: '123-456-7890',
-                email: '123@gmail.com',
-                address: '123th St New York NY 10012'
-            },
-            {
-                manufacturer: 'Apple',
-                name: 'Steve Job',
-                phone: '123-456-7890',
-                email: '123@gmail.com',
-                address: '123th St New York NY 10012'
-            },
-            {
-                manufacturer: 'Apple',
-                name: 'Steve Job',
-                phone: '123-456-7890',
-                email: '123@gmail.com',
-                address: '123th St New York NY 10012'
-            }
-        ],
-
         inventoryData: [],
         origInventoryData: []
     };
