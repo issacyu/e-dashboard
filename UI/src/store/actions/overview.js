@@ -12,7 +12,7 @@ export const fetchOverviewDataSuccess = (data) => {
 export const fetchOverviewDataFail = (error) => {
     return {
         type: actionTypes.FETCH_OVERVIEW_DATA_FAIL,
-        error: error,
+        error: error
     };
 }
 
@@ -74,7 +74,7 @@ export const saveOverviewData = (patchDoc, salesData) => {
                 dispatch(saveOverviewDataSuccess(salesData))
             }
             else{
-                dispatch(saveOverviewDataFail())
+                dispatch(saveOverviewDataFail(response.statusText))
             }
         }
         catch(err) {

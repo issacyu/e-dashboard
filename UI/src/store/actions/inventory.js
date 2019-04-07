@@ -50,7 +50,7 @@ export const saveInventoryDataSuccess = (data) => {
 export const saveInventoryDataFail = (error = '') => {
     return {
         type: actionTypes.SAVE_INVENTORY_DATA_FAIL,
-        error: error,
+        error: error
     };
 }
 
@@ -75,7 +75,7 @@ export const saveInventoryData = (patchDoc, inventoryData) => {
                 dispatch(saveInventoryDataSuccess(inventoryData));
             }
             else{
-                dispatch(saveInventoryDataFail());
+                dispatch(saveInventoryDataFail(response.statusText));
             }
         }
         catch(err) {

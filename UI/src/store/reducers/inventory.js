@@ -3,7 +3,8 @@ import { updateObject } from '../utility';
 
 const initialState = {
     inventoryData: [],
-    loading: false
+    loading: false,
+    error: ''
 };
 
 const fetchInventoryDataStart = (state) => {
@@ -13,27 +14,38 @@ const fetchInventoryDataStart = (state) => {
 const fetchInventoryDataSuccess = (state, action) => {
     return updateObject(state, {
         inventoryData: action.inventoryData,
-        loading: false
+        loading: false,
+        error: ''
     })
 }
 
-const fetchInventoryDataFail = (state) => {
-    return updateObject(state, {loading: false})
+const fetchInventoryDataFail = (state, action) => {
+    return updateObject(state, {
+        loading: false,
+        error: action.error
+    })
 }
 
 const saveInventoryDataStart = (state) => {
-    return updateObject(state, {loading: true});
+    return updateObject(state, {
+        loading: true,
+        error: ''
+    });
 }
 
 const saveInventoryDataSuccess = (state, action) => {
     return updateObject(state, {
         inventoryData: action.inventoryData,
-        loading: false
+        loading: false,
+        error: ''
     })
 }
 
-const saveInventoryDataFail = (state) => {
-    return updateObject(state, {loading: false})
+const saveInventoryDataFail = (state, action) => {
+    return updateObject(state, {
+        loading: false,
+        error: action.error
+    })
 }
 
 const reducer = (state = initialState, action) => {

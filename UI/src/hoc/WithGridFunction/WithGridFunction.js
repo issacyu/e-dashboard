@@ -53,6 +53,7 @@ const withGridFunction = (WrappedComponent) => {
                 modalBody: modalBody,
                 modalStyle: modalStyle
             }))
+            console.log(this.state.modalStyle)
         };
 
         onDeleteRowHandler = () => {

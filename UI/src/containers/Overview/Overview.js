@@ -135,10 +135,12 @@ class Overview extends Component {
         const patchDoc = JsonPatch.compare(this.state.origSalesData, this.state.salesData);
         this.props.onSaveOverviewData(patchDoc, this.state.salesData);
         this.setState({origSalesData: JSON.parse(JSON.stringify(this.state.salesData))});
-        //if(this.props.error === ''){
-            this.props.toggleModal('Success', 'Sales are saved successfully.', '');
-        //}
-        
+        if(this.props.error === ''){
+            this.props.toggleModal('Success', 'Sales are saved successfully.', 'success');
+        }  
+        else{
+            this.props.toggleModal('Fail', 'Sales cannot be saved. ' + this.props.error, 'danger');
+        }      
     }
 
     render(){
@@ -215,7 +217,9 @@ class Overview extends Component {
 
 const mapStateToProps = state => {
     return {
-        overviewData: state.overview.overviewData
+        overviewData: state.overview.overviewData,
+        loading: state.overview.loading,
+        error: state.overview.error
     }
 };
 

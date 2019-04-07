@@ -49,6 +49,12 @@ class Inventory extends Component {
         const patchDoc = JsonPatch.compare(this.state.origInventoryData, this.state.inventoryData);
         this.props.onSaveInventoryData(patchDoc, this.state.inventoryData);
         this.setState({origInventoryData: JSON.parse(JSON.stringify(this.state.inventoryData))});
+        if(this.props.error === ''){
+            this.props.toggleModal('Success', 'Inventories are saved successfully.', 'success');
+        }  
+        else{
+            this.props.toggleModal('Fail', 'Inventories cannot be saved: ' + this.props.error, 'danger');
+        }  
     }
 
     onManufacturerRenderEditableCellHandler = (cellInfo) =>{
@@ -162,7 +168,9 @@ class Inventory extends Component {
 
 const mapStateToProps = state => {
     return {
-        inventoryData: state.inventory.inventoryData
+        inventoryData: state.inventory.inventoryData,
+        loading: state.inventory.loading,
+        error: state.inventory.error
     }
 };
 
