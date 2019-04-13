@@ -48,8 +48,8 @@ class NavBar extends Component {
 
           <Modal className='menu-sidebar left' side='left' show={ this.state.isVisible } onHide={ () => this.onToggleSidebar() } autoFocus keyboard>
                   <Nav>
-                    <NavItem eventKey={1} componentClass={NavLink} href="/overview" to="/overview">
-                      Overview
+                    <NavItem eventKey={1} componentClass={NavLink} href="/Sale" to="/Sale">
+                      Sale
                     </NavItem>
                     <NavItem eventKey={2} componentClass={NavLink} href="/charts" to="/charts">
                       Charts

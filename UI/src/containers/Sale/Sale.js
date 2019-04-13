@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as JsonPatch from 'fast-json-patch';
-import * as actions from '../../store/actions/overview'
+import * as actions from '../../store/actions/sale'
 import { Row, Col, Panel } from 'react-bootstrap';
 
 import BarChart from '../../components/Charts/BarChart';
@@ -15,7 +15,7 @@ import * as Utility from '../../components/Charts/Utilities';
 import SalePanelGroup from '../../components/Panel/SalePanelGroup';
 import Modal from '../../components/Modal/Modal';
 
-class Overview extends Component {
+class Sale extends Component {
 
     state = {
         salesData: [],
@@ -82,13 +82,13 @@ class Overview extends Component {
     }
 
     componentDidMount() {
-        this.props.onFetchOverviewData();
+        this.props.onFetchSaleData();
     }
 
     componentDidUpdate(prevProps) {
         // For the initial load.
-        if(this.props.overviewData !== prevProps.overviewData) {
-            const gridData = this.props.overviewData;
+        if(this.props.saleData !== prevProps.saleData) {
+            const gridData = this.props.saleData;
             this.setState({
                 salesData: JSON.parse(JSON.stringify(gridData)),
                 origSalesData: JSON.parse(JSON.stringify(gridData))
@@ -131,9 +131,9 @@ class Overview extends Component {
         }
     }
 
-    onSaveOverviewHandler = () => {
+    onSaveSaleHandler = () => {
         const patchDoc = JsonPatch.compare(this.state.origSalesData, this.state.salesData);
-        this.props.onSaveOverviewData(patchDoc, this.state.salesData);
+        this.props.onSaveSaleData(patchDoc, this.state.salesData);
         this.setState({origSalesData: JSON.parse(JSON.stringify(this.state.salesData))});
         if(this.props.error === ''){
             this.props.toggleModal('Success', 'Sales are saved successfully.', 'success');
@@ -202,7 +202,7 @@ class Overview extends Component {
                             data={this.state.salesData}
                             emptyRow={EmptyRow()}
                             columns={GridColumns.SALES_COLUMNS(this.onSalesRenderEditableCellHandler)}
-                            onSaveHandler={this.onSaveOverviewHandler}
+                            onSaveHandler={this.onSaveSaleHandler}
                             checkboxProps={this.props.checkboxProps}
                             disableDeleteButton={this.props.disableDeleteButton}
                             onDeleteRowHandler={this.props.onDeleteRowHandler}
@@ -216,18 +216,19 @@ class Overview extends Component {
 }
 
 const mapStateToProps = state => {
+    console.log(state.sale.saleData);
     return {
-        overviewData: state.overview.overviewData,
-        loading: state.overview.loading,
-        error: state.overview.error
+        saleData: state.sale.saleData,
+        loading: state.sale.loading,
+        error: state.sale.error
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchOverviewData: () => dispatch(actions.fetchOverviewData()),
-        onSaveOverviewData: (patchDoc, salesData) => dispatch(actions.saveOverviewData(patchDoc, salesData))
+        onFetchSaleData: () => dispatch(actions.fetchSaleData()),
+        onSaveSaleData: (patchDoc, salesData) => dispatch(actions.saveSaleData(patchDoc, salesData))
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(WithGridFunction(Overview));
+export default connect(mapStateToProps, mapDispatchToProps)(WithGridFunction(Sale));

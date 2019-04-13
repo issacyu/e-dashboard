@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import './App.css';
 import Layout from './hoc/Layout/Layout';
-import Overview from './containers/Overview/Overview';
+import Sale from './containers/Sale/Sale';
 import Inventory from './containers/Inventory/Inventory';
 class App extends Component {
   render() {
@@ -11,7 +11,7 @@ class App extends Component {
       <div>
           <Layout>                       
               <Switch>
-                  <Route path="/overview" component={Overview} />
+                  <Route path="/Sale" component={Sale} />
                   <Route path="/inventory" component={Inventory} />
               </Switch>         
           </Layout>

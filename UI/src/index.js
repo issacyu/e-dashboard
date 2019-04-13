@@ -8,13 +8,13 @@ import thunk from 'redux-thunk';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import overviewReducer from './store/reducers/overview';
+import SaleReducer from './store/reducers/sale';
 import inventoryReducer from './store/reducers/inventory';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
-    overview: overviewReducer,
+    sale: SaleReducer,
     inventory: inventoryReducer
 });
 
