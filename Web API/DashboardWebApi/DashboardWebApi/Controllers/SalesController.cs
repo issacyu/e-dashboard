@@ -2,15 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Dynamic;
 using AutoMapper;
-
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.JsonPatch.Operations;
 
 using DashboardWebApi.Services;
 using DashboardWebApi.Entities;
-using DashboardWebApi.ViewModels;
-using Microsoft.AspNetCore.JsonPatch.Operations;
+using DashboardWebApi.DTOs;
+using DashboardWebApi.Extensions;
+
 
 namespace DashboardWebApi.Controllers
 {
@@ -21,15 +24,14 @@ namespace DashboardWebApi.Controllers
         public SalesController(ISaleRepostory salesRepostory)
         {
             _salesRepostory = salesRepostory;
+            _sales = _salesRepostory.GetSales();
         }
 
-        [HttpGet()]
         public IActionResult GetSales()
         {
-            IEnumerable<Sale> salesFromRepo = _salesRepostory.GetSales();
-
-            IEnumerable<SaleViewModel> sales = Mapper.Map<IEnumerable<SaleViewModel>>(salesFromRepo);
-            return Ok(sales);
+            IEnumerable<Sale> salesFromRepo = _sales;
+            dynamic saleData = GetSaleData();
+            return Ok(saleData);
         }
 
         [HttpGet("{id}")]
@@ -42,23 +44,23 @@ namespace DashboardWebApi.Controllers
                 return NotFound();
             }
 
-            SaleViewModel sale = Mapper.Map<SaleViewModel>(saleFromRepo);
+            SaleDto sale = Mapper.Map<SaleDto>(saleFromRepo);
             return Ok(sale);
         }
 
         [HttpPatch("salecollection")]
-        public IActionResult PartiallyUpdateSaleCollection([FromBody] JsonPatchDocument<IEnumerable<SaleForUpdateViewModel>> patchDoc)
+        public IActionResult PartiallyUpdateSaleCollection([FromBody] JsonPatchDocument<IEnumerable<SaleForUpdateDto>> patchDoc)
         {
             if (patchDoc == null)
             {
                 return BadRequest();
             }
 
-            ModifyPatchPath(patchDoc, _salesRepostory.GetSales().Count());
+            ModifyPatchPath(patchDoc, _sales.Count());
 
-            List<Sale> saleCollectionFromRepo = _salesRepostory.GetSales().ToList();
-            IEnumerable<SaleForUpdateViewModel> saleCollectionViewModel = 
-                Mapper.Map<IEnumerable<SaleForUpdateViewModel>>(saleCollectionFromRepo);
+            List<Sale> saleCollectionFromRepo = _sales.ToList();
+            IEnumerable<SaleForUpdateDto> saleCollectionViewModel = 
+                Mapper.Map<IEnumerable<SaleForUpdateDto>>(saleCollectionFromRepo);
             patchDoc.ApplyTo(saleCollectionViewModel);
             List<Sale> updatedSaleCollection = Mapper.Map<List<Sale>>(saleCollectionViewModel);
 
@@ -90,7 +92,7 @@ namespace DashboardWebApi.Controllers
         /// be "/-"(it means adding new array item to the end of array).
         /// </summary>
         /// <param name="patchDoc">The json patch document.</param>
-        private void ModifyPatchPath(JsonPatchDocument<IEnumerable<SaleForUpdateViewModel>> patchDoc, int collectionSize)
+        private void ModifyPatchPath(JsonPatchDocument<IEnumerable<SaleForUpdateDto>> patchDoc, int collectionSize)
         {
             foreach(Operation operation in patchDoc.Operations)
             {
@@ -105,6 +107,18 @@ namespace DashboardWebApi.Controllers
             }
         }
 
+        private async Task<dynamic> GetSaleData()
+        {
+            dynamic saleData = new ExpandoObject();
+
+            saleData.Sales = _sales;
+            saleData.SaleProfitByDate = await _sales.GetSaleProfitByDate();
+            saleData.CompletedReturnedRatio = await _sales.GetCompletedReturnedRatio();
+            saleData.TopSale = await _sales.GetTopSales(5);
+            return saleData;
+        }
+
         private ISaleRepostory _salesRepostory;
+        private IEnumerable<Sale> _sales;
     }
 }

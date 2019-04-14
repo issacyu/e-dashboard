@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DashboardWebApi.ViewModels
+namespace DashboardWebApi.DTOs
 {
-    public class InventoryForUpdateViewModel
+    public class InventoryDto
     {
         public Guid Id { get; set; }
 

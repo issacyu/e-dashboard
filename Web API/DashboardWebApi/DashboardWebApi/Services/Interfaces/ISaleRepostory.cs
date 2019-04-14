@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using DashboardWebApi.Entities;
-using DashboardWebApi.ViewModels;
+using DashboardWebApi.DTOs;
 
 namespace DashboardWebApi.Services
 {

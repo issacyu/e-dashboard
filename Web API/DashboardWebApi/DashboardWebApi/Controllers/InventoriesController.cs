@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Cors;
 using DashboardWebApi.Services;
 using DashboardWebApi.Services.Interfaces;
 using DashboardWebApi.Entities;
-using DashboardWebApi.ViewModels;
+using DashboardWebApi.DTOs;
 using Microsoft.AspNetCore.JsonPatch.Operations;
 
 namespace DashboardWebApi.Controllers
@@ -29,7 +29,7 @@ namespace DashboardWebApi.Controllers
         {
             IEnumerable<Inventory> inventoryFromRepo = _inventoryRepository.GetInventories();
 
-            IEnumerable<InventoryViewModel> inventories = Mapper.Map<IEnumerable<InventoryViewModel>>(inventoryFromRepo);
+            IEnumerable<InventoryDto> inventories = Mapper.Map<IEnumerable<InventoryDto>>(inventoryFromRepo);
             return Ok(inventories);
         }
 
@@ -43,12 +43,12 @@ namespace DashboardWebApi.Controllers
                 return BadRequest();
             }
 
-            InventoryViewModel inventory = Mapper.Map<InventoryViewModel>(inventoryFromRepo);
+            InventoryDto inventory = Mapper.Map<InventoryDto>(inventoryFromRepo);
             return Ok(inventory);
         }
 
         [HttpPatch("inventorycollection")]
-        public IActionResult PartiallyUpdateInventoryCollection([FromBody] JsonPatchDocument<IEnumerable<InventoryForUpdateViewModel>> patchDoc)
+        public IActionResult PartiallyUpdateInventoryCollection([FromBody] JsonPatchDocument<IEnumerable<InventoryForUpdateDto>> patchDoc)
         {
             if (patchDoc == null)
             {
@@ -58,7 +58,7 @@ namespace DashboardWebApi.Controllers
             ModifyPatchPath(patchDoc, _inventoryRepository.GetInventories().Count());
 
             IEnumerable<Inventory> inventoryCollectionFromRepo = _inventoryRepository.GetInventories();
-            IEnumerable<InventoryForUpdateViewModel> inventoryCollectionViewModel = Mapper.Map<IEnumerable<InventoryForUpdateViewModel>>(inventoryCollectionFromRepo);
+            IEnumerable<InventoryForUpdateDto> inventoryCollectionViewModel = Mapper.Map<IEnumerable<InventoryForUpdateDto>>(inventoryCollectionFromRepo);
             patchDoc.ApplyTo(inventoryCollectionViewModel);
             IEnumerable<Inventory> updatedInventoryCollection = Mapper.Map<IEnumerable<Inventory>>(inventoryCollectionViewModel);
 
@@ -90,7 +90,7 @@ namespace DashboardWebApi.Controllers
         /// be "/-"(it means adding new array item to the end of array).
         /// </summary>
         /// <param name="patchDoc">The json patch document.</param>
-        private void ModifyPatchPath(JsonPatchDocument<IEnumerable<InventoryForUpdateViewModel>> patchDoc, int collectionSize)
+        private void ModifyPatchPath(JsonPatchDocument<IEnumerable<InventoryForUpdateDto>> patchDoc, int collectionSize)
         {
             foreach (Operation operation in patchDoc.Operations)
             {

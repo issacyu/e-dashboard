@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using DashboardWebApi.Services;
 using DashboardWebApi.Services.Interfaces;
 using DashboardWebApi.Entities;
-using DashboardWebApi.ViewModels;
+using DashboardWebApi.DTOs;
 using Microsoft.AspNetCore.Http;
 
 namespace DashboardWebApi
@@ -78,11 +78,11 @@ namespace DashboardWebApi
             // AutoMapper configuration for entities and view models.
             AutoMapper.Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<Sale, SaleViewModel>();
-                cfg.CreateMap<Sale, SaleForUpdateViewModel>();
-                cfg.CreateMap<SaleForUpdateViewModel, Sale>();
-                cfg.CreateMap<Inventory, InventoryViewModel>();
-                cfg.CreateMap<InventoryViewModel, Inventory>();
+                cfg.CreateMap<Sale, dynamic>();
+                cfg.CreateMap<Sale, SaleForUpdateDto>();
+                cfg.CreateMap<SaleForUpdateDto, Sale>();
+                cfg.CreateMap<Inventory, InventoryDto>();
+                cfg.CreateMap<InventoryDto, Inventory>();
             });
 
             // Enable CORS

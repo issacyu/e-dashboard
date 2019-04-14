@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using DashboardWebApi.Entities;
+using DashboardWebApi.Services.Interfaces;
 
 namespace DashboardWebApi.Services
 {
@@ -22,6 +22,7 @@ namespace DashboardWebApi.Services
         {
             return _sales.FirstOrDefault(s => s.Id == id);
         }
+
 
         public void AddSale(Sale sale)
         {
