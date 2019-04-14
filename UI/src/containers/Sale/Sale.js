@@ -21,8 +21,8 @@ class Sale extends Component {
         salesData: [],
         origSalesData: [],
         topFiveProduct: [],
-        completeVsReturn: [],
-        saleAndProfit: [],
+        completedReturnedRatio: [],
+        saleProfitByDate: [],
         showModal: false,
         mockData: 
         [
@@ -96,9 +96,9 @@ class Sale extends Component {
             // Assign data to HOC state.
             this.props.setData(gridData);
             this.setState({
-                topFiveProduct: Utility.getTopFive(gridData, 'product', 'quantity'),
-                completeVsReturn: Utility.getCompleteVsReturn(gridData),
-                saleAndProfit: Utility.getSaleAndProfit(gridData)
+                topFiveProduct: this.props.topFiveProduct,
+                completedReturnedRatio: this.props.completedReturnedRatio,
+                saleProfitByDate: this.props.saleProfitByDate
             });
         }
         // When add or remove data from grid, we want to assign new data to the state.
@@ -150,7 +150,7 @@ class Sale extends Component {
                 <Row className="show-grid">
                     <Col md={12} lg={12}>
                         <LineChart 
-                            data={this.state.saleAndProfit}
+                            data={this.state.saleProfitByDate}
                         />
                     </Col>
                 </Row>
@@ -182,9 +182,10 @@ class Sale extends Component {
                     <Col md={12} lg={4}>
                         <PieChart 
                             title='Complete Order vs Return Order'
-                            displayData={this.state.completeVsReturn}
-                            displayKey='Status'
-                            displayValue='Number'
+                            key={this.state.completedReturnedRatio}
+                            displayData={this.state.completedReturnedRatio}
+                            displayKey='status'
+                            displayValue='number'
                             width={800}
                             height={300}
                             cx={220}
@@ -198,7 +199,6 @@ class Sale extends Component {
                     <Col md={12} lg={12}>
                         <DataGrid 
                             //The key uses to notify the child component to re-render.
-                            key={this.state.salesData}
                             data={this.state.salesData}
                             emptyRow={EmptyRow()}
                             columns={GridColumns.SALES_COLUMNS(this.onSalesRenderEditableCellHandler)}
@@ -216,9 +216,11 @@ class Sale extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log(state.sale.saleData);
     return {
         saleData: state.sale.saleData,
+        saleProfitByDate: state.sale.saleProfitByDate,
+        topFiveProduct: state.sale.topFiveProduct,
+        completedReturnedRatio: state.sale.completedReturnedRatio,
         loading: state.sale.loading,
         error: state.sale.error
     }

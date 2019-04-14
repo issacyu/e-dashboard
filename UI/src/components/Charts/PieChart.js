@@ -20,6 +20,8 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 const RADIAN = Math.PI / 180;  
 
 const processData = (data, key, value) => {
+    if(typeof data === 'undefined')
+        return [];
     let dataClone = [...data];
     let newData = [];
     let map = new Map();
@@ -32,6 +34,7 @@ const processData = (data, key, value) => {
         else{
             map.set(x[key], x[value]);
         }
+        console.log(map);
     });
 
     map.forEach((v, k) => {
