@@ -1,5 +1,6 @@
 import React from 'react';
 
+import * as Utility from './Utilities';
 import {
     PieChart, 
     Pie, 
@@ -18,34 +19,6 @@ const data = [{name: 'Group A', value: 400}, {name: 'Group B', value: 300},
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 const RADIAN = Math.PI / 180;  
-
-const processData = (data, key, value) => {
-    if(typeof data === 'undefined')
-        return [];
-    let dataClone = [...data];
-    let newData = [];
-    let map = new Map();
-
-    dataClone.forEach(x => {
-        if(map.has(x[key])) {
-            const val = map.get(x[key]) + x[value];
-            map.set(x[key], val);
-        }
-        else{
-            map.set(x[key], x[value]);
-        }
-        console.log(map);
-    });
-
-    map.forEach((v, k) => {
-        const obj = {
-            name: k,
-            value: v
-        }
-        newData.push(obj);
-    });
-    return newData;
-}
 
 const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
  	const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
@@ -71,7 +44,7 @@ const pieChart = (props) => {
                     <Legend />
                     <Tooltip />
                     <Pie
-                        data={processData(props.displayData, props.displayKey, props.displayValue)}  
+                        data={Utility.processData(props.displayData, props.displayKey, props.displayValue)}  
                         labelLine={false}
                         label={renderCustomizedLabel}
                         outerRadius={props.outerRadius} 
