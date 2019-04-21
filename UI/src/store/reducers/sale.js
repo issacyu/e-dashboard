@@ -15,8 +15,6 @@ const fetchSaleDataStart = (state) => {
 }
 
 const fetchSaleDataSuccess = (state, action) => {
-    console.log('topFive: ' + action.topFiveProduct);
-    console.log('completedReturnedRatio: ' + action.completedReturnedRatio);
     return updateObject(state, {
         saleData: action.saleData,
         saleProfitByDate: action.saleProfitByDate,

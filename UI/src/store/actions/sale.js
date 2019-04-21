@@ -3,7 +3,6 @@ import axios from '../../axios/AxiosConfig';
 import * as actionTypes from './actionTypes';
 
 export const fetchSaleDataSuccess = (data) => {
-    console.log(data);
     return {
         type: actionTypes.FETCH_SALE_DATA_SUCCESS,
         saleData: data.sales,

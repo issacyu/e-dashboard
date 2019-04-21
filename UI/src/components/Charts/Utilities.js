@@ -14,7 +14,6 @@ export const processData = (data, key, value) => {
         else{
             map.set(x[key], x[value]);
         }
-        console.log(map);
     });
 
     map.forEach((v, k) => {

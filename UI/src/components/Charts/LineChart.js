@@ -26,7 +26,6 @@ const data = [
 ];
 
 const lineChart = (props) => {
-    console.log(props.data);
     return (
         <Panel>
             <ResponsiveContainer width="98.5%" height={300}>
