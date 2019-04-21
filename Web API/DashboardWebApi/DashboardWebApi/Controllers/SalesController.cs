@@ -24,18 +24,18 @@ namespace DashboardWebApi.Controllers
         public SalesController(ISaleRepostory salesRepostory, IMapper mapper)
         {
             _salesRepostory = salesRepostory;
-            _sales = _salesRepostory.GetSales();
             _mapper = mapper;
         }
 
         public async Task<IActionResult> GetSales()
         {
+            IEnumerable<Sale> saleFromRepo = _salesRepostory.GetSales();
             SaleDto saleDto = new SaleDto
             {
-                Sales = _sales,
-                TopSales = await _sales.GetTopSales(5),
-                SaleProfitByDates = await _sales.GetSaleProfitByDate(),
-                CompletedReturnedRatios = await _sales.GetCompletedReturnedRatio()
+                Sales = saleFromRepo,
+                TopSales = await saleFromRepo.GetTopSales(5),
+                SaleProfitByDates = await saleFromRepo.GetSaleProfitByDate(),
+                CompletedReturnedRatios = await saleFromRepo.GetCompletedReturnedRatio()
             };
             return Ok(saleDto);
         }
@@ -61,14 +61,13 @@ namespace DashboardWebApi.Controllers
             {
                 return BadRequest();
             }
+            IEnumerable<Sale> saleFromRepo = _salesRepostory.GetSales();
+            ModifyPatchPath(patchDoc, saleFromRepo.Count());
 
-            ModifyPatchPath(patchDoc, _sales.Count());
-
-            List<Sale> saleCollectionFromRepo = _sales.ToList();
-            IEnumerable<SaleForUpdateDto> saleCollectionViewModel =
-                _mapper.Map<IEnumerable<SaleForUpdateDto>>(saleCollectionFromRepo);
-            patchDoc.ApplyTo(saleCollectionViewModel);
-            List<Sale> updatedSaleCollection = _mapper.Map<List<Sale>>(saleCollectionViewModel);
+            IEnumerable<SaleForUpdateDto> saleCollectionDto =
+                _mapper.Map<IEnumerable<SaleForUpdateDto>>(saleFromRepo);
+            patchDoc.ApplyTo(saleCollectionDto);
+            List<Sale> updatedSaleCollection = _mapper.Map<List<Sale>>(saleCollectionDto);
 
             foreach(Sale s in updatedSaleCollection)
             {
@@ -113,20 +112,7 @@ namespace DashboardWebApi.Controllers
             }
         }
 
-        private async Task<SaleDto> GetSaleData()
-        {
-            SaleDto sale = new SaleDto
-            {
-                Sales = _sales,
-                TopSales = await _sales.GetTopSales(5),
-                SaleProfitByDates = await _sales.GetSaleProfitByDate(),
-                CompletedReturnedRatios = await _sales.GetCompletedReturnedRatio()
-            };
-            return sale;
-        }
-
         private readonly ISaleRepostory _salesRepostory;
-        private readonly IEnumerable<Sale> _sales;
         private readonly IMapper _mapper;
     }
 }
