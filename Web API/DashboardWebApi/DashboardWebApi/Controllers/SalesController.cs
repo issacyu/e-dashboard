@@ -27,11 +27,16 @@ namespace DashboardWebApi.Controllers
             _sales = _salesRepostory.GetSales();
         }
 
-        public IActionResult GetSales()
+        public async Task<IActionResult> GetSales()
         {
-            IEnumerable<Sale> salesFromRepo = _sales;
-            dynamic saleData = GetSaleData();
-            return Ok(saleData);
+            SaleDto saleDto = new SaleDto
+            {
+                Sales = _sales,
+                TopSales = await _sales.GetTopSales(5),
+                SaleProfitByDates = await _sales.GetSaleProfitByDate(),
+                CompletedReturnedRatios = await _sales.GetCompletedReturnedRatio()
+            };
+            return Ok(saleDto);
         }
 
         [HttpGet("{id}")]
@@ -107,15 +112,16 @@ namespace DashboardWebApi.Controllers
             }
         }
 
-        private async Task<dynamic> GetSaleData()
+        private async Task<SaleDto> GetSaleData()
         {
-            dynamic saleData = new ExpandoObject();
-
-            saleData.Sales = _sales;
-            saleData.SaleProfitByDate = await _sales.GetSaleProfitByDate();
-            saleData.CompletedReturnedRatio = await _sales.GetCompletedReturnedRatio();
-            saleData.TopSale = await _sales.GetTopSales(5);
-            return saleData;
+            SaleDto sale = new SaleDto
+            {
+                Sales = _sales,
+                TopSales = await _sales.GetTopSales(5),
+                SaleProfitByDates = await _sales.GetSaleProfitByDate(),
+                CompletedReturnedRatios = await _sales.GetCompletedReturnedRatio()
+            };
+            return sale;
         }
 
         private ISaleRepostory _salesRepostory;

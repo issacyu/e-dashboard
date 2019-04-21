@@ -6,10 +6,10 @@ export const fetchSaleDataSuccess = (data) => {
     console.log(data);
     return {
         type: actionTypes.FETCH_SALE_DATA_SUCCESS,
-        saleData: data.result.Sales,
-        saleProfitByDate: data.result.SaleProfitByDate,
-        topFiveProduct: data.result.TopSale,
-        completedReturnedRatio: data.result.CompletedReturnedRatio
+        saleData: data.sales,
+        saleProfitByDate: data.saleProfitByDates,
+        topFiveProduct: data.topSales,
+        completedReturnedRatio: data.completedReturnedRatios
     };
 }
 
