@@ -16,7 +16,7 @@ namespace DashboardWebApi.Extensions
         /// <param name="sales">The sale collection.</param>
         /// <param name="n">The top N number.</param>
         /// <returns>Top N sale.</returns>
-        public static async Task<IList<TopSaleDto>> GetTopSales(this IEnumerable<Sale> sales, int n)
+        public static async Task<IEnumerable<TopSaleDto>> GetTopSales(this IEnumerable<Sale> sales, int n)
         {
             IDictionary<string, int> saleDic = new Dictionary<string, int>();
             foreach (Sale sale in sales)
@@ -30,16 +30,15 @@ namespace DashboardWebApi.Extensions
                     saleDic.Add(sale.Product, sale.Quantity);
                 }
             }
-            IList<TopSaleDto> topNSaleList = saleDic
+            IEnumerable<TopSaleDto> topNSaleList = saleDic
                 .OrderByDescending(s => s.Value)
                 .Take(n)
-                .Select(s => new TopSaleDto{ Product = s.Key, Quantity = s.Value })
-                .ToList();
+                .Select(s => new TopSaleDto{ Product = s.Key, Quantity = s.Value });
 
             return topNSaleList;
         }
 
-        public static async Task<IList<CompletedReturnedRatioDto>> GetCompletedReturnedRatio(this IEnumerable<Sale> sales)
+        public static async Task<IEnumerable<CompletedReturnedRatioDto>> GetCompletedReturnedRatio(this IEnumerable<Sale> sales)
         {
             IDictionary<string, int> completedReturnedDic = new Dictionary<string, int>();
 
@@ -55,13 +54,12 @@ namespace DashboardWebApi.Extensions
                     completedReturnedDic.Add(s.Status, 1);
                 }
             }
-            IList<CompletedReturnedRatioDto> completedReturnedList = completedReturnedDic
-                .Select(x => new CompletedReturnedRatioDto { Status = x.Key, Number = x.Value })
-                .ToList();
+            IEnumerable<CompletedReturnedRatioDto> completedReturnedList = completedReturnedDic
+                .Select(x => new CompletedReturnedRatioDto { Status = x.Key, Number = x.Value });
             return completedReturnedList;
         }
 
-        public static async Task<IList<SaleProfitByDateDto>> GetSaleProfitByDate(this IEnumerable<Sale> sales)
+        public static async Task<IEnumerable<SaleProfitByDateDto>> GetSaleProfitByDate(this IEnumerable<Sale> sales)
         {
             IDictionary<string, SaleProfitByDateDto> lastTwelveMonths = Enumerable
                 .Range(0, 12)
@@ -77,7 +75,7 @@ namespace DashboardWebApi.Extensions
                     lastTwelveMonths[monthYear].Profit += s.NetProfit;
                 }
             }
-            IList<SaleProfitByDateDto> lastTwelveMonthsList = lastTwelveMonths
+            IEnumerable<SaleProfitByDateDto> lastTwelveMonthsList = lastTwelveMonths
                    .Values
                    .OrderBy(x => x.Date)
                    .ToList();
