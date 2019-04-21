@@ -21,10 +21,11 @@ namespace DashboardWebApi.Controllers
     [EnableCors("CorsPolicy")]
     public class SalesController : Controller
     {
-        public SalesController(ISaleRepostory salesRepostory)
+        public SalesController(ISaleRepostory salesRepostory, IMapper mapper)
         {
             _salesRepostory = salesRepostory;
             _sales = _salesRepostory.GetSales();
+            _mapper = mapper;
         }
 
         public async Task<IActionResult> GetSales()
@@ -64,10 +65,10 @@ namespace DashboardWebApi.Controllers
             ModifyPatchPath(patchDoc, _sales.Count());
 
             List<Sale> saleCollectionFromRepo = _sales.ToList();
-            IEnumerable<SaleForUpdateDto> saleCollectionViewModel = 
-                Mapper.Map<IEnumerable<SaleForUpdateDto>>(saleCollectionFromRepo);
+            IEnumerable<SaleForUpdateDto> saleCollectionViewModel =
+                _mapper.Map<IEnumerable<SaleForUpdateDto>>(saleCollectionFromRepo);
             patchDoc.ApplyTo(saleCollectionViewModel);
-            List<Sale> updatedSaleCollection = Mapper.Map<List<Sale>>(saleCollectionViewModel);
+            List<Sale> updatedSaleCollection = _mapper.Map<List<Sale>>(saleCollectionViewModel);
 
             foreach(Sale s in updatedSaleCollection)
             {
@@ -124,7 +125,8 @@ namespace DashboardWebApi.Controllers
             return sale;
         }
 
-        private ISaleRepostory _salesRepostory;
-        private IEnumerable<Sale> _sales;
+        private readonly ISaleRepostory _salesRepostory;
+        private readonly IEnumerable<Sale> _sales;
+        private readonly IMapper _mapper;
     }
 }

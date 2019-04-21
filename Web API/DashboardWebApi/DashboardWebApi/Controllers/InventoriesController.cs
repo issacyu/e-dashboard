@@ -19,9 +19,10 @@ namespace DashboardWebApi.Controllers
     [Route("api/inventories")]
     public class InventoriesController : Controller
     {
-        public InventoriesController(IInventoryRepository inventoryRepository)
+        public InventoriesController(IInventoryRepository inventoryRepository, IMapper mapper)
         {
             _inventoryRepository = inventoryRepository;
+            _mapper = mapper;
         }
 
         [HttpGet()]
@@ -29,7 +30,7 @@ namespace DashboardWebApi.Controllers
         {
             IEnumerable<Inventory> inventoryFromRepo = _inventoryRepository.GetInventories();
 
-            IEnumerable<InventoryDto> inventories = Mapper.Map<IEnumerable<InventoryDto>>(inventoryFromRepo);
+            IEnumerable<InventoryDto> inventories = _mapper.Map<IEnumerable<InventoryDto>>(inventoryFromRepo);
             return Ok(inventories);
         }
 
@@ -43,7 +44,7 @@ namespace DashboardWebApi.Controllers
                 return BadRequest();
             }
 
-            InventoryDto inventory = Mapper.Map<InventoryDto>(inventoryFromRepo);
+            InventoryDto inventory = _mapper.Map<InventoryDto>(inventoryFromRepo);
             return Ok(inventory);
         }
 
@@ -58,9 +59,9 @@ namespace DashboardWebApi.Controllers
             ModifyPatchPath(patchDoc, _inventoryRepository.GetInventories().Count());
 
             IEnumerable<Inventory> inventoryCollectionFromRepo = _inventoryRepository.GetInventories();
-            IEnumerable<InventoryForUpdateDto> inventoryCollectionViewModel = Mapper.Map<IEnumerable<InventoryForUpdateDto>>(inventoryCollectionFromRepo);
+            IEnumerable<InventoryForUpdateDto> inventoryCollectionViewModel = _mapper.Map<IEnumerable<InventoryForUpdateDto>>(inventoryCollectionFromRepo);
             patchDoc.ApplyTo(inventoryCollectionViewModel);
-            IEnumerable<Inventory> updatedInventoryCollection = Mapper.Map<IEnumerable<Inventory>>(inventoryCollectionViewModel);
+            IEnumerable<Inventory> updatedInventoryCollection = _mapper.Map<IEnumerable<Inventory>>(inventoryCollectionViewModel);
 
             foreach(Inventory i in updatedInventoryCollection)
             {
@@ -105,6 +106,7 @@ namespace DashboardWebApi.Controllers
             }
         }
 
-        private IInventoryRepository _inventoryRepository;
+        private readonly IInventoryRepository _inventoryRepository;
+        private readonly IMapper _mapper;
     }
 }

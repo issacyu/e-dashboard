@@ -11,12 +11,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using AutoMapper;
 
 using DashboardWebApi.Services;
 using DashboardWebApi.Services.Interfaces;
 using DashboardWebApi.Entities;
-using DashboardWebApi.DTOs;
-using Microsoft.AspNetCore.Http;
 
 namespace DashboardWebApi
 {
@@ -44,6 +44,7 @@ namespace DashboardWebApi
                     .AllowCredentials());
             });
 
+            services.AddAutoMapper();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddDbContext<DashboardContext>(x => x.UseSqlServer(connectionString));
@@ -74,16 +75,6 @@ namespace DashboardWebApi
                     });
                 });
             }
-
-            // AutoMapper configuration for entities and view models.
-            AutoMapper.Mapper.Initialize(cfg =>
-            {
-                cfg.CreateMap<Sale, dynamic>();
-                cfg.CreateMap<Sale, SaleForUpdateDto>();
-                cfg.CreateMap<SaleForUpdateDto, Sale>();
-                cfg.CreateMap<Inventory, InventoryDto>();
-                cfg.CreateMap<InventoryDto, Inventory>();
-            });
 
             // Enable CORS
             app.Use((context, next) =>
