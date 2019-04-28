@@ -3,6 +3,7 @@ import { updateObject } from '../utility';
 
 const initialState = {
     inventoryData: [],
+    categories: [],
     loading: false,
     error: ''
 };
@@ -14,6 +15,7 @@ const fetchInventoryDataStart = (state) => {
 const fetchInventoryDataSuccess = (state, action) => {
     return updateObject(state, {
         inventoryData: action.inventoryData,
+        categories: action.categories,
         loading: false,
         error: ''
     })

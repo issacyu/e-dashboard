@@ -12,13 +12,15 @@ import WithGridFunction from '../../hoc/WithGridFunction/WithGridFunction';
 import EmptyRow from '../../components/Table/GridRows/GridRow';
 import InventoryPanelGroup from '../../components/Panel/InventoryPanelGroup';
 import LineChart from '../../components/Charts/LineChart';
+import { stat } from 'fs';
 
 
 class Inventory extends Component {
 
     state = {
         inventoryData: [],
-        origInventoryData: []
+        origInventoryData: [],
+        categories: []
     };
 
     componentDidMount() {
@@ -35,12 +37,15 @@ class Inventory extends Component {
             })
             // Assign data to HOC state.
             this.props.setData(gridData);
+            this.setState({
+                categories: JSON.parse(JSON.stringify(this.props.categories))
+            })
         }
         // When add or remove data from grid, we want to assign new data to the state.
         // The this.props.data is from HOC.
         if(this.props.data !== prevProps.data){
             this.setState({
-                inventoryData: JSON.parse(JSON.stringify(this.props.data))
+                inventoryData: JSON.parse(JSON.stringify(this.props.data)),
             })
         }
     }
@@ -124,8 +129,8 @@ class Inventory extends Component {
                             outerRadius={130}
                             fill='#8884d8'
                             displayKey='category'
-                            displayValue='totalCost'
-                            displayData={this.props.inventoryData}
+                            displayValue='quantity'
+                            displayData={this.state.categories}
                         />
                     </Col>
                     <Col md={6} lg={8}>
@@ -169,6 +174,7 @@ class Inventory extends Component {
 const mapStateToProps = state => {
     return {
         inventoryData: state.inventory.inventoryData,
+        categories: state.inventory.categories,
         loading: state.inventory.loading,
         error: state.inventory.error
     }
