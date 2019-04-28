@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Dynamic;
 using AutoMapper;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Cors;
@@ -21,9 +20,9 @@ namespace DashboardWebApi.Controllers
     [EnableCors("CorsPolicy")]
     public class SalesController : Controller
     {
-        public SalesController(ISaleRepostory salesRepostory, IMapper mapper)
+        public SalesController(ISaleRepostory salesRepository, IMapper mapper)
         {
-            _salesRepostory = salesRepostory;
+            _salesRepostory = salesRepository;
             _mapper = mapper;
         }
 
@@ -101,8 +100,7 @@ namespace DashboardWebApi.Controllers
         {
             foreach(Operation operation in patchDoc.Operations)
             {
-                int index = 0;
-                if (operation.OperationType.ToString() == "Add" && int.TryParse(operation.path.Split("/")[1], out index))
+                if (operation.OperationType.ToString() == "Add" && int.TryParse(operation.path.Split("/")[1], out var index))
                 {
                     if(index >= collectionSize)
                     {

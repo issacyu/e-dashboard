@@ -25,7 +25,7 @@ namespace DashboardWebApi.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet()]
+        [HttpGet]
         public async Task<IActionResult> GetInventories()
         {
             IEnumerable<Inventory> inventoryFromRepo = _inventoryRepository.GetInventories();
@@ -95,8 +95,7 @@ namespace DashboardWebApi.Controllers
         {
             foreach (Operation operation in patchDoc.Operations)
             {
-                int index = 0;
-                if (operation.OperationType.ToString() == "Add" && int.TryParse(operation.path.Split("/")[1], out index))
+                if (operation.OperationType.ToString() == "Add" && int.TryParse(operation.path.Split("/")[1], out var index))
                 {
                     if (index >= collectionSize)
                     {
