@@ -11,6 +11,7 @@ using DashboardWebApi.Services;
 using DashboardWebApi.Services.Interfaces;
 using DashboardWebApi.Entities;
 using DashboardWebApi.DTOs;
+using DashboardWebApi.Extensions;
 using Microsoft.AspNetCore.JsonPatch.Operations;
 
 namespace DashboardWebApi.Controllers
@@ -30,8 +31,12 @@ namespace DashboardWebApi.Controllers
         {
             IEnumerable<Inventory> inventoryFromRepo = _inventoryRepository.GetInventories();
 
-            IEnumerable<InventoryDto> inventories = _mapper.Map<IEnumerable<InventoryDto>>(inventoryFromRepo);
-            return Ok(inventories);
+            InventoryDto inventoryDto = new InventoryDto
+            {
+                Inventories = inventoryFromRepo,
+                Categories = await inventoryFromRepo.GetCategories()
+            };
+            return Ok(inventoryDto);
         }
 
         [HttpGet("{id}")]
