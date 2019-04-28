@@ -26,7 +26,7 @@ namespace DashboardWebApi.Controllers
         }
 
         [HttpGet()]
-        public IActionResult GetInventories()
+        public async Task<IActionResult> GetInventories()
         {
             IEnumerable<Inventory> inventoryFromRepo = _inventoryRepository.GetInventories();
 
@@ -35,7 +35,7 @@ namespace DashboardWebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetInventory(Guid id)
+        public async Task<IActionResult> GetInventory(Guid id)
         {
             Inventory inventoryFromRepo = _inventoryRepository.GetInventory(id);
 
@@ -49,14 +49,14 @@ namespace DashboardWebApi.Controllers
         }
 
         [HttpPatch("inventorycollection")]
-        public IActionResult PartiallyUpdateInventoryCollection([FromBody] JsonPatchDocument<IEnumerable<InventoryForUpdateDto>> patchDoc)
+        public async Task<IActionResult> PartiallyUpdateInventoryCollection([FromBody] JsonPatchDocument<IEnumerable<InventoryForUpdateDto>> patchDoc)
         {
             if (patchDoc == null)
             {
                 return BadRequest();
             }
 
-            ModifyPatchPath(patchDoc, _inventoryRepository.GetInventories().Count());
+            await ModifyPatchPath(patchDoc, _inventoryRepository.GetInventories().Count());
 
             IEnumerable<Inventory> inventoryCollectionFromRepo = _inventoryRepository.GetInventories();
             IEnumerable<InventoryForUpdateDto> inventoryCollectionViewModel = _mapper.Map<IEnumerable<InventoryForUpdateDto>>(inventoryCollectionFromRepo);
@@ -91,7 +91,7 @@ namespace DashboardWebApi.Controllers
         /// be "/-"(it means adding new array item to the end of array).
         /// </summary>
         /// <param name="patchDoc">The json patch document.</param>
-        private void ModifyPatchPath(JsonPatchDocument<IEnumerable<InventoryForUpdateDto>> patchDoc, int collectionSize)
+        private async Task ModifyPatchPath(JsonPatchDocument<IEnumerable<InventoryForUpdateDto>> patchDoc, int collectionSize)
         {
             foreach (Operation operation in patchDoc.Operations)
             {

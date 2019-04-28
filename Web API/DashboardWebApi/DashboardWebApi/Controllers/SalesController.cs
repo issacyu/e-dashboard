@@ -41,7 +41,7 @@ namespace DashboardWebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetSale(Guid id)
+        public async Task<IActionResult> GetSale(Guid id)
         {
             Sale saleFromRepo = _salesRepostory.GetSale(id);
 
@@ -55,14 +55,14 @@ namespace DashboardWebApi.Controllers
         }
 
         [HttpPatch("salecollection")]
-        public IActionResult PartiallyUpdateSaleCollection([FromBody] JsonPatchDocument<IEnumerable<SaleForUpdateDto>> patchDoc)
+        public async Task<IActionResult> PartiallyUpdateSaleCollection([FromBody] JsonPatchDocument<IEnumerable<SaleForUpdateDto>> patchDoc)
         {
             if (patchDoc == null)
             {
                 return BadRequest();
             }
             IEnumerable<Sale> saleFromRepo = _salesRepostory.GetSales();
-            ModifyPatchPath(patchDoc, saleFromRepo.Count());
+            await ModifyPatchPath(patchDoc, saleFromRepo.Count());
 
             IEnumerable<SaleForUpdateDto> saleCollectionDto =
                 _mapper.Map<IEnumerable<SaleForUpdateDto>>(saleFromRepo);
@@ -97,7 +97,7 @@ namespace DashboardWebApi.Controllers
         /// be "/-"(it means adding new array item to the end of array).
         /// </summary>
         /// <param name="patchDoc">The json patch document.</param>
-        private void ModifyPatchPath(JsonPatchDocument<IEnumerable<SaleForUpdateDto>> patchDoc, int collectionSize)
+        private async Task ModifyPatchPath(JsonPatchDocument<IEnumerable<SaleForUpdateDto>> patchDoc, int collectionSize)
         {
             foreach(Operation operation in patchDoc.Operations)
             {
