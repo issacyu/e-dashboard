@@ -62,7 +62,7 @@ namespace DashboardWebApi.Controllers
                 return BadRequest();
             }
             IEnumerable<Sale> saleFromRepo = _salesRepostory.GetSales();
-            await ModifyPatchPath(patchDoc, saleFromRepo.Count());
+            await patchDoc.ModifyPatchPath(saleFromRepo.Count());
 
             IEnumerable<SaleForUpdateDto> saleCollectionDto =
                 _mapper.Map<IEnumerable<SaleForUpdateDto>>(saleFromRepo);
@@ -89,26 +89,6 @@ namespace DashboardWebApi.Controllers
             }
         
             return NoContent();
-        }
-
-        /// <summary>
-        /// Handle the edge case when adding new row to any data grid.
-        /// When adding new row to a grid, the path in patchDoc should
-        /// be "/-"(it means adding new array item to the end of array).
-        /// </summary>
-        /// <param name="patchDoc">The json patch document.</param>
-        private async Task ModifyPatchPath(JsonPatchDocument<IEnumerable<SaleForUpdateDto>> patchDoc, int collectionSize)
-        {
-            foreach(Operation operation in patchDoc.Operations)
-            {
-                if (operation.OperationType.ToString() == "Add" && int.TryParse(operation.path.Split("/")[1], out var index))
-                {
-                    if(index >= collectionSize)
-                    {
-                        operation.path = "/-";
-                    }
-                }
-            }
         }
 
         private readonly ISaleRepostory _salesRepostory;
