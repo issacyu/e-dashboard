@@ -7,7 +7,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Cors;
 
-using DashboardWebApi.Services;
 using DashboardWebApi.Services.Interfaces;
 using DashboardWebApi.Entities;
 using DashboardWebApi.DTOs;
@@ -18,7 +17,8 @@ namespace DashboardWebApi.Controllers
 {
     [EnableCors("CorsPolicy")]
     [Route("api/inventories")]
-    public class InventoriesController : Controller
+    [ApiController]
+    public class InventoriesController : ControllerBase
     {
         public InventoriesController(IInventoryRepository inventoryRepository, IMapper mapper)
         {

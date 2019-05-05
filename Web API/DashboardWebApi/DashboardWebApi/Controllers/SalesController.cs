@@ -18,7 +18,8 @@ namespace DashboardWebApi.Controllers
 {
     [Route("api/sales")]
     [EnableCors("CorsPolicy")]
-    public class SalesController : Controller
+    [ApiController]
+    public class SalesController : ControllerBase
     {
         public SalesController(ISaleRepostory salesRepository, IMapper mapper)
         {
