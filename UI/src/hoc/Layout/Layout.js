@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import Navbar from '../../containers/Navigation/Navbar/Navbar';
-import SideNav from '../../containers/Navigation/SideNav/SideNav';
-import { Grid, Row, Col } from 'react-bootstrap';
+import Navbar from '../../components/Navigation/Navbar/Navbar';
+import SideNav from '../../components/Navigation/SideNav/SideNav';
+import { Grid, Col } from 'react-bootstrap';
 
 class Layout extends Component {
     render() {

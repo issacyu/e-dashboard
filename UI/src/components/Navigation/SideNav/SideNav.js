@@ -16,7 +16,7 @@ const sideNav = (props) => {
         <SideNav
             expanded={true}
             onSelect = { (selected) => onSelectHandler(props, selected) }
-            style={{backgroundColor: 'black'}}
+            style={{backgroundColor: '#000', marginTop: '50px'}}
         >
             {/* <SideNav.Toggle /> */}
             <SideNav.Nav defaultSelected="Sale">
