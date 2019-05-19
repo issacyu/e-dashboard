@@ -12,7 +12,7 @@ class App extends Component {
           <Layout>                       
               <Switch>
                   <Route path="/Sale" component={Sale} />
-                  <Route path="/inventory" component={Inventory} />
+                  <Route path="/Inventory" component={Inventory} />
               </Switch>         
           </Layout>
       </div>

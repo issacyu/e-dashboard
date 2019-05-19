@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Navbar from '../../containers/Navigation/Navbar/Navbar';
-
+import SideNav from '../../containers/Navigation/SideNav/SideNav';
 import { Grid, Row, Col } from 'react-bootstrap';
 
 class Layout extends Component {
@@ -9,6 +9,7 @@ class Layout extends Component {
         return (
             <div style={{backgroundColor: 'rgb(249, 249, 250)'}}>
                 <Navbar />
+                <SideNav />
                 <Grid fluid={true}>                   
                     <Col md={1} lg={1}>
 

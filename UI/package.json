@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@trendmicro/react-sidenav": "^0.4.5",
     "axios": "^0.18.0",
     "chance": "^1.0.18",
     "fast-json-patch": "^2.0.7",
