@@ -7,10 +7,12 @@ import {
           Glyphicon
      } from 'react-bootstrap';
 
+import './Navbar.css'
+
 const navBar = () => {
     return (
         <div>
-          <Navbar inverse fluid={true}>
+          <Navbar fixedTop inverse fluid={true} className='Navbar'>
             <Navbar.Collapse>
               <Nav>
                 <NavItem eventKey={0} onClick={ () => this.onToggleSidebar() }>

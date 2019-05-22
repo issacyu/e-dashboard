@@ -4,19 +4,17 @@ import Navbar from '../../components/Navigation/Navbar/Navbar';
 import SideNav from '../../components/Navigation/SideNav/SideNav';
 import { Grid, Col } from 'react-bootstrap';
 
+import './Layout.css';
+
 class Layout extends Component {
     render() {
         return (
-            <div style={{backgroundColor: 'rgb(249, 249, 250)'}}>
+            <div className='GridBackground'>
                 <Navbar />
                 <SideNav />
-                <Grid fluid={true}>                   
-                    <Col md={1} lg={1}>
-
-                    </Col>
-
+                <Grid fluid={true} className='GridBody'>                   
                     <main>
-                        <Col md={8} lg={8} mdOffset={1} lgOffset={1}>
+                        <Col md={9} lg={9} mdOffset={2} lgOffset={2}>
                             <Grid fluid={true}>
                                 {this.props.children}
                             </Grid>
