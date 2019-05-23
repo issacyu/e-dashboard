@@ -9,6 +9,6 @@ namespace DashboardWebApi.DTOs
         public IEnumerable<Sale> Sales { get; set; }
         public IEnumerable<SaleProfitByDateDto> SaleProfitByDates { get; set; }
         public IEnumerable<TopSaleDto> TopSales { get; set; }
-        public IEnumerable<CompletedReturnedRatioDto> CompletedReturnedRatios { get; set; }
+        public IEnumerable<SaleStatusDto> CompletedReturnedRatios { get; set; }
     }
 }

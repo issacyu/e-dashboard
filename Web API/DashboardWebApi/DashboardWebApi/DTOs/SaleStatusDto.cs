@@ -1,6 +1,6 @@
 ﻿namespace DashboardWebApi.DTOs
 {
-    public class CompletedReturnedRatioDto
+    public class SaleStatusDto
     {
         public string Status { get; set; }
         public int Number { get; set; }
