@@ -3,9 +3,6 @@ import { updateObject } from '../utility';
 
 const initialState = {
     saleData: [],
-    saleProfitByDate: [],
-    topFiveProduct: [],
-    completedReturnedRatio: [],
     loading: false,
     error: ''
 };
@@ -17,9 +14,6 @@ const fetchSaleDataStart = (state) => {
 const fetchSaleDataSuccess = (state, action) => {
     return updateObject(state, {
         saleData: action.saleData,
-        saleProfitByDate: action.saleProfitByDate,
-        topFiveProduct: action.topFiveProduct,
-        completedReturnedRatio: action.completedReturnedRatio,
         loading: false,
         error: ''
     })

@@ -11,7 +11,7 @@ import DataGrid from '../../components/Table/DataGrid/DataGrid';
 import * as GridColumns from '../../components/Table/GridColumns/GridColumns';
 import WithGridFunction from '../../hoc/WithGridFunction/WithGridFunction';
 import EmptyRow from '../../components/Table/GridRows/GridRow';
-import * as Utility from '../../components/Charts/Utilities';
+import * as Analysis from './Utilities/SaleAnalysis';
 import SalePanelGroup from '../../components/Panel/SalePanelGroup';
 
 class Sale extends Component {
@@ -40,9 +40,9 @@ class Sale extends Component {
             // Assign data to HOC state.
             this.props.setData(gridData);
             this.setState({
-                topFiveProduct: this.props.topFiveProduct,
-                completedReturnedRatio: this.props.completedReturnedRatio,
-                saleProfitByDate: this.props.saleProfitByDate
+                topFiveProduct: Analysis.getTopFiveProducts(gridData, 'product', 'quantity'),
+                completedReturnedRatio: Analysis.getOrderStatus(gridData),
+                saleProfitByDate: Analysis.getSaleAndProfitByDate(gridData)
             });
         }
         // When add or remove data from grid, we want to assign new data to the state.
@@ -162,9 +162,6 @@ class Sale extends Component {
 const mapStateToProps = state => {
     return {
         saleData: state.sale.saleData,
-        saleProfitByDate: state.sale.saleProfitByDate,
-        topFiveProduct: state.sale.topFiveProduct,
-        completedReturnedRatio: state.sale.completedReturnedRatio,
         loading: state.sale.loading,
         error: state.sale.error
     }

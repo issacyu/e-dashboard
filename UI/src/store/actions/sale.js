@@ -5,10 +5,7 @@ import * as actionTypes from './actionTypes';
 export const fetchSaleDataSuccess = (data) => {
     return {
         type: actionTypes.FETCH_SALE_DATA_SUCCESS,
-        saleData: data.sales,
-        saleProfitByDate: data.saleProfitByDates,
-        topFiveProduct: data.topSales,
-        completedReturnedRatio: data.completedReturnedRatios
+        saleData: data,
     };
 }
 
@@ -32,12 +29,13 @@ export const fetchSaleData = () => {
             const getData = async() => {
                 return await axios.get('api/sales');   
             }
-            dispatch(getData().then( res => 
+            dispatch(getData().then( res => {
                 dispatch(fetchSaleDataSuccess(res.data))
+            }
             ));
         }
         catch(err) {
-            dispatch(fetchSaleDataFail(err))
+             dispatch(fetchSaleDataFail(err))
         }
     }
 }
