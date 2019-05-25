@@ -12,8 +12,6 @@ import WithGridFunction from '../../hoc/WithGridFunction/WithGridFunction';
 import EmptyRow from '../../components/Table/GridRows/GridRow';
 import InventoryPanelGroup from '../../components/Panel/InventoryPanelGroup';
 import LineChart from '../../components/Charts/LineChart';
-import { stat } from 'fs';
-
 
 class Inventory extends Component {
 
@@ -139,16 +137,6 @@ class Inventory extends Component {
                         />
                     </Col>
                 </Row>
-                {/* <Row>
-                    <Col md={12} lg={12}>
-                        <DataGrid 
-                            data={this.state.manufacturerData} 
-                            title='Manufacturer'
-                            columns={ManufacturerColumns(this.onManufacturerRenderEditableCellHandler)}
-                            emptyRow={EmptyRow('MANUFACTURER')}
-                        />
-                    </Col>
-                </Row> */}
                 <Row>
                     <Col md={12} lg={12}>
                         <DataGrid 

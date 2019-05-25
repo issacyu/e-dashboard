@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as JsonPatch from 'fast-json-patch';
 import * as actions from '../../store/actions/sale'
-import { Row, Col, Panel } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 
 import BarChart from '../../components/Charts/BarChart';
 import LineChart from '../../components/Charts/LineChart';
@@ -13,7 +13,6 @@ import WithGridFunction from '../../hoc/WithGridFunction/WithGridFunction';
 import EmptyRow from '../../components/Table/GridRows/GridRow';
 import * as Utility from '../../components/Charts/Utilities';
 import SalePanelGroup from '../../components/Panel/SalePanelGroup';
-import Modal from '../../components/Modal/Modal';
 
 class Sale extends Component {
 
@@ -24,61 +23,6 @@ class Sale extends Component {
         completedReturnedRatio: [],
         saleProfitByDate: [],
         showModal: false,
-        mockData: 
-        [
-            {
-                product: 'iPhone Xs',
-                quantity: 10,
-                price: 1300,
-                category: 'electronic',
-                model: '128gb',
-                type: '',
-                color: 'gold',
-                condition: 'new',
-                manufacturer: 'Apple',
-                cost: 1200,
-                totalCost: 1200
-            },
-            {
-                product: 'iPhone Xs',
-                quantity: 5,
-                price: 1300,
-                category: 'electronic',
-                model: '128gb',
-                type: '',
-                color: 'gold',
-                condition: 'new',
-                manufacturer: 'Apple',
-                cost: 1200,
-                totalCost: 1200
-            },
-            {
-                product: 'Samsung Galaxy Note 10',
-                quantity: 5,
-                price: 799,
-                category: 'electronic',
-                model: '128gb',
-                type: '',
-                color: 'Black',
-                condition: 'new',
-                manufacturer: 'Samsung',
-                cost: 500,
-                totalCost: 560
-            },
-            {
-                product: 'LED Bulb',
-                quantity: 1000,
-                price: 9.99,
-                category: 'home',
-                model: '100 Watt',
-                type: 'LED',
-                color: 'Warm White',
-                condition: 'new',
-                manufacturer: 'Mr.LED',
-                cost: 500,
-                totalCost: 700
-            },
-        ]
     }
 
     componentDidMount() {
