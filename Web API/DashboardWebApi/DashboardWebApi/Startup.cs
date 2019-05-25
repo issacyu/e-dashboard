@@ -52,7 +52,6 @@ namespace DashboardWebApi
             // Register the repository.
             services.AddScoped<ISaleRepostory, SaleRepository>();
             services.AddScoped<IInventoryRepository, InventoryRepository>();
-            services.AddScoped<ISaleAnalysisRepository, SaleAnalysisRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

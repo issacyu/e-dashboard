@@ -16,29 +16,32 @@ using DashboardWebApi.Services.Interfaces;
 
 namespace DashboardWebApi.Controllers
 {
-    [Route("api/sales")]
     [EnableCors("CorsPolicy")]
+    [Route("api/sales")]
     [ApiController]
     public class SalesController : ControllerBase
     {
-        public SalesController(ISaleRepostory salesRepository, ISaleAnalysisRepository saleAnalysisRepo, IMapper mapper)
+        public SalesController(ISaleRepostory salesRepository, IMapper mapper)
         {
             _salesRepository = salesRepository;
-            _saleAnalysisRepository = saleAnalysisRepo;
             _mapper = mapper;
         }
 
         public async Task<IActionResult> GetSales()
         {
-            IEnumerable<Sale> saleFromRepo = _salesRepository.GetSales();
-            SaleDto saleDto = new SaleDto
+            try
             {
-                Sales = saleFromRepo,
-                TopSales = await _saleAnalysisRepository.GetTopSales(5),
-                SaleProfitByDates = await _saleAnalysisRepository.GetSaleProfitByDate(),
-                CompletedReturnedRatios = await _saleAnalysisRepository.GetSaleStatus()
-            };
-            return Ok(saleDto);
+                IEnumerable<Sale> saleFromRepo = _salesRepository.GetSales();
+                //IEnumerable<SaleDto> saleDto = _mapper.Map<SaleDto>(saleFromRepo);
+                return Ok(saleFromRepo);
+                //return Ok();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
         }
 
         [HttpGet("{id}")]
@@ -93,7 +96,6 @@ namespace DashboardWebApi.Controllers
         }
 
         private readonly ISaleRepostory _salesRepository;
-        private readonly ISaleAnalysisRepository _saleAnalysisRepository;
         private readonly IMapper _mapper;
     }
 }
