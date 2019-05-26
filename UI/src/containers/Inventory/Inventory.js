@@ -17,8 +17,7 @@ class Inventory extends Component {
 
     state = {
         inventoryData: [],
-        origInventoryData: [],
-        categories: []
+        origInventoryData: []
     };
 
     componentDidMount() {
@@ -36,7 +35,7 @@ class Inventory extends Component {
             // Assign data to HOC state.
             this.props.setData(gridData);
             this.setState({
-                categories: JSON.parse(JSON.stringify(this.props.categories))
+                //categories: JSON.parse(JSON.stringify(this.props.categories))
             })
         }
         // When add or remove data from grid, we want to assign new data to the state.
@@ -128,7 +127,6 @@ class Inventory extends Component {
                             fill='#8884d8'
                             displayKey='category'
                             displayValue='quantity'
-                            displayData={this.state.categories}
                         />
                     </Col>
                     <Col md={6} lg={8}>
@@ -162,7 +160,6 @@ class Inventory extends Component {
 const mapStateToProps = state => {
     return {
         inventoryData: state.inventory.inventoryData,
-        categories: state.inventory.categories,
         loading: state.inventory.loading,
         error: state.inventory.error
     }

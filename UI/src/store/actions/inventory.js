@@ -5,8 +5,7 @@ import * as actionTypes from './actionTypes';
 export const fetchInventoryDataSuccess = (data) => {
     return {
         type: actionTypes.FETCH_INVENTORY_DATA_SUCCESS,
-        inventoryData: data.inventories,
-        categories: data.categories
+        inventoryData: data
     };
 }
 

@@ -15,7 +15,6 @@ const fetchInventoryDataStart = (state) => {
 const fetchInventoryDataSuccess = (state, action) => {
     return updateObject(state, {
         inventoryData: action.inventoryData,
-        categories: action.categories,
         loading: false,
         error: ''
     })
