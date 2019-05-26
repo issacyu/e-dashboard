@@ -10,12 +10,12 @@ namespace DashboardWebApi.Services
 {
     public interface ISaleRepostory
     {
-        IEnumerable<Sale> GetSales();
-        Sale GetSale(Guid id);
-        void AddSale(Sale sale);
-        void UpdateSale(Sale sale);
-        void RemoveSale(IList<Sale> removeFromSaleCollection);
-        bool SaleExists(Sale sale);
-        bool Save();
+        Task<IEnumerable<Sale>> GetSales();
+        Task<Sale> GetSale(Guid id);
+        Task AddSale(Sale sale);
+        Task UpdateSale(Sale sale);
+        Task RemoveSale(IList<Sale> removeFromSaleCollection);
+        Task<bool> SaleExists(Sale sale);
+        Task<bool> Save();
     }
 }

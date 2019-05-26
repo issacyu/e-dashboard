@@ -15,23 +15,23 @@ namespace DashboardWebApi.Services
             _context = context;
         }
 
-        public IEnumerable<Sale> GetSales()
+        public async Task<IEnumerable<Sale>> GetSales()
         {
             return _sales;
         }
 
-        public Sale GetSale(Guid id)
+        public async Task<Sale> GetSale(Guid id)
         {
             return _sales.FirstOrDefault(s => s.Id == id);
         }
 
 
-        public void AddSale(Sale sale)
+        public async Task AddSale(Sale sale)
         {
             _context.Sales.Add(sale);
         }
 
-        public void UpdateSale(Sale sale)
+        public async Task UpdateSale(Sale sale)
         {
             Sale sa = _context.Sales.FirstOrDefault(s => Equals(s.Id, sale.Id));
 
@@ -43,7 +43,7 @@ namespace DashboardWebApi.Services
             _context.Add(sale);
         }
 
-        public void RemoveSale(IList<Sale> removeFromSaleCollection)
+        public async Task RemoveSale(IList<Sale> removeFromSaleCollection)
         {
             foreach(Sale s in _sales)
             {
@@ -55,12 +55,12 @@ namespace DashboardWebApi.Services
             }
         }
 
-        public bool SaleExists(Sale sale)
+        public async Task<bool> SaleExists(Sale sale)
         {
             return _context.Sales.FirstOrDefault(s => Equals(s.Id, sale.Id)) != null;
         }
 
-        public bool Save()
+        public async Task<bool> Save()
         {
             return _context.SaveChanges() >= 0;
         }

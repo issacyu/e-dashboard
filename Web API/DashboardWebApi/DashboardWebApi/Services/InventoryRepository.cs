@@ -15,22 +15,22 @@ namespace DashboardWebApi.Services
             _context = context;
         }
 
-        public IEnumerable<Inventory> GetInventories()
+        public async Task<IEnumerable<Inventory>> GetInventories()
         {
             return _inventories;
         }
 
-        public Inventory GetInventory(Guid id)
+        public async Task<Inventory> GetInventory(Guid id)
         {
             return _inventories.FirstOrDefault(i => Equals(i.Id, id));
         }
 
-        public void AddInventory(Inventory inventory)
+        public async Task AddInventory(Inventory inventory)
         {
             _context.Inventories.Add(inventory);
         }
 
-        public void UpdateInventory(Inventory inventory)
+        public async Task UpdateInventory(Inventory inventory)
         {
             Inventory inven = _context.Inventories.FirstOrDefault(i => Equals(i.Id, inventory.Id));
 
@@ -42,7 +42,7 @@ namespace DashboardWebApi.Services
             _context.Add(inventory);
         }
 
-        public void RemoveInventory(IEnumerable<Inventory> removeFromInventoryCollection)
+        public async Task RemoveInventory(IEnumerable<Inventory> removeFromInventoryCollection)
         {
             foreach (Inventory i in _inventories)
             {
@@ -54,12 +54,12 @@ namespace DashboardWebApi.Services
             }
         }
 
-        public bool InventoryExists(Inventory inventory)
+        public async Task<bool> InventoryExists(Inventory inventory)
         {
             return _context.Inventories.FirstOrDefault(i => Equals(i.Id, inventory.Id)) != null;
         }
 
-        public bool Save()
+        public async Task<bool> Save()
         {
             return _context.SaveChanges() >= 0; ;
         }

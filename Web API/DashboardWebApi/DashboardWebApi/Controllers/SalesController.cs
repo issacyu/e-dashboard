@@ -11,7 +11,6 @@ using DashboardWebApi.Services;
 using DashboardWebApi.Entities;
 using DashboardWebApi.DTOs;
 using DashboardWebApi.Extensions;
-using DashboardWebApi.Services.Interfaces;
 
 
 namespace DashboardWebApi.Controllers
@@ -31,7 +30,7 @@ namespace DashboardWebApi.Controllers
         {
             try
             {
-                IEnumerable<Sale> saleFromRepo = _salesRepository.GetSales();
+                IEnumerable<Sale> saleFromRepo = await _salesRepository.GetSales();
                 //IEnumerable<SaleDto> saleDto = _mapper.Map<SaleDto>(saleFromRepo);
                 return Ok(saleFromRepo);
                 //return Ok();
@@ -47,7 +46,7 @@ namespace DashboardWebApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSale(Guid id)
         {
-            Sale saleFromRepo = _salesRepository.GetSale(id);
+            Sale saleFromRepo = await _salesRepository.GetSale(id);
 
             if(saleFromRepo == null)
             {
@@ -65,29 +64,30 @@ namespace DashboardWebApi.Controllers
             {
                 return BadRequest();
             }
-            IEnumerable<Sale> saleFromRepo = _salesRepository.GetSales();
-            await patchDoc.ModifyPatchPath(saleFromRepo.Count());
-
+            IEnumerable<Sale> saleFromRepo = await _salesRepository.GetSales();
             IEnumerable<SaleForUpdateDto> saleCollectionDto =
                 _mapper.Map<IEnumerable<SaleForUpdateDto>>(saleFromRepo);
+
+            await patchDoc.ModifyPatchPath(saleFromRepo.Count());
+
             patchDoc.ApplyTo(saleCollectionDto);
             List<Sale> updatedSaleCollection = _mapper.Map<List<Sale>>(saleCollectionDto);
 
             foreach(Sale s in updatedSaleCollection)
             {
-                if(_salesRepository.SaleExists(s))
+                if(await _salesRepository.SaleExists(s))
                 {
-                    _salesRepository.UpdateSale(s);
+                    await _salesRepository.UpdateSale(s);
                 }
                 else
                 {
-                    _salesRepository.AddSale(s);
+                    await _salesRepository.AddSale(s);
                 }
             }
 
-            _salesRepository.RemoveSale(updatedSaleCollection);
+            await _salesRepository.RemoveSale(updatedSaleCollection);
 
-            if (!_salesRepository.Save())
+            if (!await _salesRepository.Save())
             {
                 throw new Exception("Patching sale collection failed on save");
             }

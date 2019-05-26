@@ -28,7 +28,7 @@ namespace DashboardWebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetInventories()
         {
-            IEnumerable<Inventory> inventoryFromRepo = _inventoryRepository.GetInventories();
+            IEnumerable<Inventory> inventoryFromRepo = await _inventoryRepository.GetInventories();
 
             return Ok(inventoryFromRepo);
         }
@@ -36,7 +36,7 @@ namespace DashboardWebApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetInventory(Guid id)
         {
-            Inventory inventoryFromRepo = _inventoryRepository.GetInventory(id);
+            Inventory inventoryFromRepo = await _inventoryRepository.GetInventory(id);
 
             if (inventoryFromRepo == null)
             {
@@ -55,28 +55,30 @@ namespace DashboardWebApi.Controllers
                 return BadRequest();
             }
 
-            await patchDoc.ModifyPatchPath(_inventoryRepository.GetInventories().Count());
-
-            IEnumerable<Inventory> inventoryCollectionFromRepo = _inventoryRepository.GetInventories();
+            IEnumerable<Inventory> inventoryCollectionFromRepo = await _inventoryRepository.GetInventories();
             IEnumerable<InventoryForUpdateDto> inventoryCollectionViewModel = _mapper.Map<IEnumerable<InventoryForUpdateDto>>(inventoryCollectionFromRepo);
+
+            await patchDoc.ModifyPatchPath(inventoryCollectionFromRepo.Count());      
             patchDoc.ApplyTo(inventoryCollectionViewModel);
+
             IEnumerable<Inventory> updatedInventoryCollection = _mapper.Map<IEnumerable<Inventory>>(inventoryCollectionViewModel);
 
+            // Upsert operation.
             foreach(Inventory i in updatedInventoryCollection)
             {
-                if(_inventoryRepository.InventoryExists(i))
+                if(await _inventoryRepository.InventoryExists(i))
                 {
-                    _inventoryRepository.UpdateInventory(i);
+                    await _inventoryRepository.UpdateInventory(i);
                 }
                 else
                 {
-                    _inventoryRepository.AddInventory(i);
+                    await _inventoryRepository.AddInventory(i);
                 }
             }
 
-            _inventoryRepository.RemoveInventory(updatedInventoryCollection);
+            await _inventoryRepository.RemoveInventory(updatedInventoryCollection);
 
-            if(!_inventoryRepository.Save())
+            if(!await _inventoryRepository.Save())
             {
                 throw new Exception("Patching inventory collection failed on save.");
             }
