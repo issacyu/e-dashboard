@@ -79,3 +79,36 @@ export const getOrderStatus = (data) => {
         const localDate = date.toLocaleDateString().split('/');
         return localDate[0] + '/' + localDate[2]
     }
+
+    export const getTotalSale = (data) => {
+        const newData = [...data];
+        const totalSale = newData.reduce((a, b) => {
+            return a + b.soldPrice;
+        }, 0)
+        return totalSale.toFixed(2);
+    }
+
+    export const getTotalProfit = (data) => {
+        const newData = [...data];
+        const totalProfit = newData.reduce((a, b) => {
+            return a + b.netProfit;
+        }, 0)
+        return totalProfit.toFixed(2);
+    }
+
+    export const getTotalOrder = (data) => {
+        const newData = [...data];
+        const totalOrder = newData.length;
+        return totalOrder;
+    }
+
+    export const getTotalReturn = (data) => {
+        const newData = [...data];
+        const totalReturn = newData.reduce((a, b) => {
+            if(b.status === 'Returned'){
+                return a + 1;
+            }
+            return a;
+        }, 0)
+        return totalReturn;
+    }

@@ -22,6 +22,10 @@ class Sale extends Component {
         topFiveProduct: [],
         completedReturnedRatio: [],
         saleProfitByDate: [],
+        totalSale: '',
+        totalProfit: '',
+        totalOrder: '',
+        totalReturn: '',
         showModal: false,
     }
 
@@ -42,7 +46,11 @@ class Sale extends Component {
             this.setState({
                 topFiveProduct: Analysis.getTopFiveProducts(gridData, 'product', 'quantity'),
                 completedReturnedRatio: Analysis.getOrderStatus(gridData),
-                saleProfitByDate: Analysis.getSaleAndProfitByDate(gridData)
+                saleProfitByDate: Analysis.getSaleAndProfitByDate(gridData),
+                totalSale: Analysis.getTotalSale(gridData),
+                totalProfit: Analysis.getTotalProfit(gridData),
+                totalOrder: Analysis.getTotalOrder(gridData),
+                totalReturn: Analysis.getTotalReturn(gridData)
             });
         }
         // When add or remove data from grid, we want to assign new data to the state.
@@ -90,7 +98,12 @@ class Sale extends Component {
     render(){
         return(
             <div>
-                <SalePanelGroup />
+                <SalePanelGroup
+                    totalSale={this.state.totalSale}
+                    totalProfit={this.state.totalProfit}
+                    totalOrder={this.state.totalOrder}
+                    totalReturn={this.state.totalReturn}
+                 />
                 <Row className="show-grid">
                     <Col md={12} lg={12}>
                         <LineChart 

@@ -9,28 +9,28 @@ const salePanelGroup = (props) => {
             <Col md={3} lg={3}>
                 <Panel>
                     <Panel.Body className='PanelBody'>
-                        Sale: $123
+                        Total Sale: ${props.totalSale}
                     </Panel.Body>
                 </Panel>
             </Col>
             <Col md={3} lg={3}>
                 <Panel>
                     <Panel.Body className='PanelBody'>
-                        Renvenue: $67
+                        Total Profit: ${props.totalProfit}
                     </Panel.Body>
                 </Panel>
             </Col>
             <Col md={3} lg={3}>
                 <Panel>
                     <Panel.Body className='PanelBody'>
-                        Order: 66
+                        Total Order: {props.totalOrder}
                     </Panel.Body>
                 </Panel>
             </Col>
             <Col md={3} lg={3}>
                 <Panel>
                     <Panel.Body className='PanelBody'>
-                        Return: 10
+                        Total Return: {props.totalReturn}
                     </Panel.Body>
                 </Panel>
             </Col>
