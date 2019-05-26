@@ -43,6 +43,7 @@ class Sale extends Component {
             })
             // Assign data to HOC state.
             this.props.setData(gridData);
+            
             this.setState({
                 topFiveProduct: Analysis.getTopFiveProducts(gridData, 'product', 'quantity'),
                 completedReturnedRatio: Analysis.getOrderStatus(gridData),

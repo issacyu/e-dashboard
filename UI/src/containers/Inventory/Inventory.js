@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 import * as JsonPatch from 'fast-json-patch';
 import * as actions from '../../store/actions/inventory'
+import * as Analysis from './Utilities/InventoryAnalysis';
 
 import DataGrid from '../../components/Table/DataGrid/DataGrid';
 import PieChart from '../../components/Charts/PieChart';
@@ -17,7 +18,8 @@ class Inventory extends Component {
 
     state = {
         inventoryData: [],
-        origInventoryData: []
+        origInventoryData: [],
+        categories: []
     };
 
     componentDidMount() {
@@ -34,8 +36,9 @@ class Inventory extends Component {
             })
             // Assign data to HOC state.
             this.props.setData(gridData);
+
             this.setState({
-                //categories: JSON.parse(JSON.stringify(this.props.categories))
+                categories: Analysis.getCategories(gridData)
             })
         }
         // When add or remove data from grid, we want to assign new data to the state.
@@ -127,6 +130,7 @@ class Inventory extends Component {
                             fill='#8884d8'
                             displayKey='category'
                             displayValue='quantity'
+                            displayData={this.state.categories}
                         />
                     </Col>
                     <Col md={6} lg={8}>

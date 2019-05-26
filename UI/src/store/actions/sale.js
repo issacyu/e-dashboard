@@ -29,9 +29,8 @@ export const fetchSaleData = () => {
             const getData = async() => {
                 return await axios.get('api/sales');   
             }
-            dispatch(getData().then( res => {
+            dispatch(getData().then( res => 
                 dispatch(fetchSaleDataSuccess(res.data))
-            }
             ));
         }
         catch(err) {
