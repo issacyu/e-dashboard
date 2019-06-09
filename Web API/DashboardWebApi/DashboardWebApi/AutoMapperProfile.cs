@@ -10,6 +10,7 @@ namespace DashboardWebApi
         public AutoMapperProfile()
         {
             CreateMap<Sale, SaleForUpdateDto>();
+            CreateMap<Sale, SaleDto>();
             CreateMap<SaleForUpdateDto, Sale>();
             CreateMap<Inventory, InventoryDto>();
             CreateMap<InventoryDto, Inventory>();

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
-using DashboardWebApi.DTOs;
 using DashboardWebApi.Entities;
 
 namespace DashboardWebApi.Services
@@ -25,47 +25,46 @@ namespace DashboardWebApi.Services
             return _sales.FirstOrDefault(s => s.Id == id);
         }
 
-
-        public async Task AddSale(Sale sale)
+        public async Task UpsertSales(IEnumerable<Sale> sales)
         {
-            _context.Sales.Add(sale);
-        }
-
-        public async Task UpdateSale(Sale sale)
-        {
-            Sale sa = _context.Sales.FirstOrDefault(s => Equals(s.Id, sale.Id));
-
-            // I have to remove the sale and add the moddify version back to the collection
-            // in order to notify EF that the state of the sale is change. Is it a bug?
-            // Using State.Modified throws an exception because a sale with the same id 
-            // is already existed.
-            _context.Remove(sa);
-            _context.Add(sale);
-        }
-
-        public async Task RemoveSale(IList<Sale> removeFromSaleCollection)
-        {
-            foreach(Sale s in _sales)
+            foreach (Sale sale in sales)
             {
-                Sale sa = removeFromSaleCollection.FirstOrDefault(x => Equals(x.Id, s.Id));
-                if(sa == null)
+                Sale existingSale = await GetSale(sale);
+
+                if (existingSale != null)
                 {
-                    _context.Remove(s);
+                    _context.Sales.Update(sale);
+                }
+                else
+                {
+                    await _context.Sales.AddAsync(sale);
                 }
             }
         }
 
-        public async Task<bool> SaleExists(Sale sale)
+        public async Task RemoveSale(IEnumerable<Sale> updatedSales)
         {
-            return _context.Sales.FirstOrDefault(s => Equals(s.Id, sale.Id)) != null;
+            IDictionary<Guid, int> updatedSalesDic = updatedSales.ToDictionary(s => s.Id, s => 0);
+            foreach (Sale s in _sales)
+            {
+                if(!updatedSalesDic.ContainsKey(s.Id))
+                    _context.Sales.Remove(s);
+            }
+        }
+
+        public async Task<Sale> GetSale(Sale sale)
+        {
+            return await _context.Sales
+                .AsNoTracking()
+                .FirstOrDefaultAsync(s => s.Id == sale.Id);
         }
 
         public async Task<bool> Save()
         {
-            return _context.SaveChanges() >= 0;
+            return await _context.SaveChangesAsync() >= 0;
         }
 
         private DashboardContext _context;
-        private IEnumerable<Sale> _sales => _context.Sales;
+        private IEnumerable<Sale> _sales => _context.Sales.AsNoTracking();
     }
 }

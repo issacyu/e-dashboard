@@ -31,9 +31,8 @@ namespace DashboardWebApi.Controllers
             try
             {
                 IEnumerable<Sale> saleFromRepo = await _salesRepository.GetSales();
-                //IEnumerable<SaleDto> saleDto = _mapper.Map<SaleDto>(saleFromRepo);
-                return Ok(saleFromRepo);
-                //return Ok();
+                IEnumerable<SaleDto> saleDto = _mapper.Map<IEnumerable<SaleDto>>(saleFromRepo);
+                return Ok(saleDto);
             }
             catch (Exception e)
             {
@@ -71,20 +70,9 @@ namespace DashboardWebApi.Controllers
             await patchDoc.ModifyPatchPath(saleFromRepo.Count());
 
             patchDoc.ApplyTo(saleCollectionDto);
-            List<Sale> updatedSaleCollection = _mapper.Map<List<Sale>>(saleCollectionDto);
+            IEnumerable<Sale> updatedSaleCollection = _mapper.Map<IEnumerable<Sale>>(saleCollectionDto);
 
-            foreach(Sale s in updatedSaleCollection)
-            {
-                if(await _salesRepository.SaleExists(s))
-                {
-                    await _salesRepository.UpdateSale(s);
-                }
-                else
-                {
-                    await _salesRepository.AddSale(s);
-                }
-            }
-
+            await _salesRepository.UpsertSales(updatedSaleCollection);
             await _salesRepository.RemoveSale(updatedSaleCollection);
 
             if (!await _salesRepository.Save())
