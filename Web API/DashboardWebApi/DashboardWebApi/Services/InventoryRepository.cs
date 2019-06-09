@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 using DashboardWebApi.Services.Interfaces;
 using DashboardWebApi.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace DashboardWebApi.Services
 {
@@ -18,53 +19,53 @@ namespace DashboardWebApi.Services
         public async Task<IEnumerable<Inventory>> GetInventories()
         {
             return _inventories;
-        }
+        } 
 
         public async Task<Inventory> GetInventory(Guid id)
         {
             return _inventories.FirstOrDefault(i => Equals(i.Id, id));
         }
 
-        public async Task AddInventory(Inventory inventory)
+        public async Task UpsertInventories(IEnumerable<Inventory> inventories)
         {
-            _context.Inventories.Add(inventory);
-        }
-
-        public async Task UpdateInventory(Inventory inventory)
-        {
-            Inventory inven = _context.Inventories.FirstOrDefault(i => Equals(i.Id, inventory.Id));
-
-            // I have to remove the inventory and add the moddify version back to the collection
-            // in order to notify EF that the state of the inventory is change. Is it a bug?
-            // Using State.Modified throws an exception because a inventory with the same id 
-            // is already existed.
-            _context.Remove(inven);
-            _context.Add(inventory);
-        }
-
-        public async Task RemoveInventory(IEnumerable<Inventory> removeFromInventoryCollection)
-        {
-            foreach (Inventory i in _inventories)
+            foreach (Inventory inventory in inventories)
             {
-                Inventory inven = removeFromInventoryCollection.FirstOrDefault(x => Equals(x.Id, i.Id));
-                if (inven == null)
+                Inventory existingInventory = await GetInventory(inventory);
+
+                if (existingInventory != null)
                 {
-                    _context.Remove(i);
+                    _context.Inventories.Update(inventory);
+                }
+                else
+                {
+                    await _context.Inventories.AddAsync(inventory);
                 }
             }
         }
 
-        public async Task<bool> InventoryExists(Inventory inventory)
+        public async Task RemoveInventory(IEnumerable<Inventory> updatedInventories)
         {
-            return _context.Inventories.FirstOrDefault(i => Equals(i.Id, inventory.Id)) != null;
+            IDictionary<Guid, int> updatedInventoriesDic = updatedInventories.ToDictionary(s => s.Id, s => 0);
+            foreach (Inventory i in _inventories)
+            {
+                if (!updatedInventoriesDic.ContainsKey(i.Id))
+                    _context.Inventories.Remove(i);
+            }
+        }
+
+        public async Task<Inventory> GetInventory(Inventory inventory)
+        {
+            return await _context.Inventories
+                .AsNoTracking()
+                .FirstOrDefaultAsync(i => i.Id == inventory.Id);
         }
 
         public async Task<bool> Save()
         {
-            return _context.SaveChanges() >= 0; ;
+            return await _context.SaveChangesAsync() >= 0; ;
         }
 
         private DashboardContext _context;
-        private IEnumerable<Inventory> _inventories => _context.Inventories;       
+        private IEnumerable<Inventory> _inventories => _context.Inventories.AsNoTracking();       
     }
 }

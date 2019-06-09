@@ -10,10 +10,9 @@ namespace DashboardWebApi.Services.Interfaces
     {
         Task<IEnumerable<Inventory>> GetInventories();
         Task<Inventory> GetInventory(Guid id);
-        Task AddInventory(Inventory inventory);
-        Task UpdateInventory(Inventory inventory);
-        Task RemoveInventory(IEnumerable<Inventory> removeFromInventoryCollection);
-        Task<bool> InventoryExists(Inventory inventory);
+        Task<Inventory> GetInventory(Inventory inventory);
+        Task UpsertInventories(IEnumerable<Inventory> inventories);
+        Task RemoveInventory(IEnumerable<Inventory> updatedInventories);
         Task<bool> Save();
     }
 }

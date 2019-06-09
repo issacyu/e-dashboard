@@ -63,19 +63,7 @@ namespace DashboardWebApi.Controllers
 
             IEnumerable<Inventory> updatedInventoryCollection = _mapper.Map<IEnumerable<Inventory>>(inventoryCollectionViewModel);
 
-            // Upsert operation.
-            foreach(Inventory i in updatedInventoryCollection)
-            {
-                if(await _inventoryRepository.InventoryExists(i))
-                {
-                    await _inventoryRepository.UpdateInventory(i);
-                }
-                else
-                {
-                    await _inventoryRepository.AddInventory(i);
-                }
-            }
-
+            await _inventoryRepository.UpsertInventories(updatedInventoryCollection);
             await _inventoryRepository.RemoveInventory(updatedInventoryCollection);
 
             if(!await _inventoryRepository.Save())

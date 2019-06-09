@@ -11,7 +11,7 @@ namespace DashboardWebApi.Services
         Task<IEnumerable<Sale>> GetSales();
         Task<Sale> GetSale(Guid id);
         Task UpsertSales(IEnumerable<Sale> sales);
-        Task RemoveSale(IEnumerable<Sale> removeFromSaleCollection);
+        Task RemoveSale(IEnumerable<Sale> updatedSales);
         Task<Sale> GetSale(Sale sale);
         Task<bool> Save();
     }
