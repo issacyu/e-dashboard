@@ -85,7 +85,7 @@ export const getOrderStatus = (data) => {
         const totalSale = newData.reduce((a, b) => {
             return a + b.soldPrice;
         }, 0)
-        return totalSale.toFixed(2);
+        return parseFloat(totalSale).toFixed(2);
     }
 
     export const getTotalProfit = (data) => {
@@ -93,7 +93,7 @@ export const getOrderStatus = (data) => {
         const totalProfit = newData.reduce((a, b) => {
             return a + b.netProfit;
         }, 0)
-        return totalProfit.toFixed(2);
+        return parseFloat(totalProfit).toFixed(2);
     }
 
     export const getTotalOrder = (data) => {
