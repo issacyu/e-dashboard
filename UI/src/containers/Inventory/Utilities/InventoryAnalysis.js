@@ -18,3 +18,11 @@ export const getCategories = (data) => {
     })
     return categoryArray;
 }
+
+export const getTotalItem = (data) => {
+    const dataCopy = [...data];
+    const totalItem = dataCopy.reduce((a, b) => {
+        return a + b.quantity;
+    }, 0);
+    return totalItem;
+}

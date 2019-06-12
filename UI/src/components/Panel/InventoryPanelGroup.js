@@ -9,7 +9,7 @@ const inventoryPanelGroup = (props) => {
             <Col md={3} lg={3}>
                 <Panel>
                     <Panel.Body className='PanelBody'>
-                        Total Item: 2123
+                        Total Item: {props.totalItem}
                     </Panel.Body>
                 </Panel>
             </Col>
