@@ -16,7 +16,7 @@ const inventoryPanelGroup = (props) => {
             <Col md={3} lg={3}>
                 <Panel>
                     <Panel.Body className='PanelBody'>
-                        Total Value: $9326
+                        Total Value: {props.totalValue}
                     </Panel.Body>
                 </Panel>
             </Col>

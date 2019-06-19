@@ -26,3 +26,11 @@ export const getTotalItem = (data) => {
     }, 0);
     return totalItem;
 }
+
+export  const getTotalValue = (data) => {
+    const dataCopy = [...data];
+    const totalValue = dataCopy.reduce((a, b) => {
+        return a + b.quantity * b.price;
+    }, 0);
+    return totalValue.toFixed(2);
+}
