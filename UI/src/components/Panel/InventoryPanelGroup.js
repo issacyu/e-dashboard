@@ -16,21 +16,21 @@ const inventoryPanelGroup = (props) => {
             <Col md={3} lg={3}>
                 <Panel>
                     <Panel.Body className='PanelBody'>
-                        Total Value: {props.totalValue}
+                        Total Value: ${props.totalValue}
                     </Panel.Body>
                 </Panel>
             </Col>
             <Col md={3} lg={3}>
                 <Panel>
                     <Panel.Body className='PanelBody'>
-                        Total Cost: $20000
+                        Total Cost: ${props.totalCost}
                     </Panel.Body>
                 </Panel>
             </Col>
             <Col md={3} lg={3}>
                 <Panel>
                     <Panel.Body className='PanelBody'>
-                        Average Cost: $63
+                        Average Cost: ${props.averageCost}
                     </Panel.Body>
                 </Panel>
             </Col>

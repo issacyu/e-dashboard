@@ -21,7 +21,9 @@ class Inventory extends Component {
         origInventoryData: [],
         categories: [],
         totalItem: '',
-        totalValue: ''
+        totalValue: '',
+        totalCost: '',
+        averageCost: ''
     };
 
     componentDidMount() {
@@ -42,7 +44,9 @@ class Inventory extends Component {
             this.setState({
                 categories: Analysis.getCategories(gridData),
                 totalItem: Analysis.getTotalItem(gridData),
-                totalValue: Analysis.getTotalValue(gridData)
+                totalValue: Analysis.getTotalValue(gridData),
+                totalCost: Analysis.getTotalCost(gridData),
+                averageCost: Analysis.getAveragreCost(gridData)
             })
         }
         // When add or remove data from grid, we want to assign new data to the state.
@@ -123,6 +127,8 @@ class Inventory extends Component {
                 <InventoryPanelGroup 
                     totalItem={this.state.totalItem}
                     totalValue={this.state.totalValue}
+                    totalCost={this.state.totalCost}
+                    averageCost={this.state.averageCost}
                 />
                 <Row className="show-grid">
                     <Col md={6} lg={4}>

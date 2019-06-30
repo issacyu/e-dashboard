@@ -27,10 +27,27 @@ export const getTotalItem = (data) => {
     return totalItem;
 }
 
-export  const getTotalValue = (data) => {
+export const getTotalValue = (data) => {
     const dataCopy = [...data];
     const totalValue = dataCopy.reduce((a, b) => {
         return a + b.quantity * b.price;
     }, 0);
     return totalValue.toFixed(2);
+}
+
+export const getTotalCost = (data) => {
+    const dataCopy = [...data];
+    const totalCost = dataCopy.reduce((a, b) => {
+        return a + b.totalCost;
+    }, 0);
+    return totalCost.toFixed(2);
+}
+
+export const getAveragreCost = (data) =>{
+    const dataCopy = [...data];
+    const totalCost = getTotalCost(dataCopy);
+    const quantity = dataCopy.reduce((a, b) => {
+        return a + b.quantity;
+    }, 0);
+    return (totalCost / quantity).toFixed(2);
 }
