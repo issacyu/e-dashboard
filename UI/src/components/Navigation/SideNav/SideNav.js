@@ -1,7 +1,7 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
 
-import SideNav, {NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
+import SideNav, {NavItem, NavText } from '@trendmicro/react-sidenav';
 
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import './SideNav.css';
@@ -23,17 +23,11 @@ const sideNav = (props) => {
             {/* <SideNav.Toggle /> */}
             <SideNav.Nav defaultSelected="Sale">
                 <NavItem eventKey="Sale">
-                    {/* <NavIcon>
-                        <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
-                    </NavIcon> */}
                     <NavText style={{fontSize: 'large', textAlign: 'center', color: 'black'}}>
                         Sale
                     </NavText>
                 </NavItem>
                 <NavItem eventKey="Inventory">
-                    {/* <NavIcon>
-                        <i className="fa fa-fw fa-device" style={{ fontSize: '1.75em' }} />
-                    </NavIcon> */}
                     <NavText style={{fontSize: 'large', textAlign: 'center', color: 'black'}}>
                         Inventory
                     </NavText>

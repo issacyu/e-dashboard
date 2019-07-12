@@ -1,13 +1,9 @@
 import React from 'react';
 
 import {
-    LineChart, 
-    Bar, 
-    XAxis, 
+    LineChart,     XAxis, 
     YAxis, 
-    Cell, 
     Line,
-    CartesianGrid, 
     Tooltip, 
     Legend,
     ResponsiveContainer,
