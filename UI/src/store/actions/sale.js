@@ -23,18 +23,20 @@ export const fetchSaleDataStart = () => {
 }
 
 export const fetchSaleData = () => {
-    return dispatch => {
+    return async dispatch => {
         try {
             dispatch(fetchSaleDataStart());
-            const getData = async() => {
-                return await axios.get('api/sales');   
+            const response = await axios.get('api/sales');
+            if(response.status === 200) {
+                dispatch(fetchSaleDataSuccess(response.data));
             }
-            dispatch(getData().then( res => 
-                dispatch(fetchSaleDataSuccess(res.data))
-            ));
+            else {
+                dispatch(fetchSaleDataFail('Fail to get sales with status code: ' + response.status
+                + 'and status text: ' + response.statusText));
+            }
         }
         catch(err) {
-             dispatch(fetchSaleDataFail(err))
+             dispatch(fetchSaleDataFail(err));
         }
     }
 }
@@ -63,18 +65,15 @@ export const saveSaleData = (patchDoc, salesData) => {
     return async dispatch => {
         try {
             dispatch(saveSaleDataStart());
-            const saveData = async () => {
-                return axios.patch('api/sales/salecollection', patchDoc)
-                    .then(res => res);   
-            }
-
-            const response = await saveData();
+            
+            const response = await axios.patch('api/sales/salecollection', patchDoc);
 
             if(response.status === 204){
                 dispatch(saveSaleDataSuccess(salesData))
             }
             else{
-                dispatch(saveSaleDataFail(response.statusText))
+                dispatch(saveSaleDataFail('Save sales fail with status code: ' + response.status 
+                + 'and status text: ' + response.statusText))
             }
         }
         catch(err) {
