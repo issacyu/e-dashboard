@@ -23,15 +23,18 @@ export const fetchInventoryDataStart = () => {
 }
 
 export const fetchInventoryData = () => {
-    return dispatch => {
+    return async dispatch => {
         try {
             dispatch(fetchInventoryDataStart());
-            const getData = async() => {
-                return await axios.get('api/inventories');
+
+            const response = await axios.get('api/inventories');
+            if(response.status === 200) {
+                dispatch(fetchInventoryDataSuccess(response.data));
             }
-            dispatch(getData().then(res => 
-                dispatch(fetchInventoryDataSuccess(res.data))
-            ));
+            else {
+                dispatch(fetchInventoryDataFail('Fail to get inventories with status code: ' + response.status
+                + 'and status text: ' + response.statusText));
+            }
         }
         catch(err) {
             dispatch(fetchInventoryDataFail(err));
@@ -64,18 +67,15 @@ export const saveInventoryData = (patchDoc, inventoryData) => {
     return async dispatch => {
         try {
             dispatch(saveInventoryDataStart());
-            const saveData = async() => {
-                return axios.patch('api/inventories/inventorycollection', patchDoc)
-                .then(res => res);   
-            }
 
-            const response = await saveData();
+            const response = await axios.patch('api/inventories/inventorycollection', patchDoc);
 
             if(response.status === 204){
                 dispatch(saveInventoryDataSuccess(inventoryData));
             }
             else{
-                dispatch(saveInventoryDataFail(response.statusText));
+                dispatch(saveInventoryDataFail('Fail to save inventories with status code: ' + response.status 
+                + 'and status text: ' + response.statusText));
             }
         }
         catch(err) {

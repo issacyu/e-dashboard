@@ -65,14 +65,14 @@ export const saveSaleData = (patchDoc, salesData) => {
     return async dispatch => {
         try {
             dispatch(saveSaleDataStart());
-            
+
             const response = await axios.patch('api/sales/salecollection', patchDoc);
 
             if(response.status === 204){
                 dispatch(saveSaleDataSuccess(salesData))
             }
             else{
-                dispatch(saveSaleDataFail('Save sales fail with status code: ' + response.status 
+                dispatch(saveSaleDataFail('Fail to save sales with status code: ' + response.status 
                 + 'and status text: ' + response.statusText))
             }
         }
