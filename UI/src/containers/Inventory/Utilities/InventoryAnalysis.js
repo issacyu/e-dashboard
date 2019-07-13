@@ -32,7 +32,7 @@ export const getTotalValue = (data) => {
     const totalValue = dataCopy.reduce((a, b) => {
         return a + b.quantity * b.price;
     }, 0);
-    return totalValue.toFixed(2);
+    return parseFloat(totalValue).toFixed(2);
 }
 
 export const getTotalCost = (data) => {
@@ -40,7 +40,7 @@ export const getTotalCost = (data) => {
     const totalCost = dataCopy.reduce((a, b) => {
         return a + b.totalCost;
     }, 0);
-    return totalCost.toFixed(2);
+    return parseFloat(totalCost).toFixed(2);
 }
 
 export const getAveragreCost = (data) =>{
@@ -49,5 +49,5 @@ export const getAveragreCost = (data) =>{
     const quantity = dataCopy.reduce((a, b) => {
         return a + b.quantity;
     }, 0);
-    return (totalCost / quantity).toFixed(2);
+    return parseFloat(totalCost / quantity).toFixed(2);
 }
