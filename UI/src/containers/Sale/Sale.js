@@ -18,21 +18,13 @@ class Sale extends Component {
 
     state = {
         salesData: [],
-        origSalesData: [],
-        topFiveProduct: [],
-        completedReturnedRatio: [],
-        saleProfitByDate: [],
-        totalSale: '',
-        totalProfit: '',
-        totalOrder: '',
-        totalReturn: '',
-        showModal: false,
+        origSalesData: []
     }
 
     componentDidMount() {
         this.props.onFetchSaleData();
     }
-
+    
     componentDidUpdate(prevProps) {
         // For the initial load.
         if(this.props.saleData !== prevProps.saleData) {
@@ -43,16 +35,6 @@ class Sale extends Component {
             })
             // Assign data to HOC state.
             this.props.setData(gridData);
-            
-            this.setState({
-                topFiveProduct: Analysis.getTopFiveProducts(gridData, 'product', 'quantity'),
-                completedReturnedRatio: Analysis.getOrderStatus(gridData),
-                saleProfitByDate: Analysis.getSaleAndProfitByDate(gridData),
-                totalSale: Analysis.getTotalSale(gridData),
-                totalProfit: Analysis.getTotalProfit(gridData),
-                totalOrder: Analysis.getTotalOrder(gridData),
-                totalReturn: Analysis.getTotalReturn(gridData)
-            });
         }
         // When add or remove data from grid, we want to assign new data to the state.
         // The this.props.data is from HOC.
@@ -97,19 +79,25 @@ class Sale extends Component {
     }
 
     render(){
+        const topFiveProduct = Analysis.getTopFiveProducts(this.props.saleData, 'product', 'quantity');
+        const completedReturnedRatio = Analysis.getOrderStatus(this.props.saleData);
+        const saleProfitByDate = Analysis.getSaleAndProfitByDate(this.props.saleData);
+        const totalSale = Analysis.getTotalSale(this.props.saleData);
+        const totalProfit = Analysis.getTotalProfit(this.props.saleData);
+        const totalOrder = Analysis.getTotalOrder(this.props.saleData);
+        const totalReturn = Analysis.getTotalReturn(this.props.saleData);
+
         return(
             <div>
                 <SalePanelGroup
-                    totalSale={this.state.totalSale}
-                    totalProfit={this.state.totalProfit}
-                    totalOrder={this.state.totalOrder}
-                    totalReturn={this.state.totalReturn}
+                    totalSale={totalSale}
+                    totalProfit={totalProfit}
+                    totalOrder={totalOrder}
+                    totalReturn={totalReturn}
                  />
                 <Row className="show-grid">
                     <Col md={12} lg={12}>
-                        <LineChart 
-                            data={this.state.saleProfitByDate}
-                        />
+                        <LineChart data={saleProfitByDate} />
                     </Col>
                 </Row>
                 <Row>
@@ -118,7 +106,7 @@ class Sale extends Component {
                             title='Top 5 Selling Products'
                             width={600}
                             height={300}
-                            data={this.state.topFiveProduct}
+                            data={topFiveProduct}
                             displayKey='product'
                             displayValue='quantity'
                         />
@@ -140,8 +128,8 @@ class Sale extends Component {
                     <Col md={12} lg={4}>
                         <PieChart 
                             title='Complete Order vs Return Order'
-                            key={this.state.completedReturnedRatio}
-                            displayData={this.state.completedReturnedRatio}
+                            key={completedReturnedRatio}
+                            displayData={completedReturnedRatio}
                             displayKey='status'
                             displayValue='number'
                             width={800}
