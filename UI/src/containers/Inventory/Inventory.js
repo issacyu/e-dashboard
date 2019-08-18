@@ -13,6 +13,8 @@ import WithGridFunction from '../../hoc/WithGridFunction/WithGridFunction';
 import EmptyRow from '../../components/Table/GridRows/GridRow';
 import InventoryPanelGroup from '../../components/Panel/InventoryPanelGroup';
 import LineChart from '../../components/Charts/LineChart';
+import Spinner from '../../components/UI/Spinner/Spinner';
+import Wrapper from '../../hoc/Wrapper/Wrapper';
 
 class Inventory extends Component {
 
@@ -111,6 +113,7 @@ class Inventory extends Component {
 
     render(){
         let alert;
+        let inventory = <Spinner />;
         const lowStockItem = this.state.inventoryData.filter(i => i.quantity < 10)
         if(lowStockItem.length > 0) {
             alert = 
@@ -121,54 +124,59 @@ class Inventory extends Component {
                 </Row>
         }
 
+        if(!this.props.loading) {
+            inventory = <Wrapper>
+                            {alert}
+                            <InventoryPanelGroup 
+                                totalItem={this.state.totalItem}
+                                totalValue={this.state.totalValue}
+                                totalCost={this.state.totalCost}
+                                averageCost={this.state.averageCost}
+                            />
+                            <Row className="show-grid">
+                                <Col md={6} lg={4}>
+                                    <PieChart 
+                                        bsStyle='primary'
+                                        title='Category'
+                                        width={800}
+                                        height={300}
+                                        cx={220}
+                                        cy={100}
+                                        outerRadius={130}
+                                        fill='#8884d8'
+                                        displayKey='category'
+                                        displayValue='quantity'
+                                        displayData={this.state.categories}
+                                    />
+                                </Col>
+                                <Col md={6} lg={8}>
+                                    <LineChart 
+                                        data={this.state.saleAndProfit}
+                                    />
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col md={12} lg={12}>
+                                    <DataGrid 
+                                        //The key uses to notify the child component to re-render.
+                                        key={this.state.inventoryData}
+                                        data={this.state.inventoryData} 
+                                        emptyRow={EmptyRow('INVENTORY')}
+                                        title='Inventory'
+                                        columns={GridColumns.INVENTORY_COLUMNS(this.onInventoryRenderEditableCellHandler)}
+                                        onSaveHandler={this.onSaveInventoryData}
+                                        checkboxProps={this.props.checkboxProps}
+                                        disableDeleteButton={this.props.disableDeleteButton}
+                                        onDeleteRowHandler={this.props.onDeleteRowHandler}
+                                        onAddRowHandler={this.props.onAddRowHandler}
+                                    />
+                                </Col>
+                            </Row>
+                        </Wrapper>
+        }
         return(
             <div>    
-                {alert}
-                <InventoryPanelGroup 
-                    totalItem={this.state.totalItem}
-                    totalValue={this.state.totalValue}
-                    totalCost={this.state.totalCost}
-                    averageCost={this.state.averageCost}
-                />
-                <Row className="show-grid">
-                    <Col md={6} lg={4}>
-                        <PieChart 
-                            bsStyle='primary'
-                            title='Category'
-                            width={800}
-                            height={300}
-                            cx={220}
-                            cy={100}
-                            outerRadius={130}
-                            fill='#8884d8'
-                            displayKey='category'
-                            displayValue='quantity'
-                            displayData={this.state.categories}
-                        />
-                    </Col>
-                    <Col md={6} lg={8}>
-                        <LineChart 
-                            data={this.state.saleAndProfit}
-                        />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col md={12} lg={12}>
-                        <DataGrid 
-                            //The key uses to notify the child component to re-render.
-                            key={this.state.inventoryData}
-                            data={this.state.inventoryData} 
-                            emptyRow={EmptyRow('INVENTORY')}
-                            title='Inventory'
-                            columns={GridColumns.INVENTORY_COLUMNS(this.onInventoryRenderEditableCellHandler)}
-                            onSaveHandler={this.onSaveInventoryData}
-                            checkboxProps={this.props.checkboxProps}
-                            disableDeleteButton={this.props.disableDeleteButton}
-                            onDeleteRowHandler={this.props.onDeleteRowHandler}
-                            onAddRowHandler={this.props.onAddRowHandler}
-                        />
-                    </Col>
-                </Row>
+                {inventory}
             </div>
         )
     }

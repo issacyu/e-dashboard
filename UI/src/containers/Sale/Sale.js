@@ -13,6 +13,8 @@ import WithGridFunction from '../../hoc/WithGridFunction/WithGridFunction';
 import EmptyRow from '../../components/Table/GridRows/GridRow';
 import * as Analysis from './Utilities/SaleAnalysis';
 import SalePanelGroup from '../../components/Panel/SalePanelGroup';
+import Spinner from '../../components/UI/Spinner/Spinner';
+import Wrapper from '../../hoc/Wrapper/Wrapper';
 
 class Sale extends Component {
 
@@ -87,75 +89,81 @@ class Sale extends Component {
         const totalOrder = Analysis.getTotalOrder(this.props.saleData);
         const totalReturn = Analysis.getTotalReturn(this.props.saleData);
 
+        let sale = <Spinner />;
+        if(!this.props.loading) {
+            sale = <Wrapper>
+                        <SalePanelGroup
+                            totalSale={totalSale}
+                            totalProfit={totalProfit}
+                            totalOrder={totalOrder}
+                            totalReturn={totalReturn}
+                        />
+                        <Row className="show-grid">
+                            <Col md={12} lg={12}>
+                                <LineChart data={saleProfitByDate} />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={12} lg={4}>
+                                <BarChart 
+                                    title='Top 5 Selling Products'
+                                    width={600}
+                                    height={300}
+                                    data={topFiveProduct}
+                                    displayKey='product'
+                                    displayValue='quantity'
+                                />
+                            </Col>
+                            <Col md={12} lg={4}>
+                                <PieChart 
+                                    title='Profit vs Cost'
+                                    displayData={this.state.mockData}
+                                    displayKey='product'
+                                    displayValue='totalCost'
+                                    width={800}
+                                    height={300}
+                                    cx={220}
+                                    cy={100}
+                                    outerRadius={130}
+                                    fill='#8884d8'
+                                />
+                            </Col>
+                            <Col md={12} lg={4}>
+                                <PieChart 
+                                    title='Complete Order vs Return Order'
+                                    key={completedReturnedRatio}
+                                    displayData={completedReturnedRatio}
+                                    displayKey='status'
+                                    displayValue='number'
+                                    width={800}
+                                    height={300}
+                                    cx={220}
+                                    cy={100}
+                                    outerRadius={130}
+                                    fill='#8884d8'
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={12} lg={12}>
+                                <DataGrid 
+                                    //The key uses to notify the child component to re-render.
+                                    data={this.state.salesData}
+                                    emptyRow={EmptyRow()}
+                                    columns={GridColumns.SALES_COLUMNS(this.onSalesRenderEditableCellHandler)}
+                                    onSaveHandler={this.onSaveSaleHandler}
+                                    checkboxProps={this.props.checkboxProps}
+                                    disableDeleteButton={this.props.disableDeleteButton}
+                                    onDeleteRowHandler={this.props.onDeleteRowHandler}
+                                    onAddRowHandler={this.props.onAddRowHandler}
+                                />
+                            </Col>
+                        </Row>
+                   </Wrapper>
+        }
         return(
             <div>
-                <SalePanelGroup
-                    totalSale={totalSale}
-                    totalProfit={totalProfit}
-                    totalOrder={totalOrder}
-                    totalReturn={totalReturn}
-                 />
-                <Row className="show-grid">
-                    <Col md={12} lg={12}>
-                        <LineChart data={saleProfitByDate} />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col md={12} lg={4}>
-                        <BarChart 
-                            title='Top 5 Selling Products'
-                            width={600}
-                            height={300}
-                            data={topFiveProduct}
-                            displayKey='product'
-                            displayValue='quantity'
-                        />
-                    </Col>
-                    <Col md={12} lg={4}>
-                        <PieChart 
-                            title='Profit vs Cost'
-                            displayData={this.state.mockData}
-                            displayKey='product'
-                            displayValue='totalCost'
-                            width={800}
-                            height={300}
-                            cx={220}
-                            cy={100}
-                            outerRadius={130}
-                            fill='#8884d8'
-                        />
-                    </Col>
-                    <Col md={12} lg={4}>
-                        <PieChart 
-                            title='Complete Order vs Return Order'
-                            key={completedReturnedRatio}
-                            displayData={completedReturnedRatio}
-                            displayKey='status'
-                            displayValue='number'
-                            width={800}
-                            height={300}
-                            cx={220}
-                            cy={100}
-                            outerRadius={130}
-                            fill='#8884d8'
-                        />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col md={12} lg={12}>
-                        <DataGrid 
-                            //The key uses to notify the child component to re-render.
-                            data={this.state.salesData}
-                            emptyRow={EmptyRow()}
-                            columns={GridColumns.SALES_COLUMNS(this.onSalesRenderEditableCellHandler)}
-                            onSaveHandler={this.onSaveSaleHandler}
-                            checkboxProps={this.props.checkboxProps}
-                            disableDeleteButton={this.props.disableDeleteButton}
-                            onDeleteRowHandler={this.props.onDeleteRowHandler}
-                            onAddRowHandler={this.props.onAddRowHandler}
-                        />
-                    </Col>
-                </Row>
+                {sale}
             </div>
         )
     }
