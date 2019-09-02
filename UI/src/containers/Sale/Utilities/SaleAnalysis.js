@@ -51,7 +51,7 @@ export const getOrderStatus = (data) => {
         saleAndProfitMap.set(getMonthAndYear(date), {sale: 0, profit: 0});
 
         //Get month and year from previous 12 months.
-        for(let i = 0; i < 12; i++){
+        for(let i = 0; i < 11; i++){
             date.setMonth(date.getMonth() - 1);
             const monthAndYear = getMonthAndYear(date);
             saleAndProfitMap.set(monthAndYear, {sale: 0, profit: 0});
